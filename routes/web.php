@@ -31,6 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+
+require __DIR__.'/auth.php';
+
+
 // admin
 Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
 
@@ -38,7 +44,4 @@ Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name
 Route::get('/instructor/dashboard', [InstructorController::class, 'instructorDashboard'])->name('instructor.dashboard');
 
 // user
-Route::get('/user/dashboard', [UserController::class, 'userDashboard'])->name('user.dashboard');
-
-
-require __DIR__.'/auth.php';
+// Route::get('/user/dashboard', [UserController::class, 'userDashboard'])->name('user.dashboard');
