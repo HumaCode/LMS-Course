@@ -40,10 +40,13 @@ require __DIR__ . '/auth.php';
 // admin group middleware
 Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
-   
+
     // profile
     Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
     Route::post('/admin/profile/store', [AdminController::class, 'adminProfileStore'])->name('admin.profile.store');
+
+    // change password
+    Route::get('/admin/change/store', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
 
     // logout
     Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
