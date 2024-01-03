@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/semi-dark.css" />
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/header-colors.css" />
     <title>Rocker - Bootstrap 5 Admin Dashboard Template</title>
+
+    @stack('css')
 </head>
 
 <body>
@@ -74,6 +76,8 @@
     <script>
         new PerfectScrollbar(".app-container")
     </script>
+
+    @stack('script')
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 @extends('admin.admin_dashboard')
 
+@push('css')
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+@endpush
 
 @section('admin')
     <div class="page-content">
@@ -115,7 +119,7 @@
                                         <h6 class="mb-0">Photo</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input class="form-control" type="file" id="photo" name="photo"
+                                        <input class="form-control" type="file" name="photo" id="image"
                                             accept=".jpg,.jpeg,.png">
                                     </div>
                                 </div>
@@ -125,7 +129,8 @@
                                         <h6 class="mb-0"></h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <img src="{{ !empty($profileData->photo) ? url('upload/admin_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
+                                        <img id="showImage"
+                                            src="{{ !empty($profileData->photo) ? url('upload/admin_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
                                             alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
                                     </div>
                                 </div>
@@ -146,3 +151,17 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#image').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            })
+        });
+    </script>
+@endpush
