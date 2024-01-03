@@ -64,6 +64,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     // instructor dashboard
     Route::get('/instructor/dashboard', [InstructorController::class, 'instructorDashboard'])->name('instructor.dashboard');
 
+    // instructor profile
+    Route::get('/instructor/profile', [InstructorController::class, 'instructorProfile'])->name('instructor.profile');
+    Route::post('/instructor/profile/store', [InstructorController::class, 'instructorProfileStore'])->name('instructor.profile.store');
+
+
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end admin group middleware
