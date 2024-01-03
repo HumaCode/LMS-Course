@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-lg-8">
 
-                        <form action="{{ route('admin.profile.store') }}" method="POST">
+                        <form action="{{ route('admin.password.update') }}" method="POST">
                             @csrf
 
                             <div class="card pt-4">
@@ -110,15 +110,15 @@
                                         <div class="col-sm-9 text-secondary">
 
                                             <div class="input-group" id="show_hide_password3">
-                                                <input type="password" name="confirm_new_password"
-                                                    class="form-control border-end-0 @error('confirm_new_password') is-invalid @enderror"
+                                                <input type="password" name="new_password_confirmation"
+                                                    class="form-control border-end-0 @error('new_password_confirmation') is-invalid @enderror"
                                                     id="password" placeholder="Confirm New Password"> <a
                                                     href="javascript:;" class="input-group-text bg-transparent"><i
                                                         class="bx bx-hide"></i></a>
                                             </div>
 
 
-                                            @error('confirm_new_password')
+                                            @error('new_password_confirmation')
                                                 <span class="text-danger mt-2">{{ $message }}</span>
                                             @enderror
                                         </div>
