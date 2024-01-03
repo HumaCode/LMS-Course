@@ -60,8 +60,16 @@ Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.
 
 // instructor group middleware
 Route::middleware(['auth', 'roles:instructor'])->group(function () {
+
+    // instructor dashboard
     Route::get('/instructor/dashboard', [InstructorController::class, 'instructorDashboard'])->name('instructor.dashboard');
+
+    // logout
+    Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end admin group middleware
 
+
+// login admin
+Route::get('/instructor/login', [InstructorController::class, 'instructorLogin'])->name('instructor.login');
 // user
 // Route::get('/user/dashboard', [UserController::class, 'userDashboard'])->name('user.dashboard');
