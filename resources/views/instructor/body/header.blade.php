@@ -372,7 +372,7 @@
             <div class="user-box dropdown px-3">
                 <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret"
                     href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ !empty($profileData->photo) ? url('upload/admin_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
+                    <img src="{{ !empty($profileData->photo) ? url('upload/instructor_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
                         class="user-img" alt="user avatar">
                     <div class="user-info">
                         <p class="user-name mb-0">{{ $profileData->name }}</p>
@@ -385,7 +385,7 @@
                                 class="bx bx-user fs-5"></i><span>Profile</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center"
-                            href="{{ route('admin.change.password') }}"><i
+                            href="{{ route('instructor.change.password') }}"><i
                                 class="bx bx-user-circle fs-5"></i><span>Change
                                 Password</span></a>
                     </li>
