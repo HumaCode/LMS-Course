@@ -40,8 +40,9 @@
                         <ul
                             class="generic-list-item d-flex flex-wrap align-items-center fs-14 border-left border-left-gray pl-3 ml-3">
                             <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
-                                    class="la la-sign-in mr-1"></i><a href="login.html"> Login</a></li>
-                            <li class="d-flex align-items-center"><i class="la la-user mr-1"></i><a href="sign-up.html">
+                                    class="la la-sign-in mr-1"></i><a href="{{ url('/login') }}"> Login</a></li>
+                            <li class="d-flex align-items-center"><i class="la la-user mr-1"></i><a
+                                    href="{{ url('/register') }}">
                                     Register</a></li>
                         </ul>
                     </div><!-- end header-widget -->

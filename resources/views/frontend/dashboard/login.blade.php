@@ -3,8 +3,8 @@
 
 @section('home')
     <!-- ================================
-                                                                                                START BREADCRUMB AREA
-                                                                                            ================================= -->
+                                                                                                                                                        START BREADCRUMB AREA
+                                                                                                                                                    ================================= -->
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
         <div class="container">
@@ -22,12 +22,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                END BREADCRUMB AREA
-                                                                                            ================================= -->
+                                                                                                                                                        END BREADCRUMB AREA
+                                                                                                                                                    ================================= -->
 
     <!-- ================================
-                                                                                                   START CONTACT AREA
-                                                                                            ================================= -->
+                                                                                                                                                           START CONTACT AREA
+                                                                                                                                                    ================================= -->
     <section class="contact-area section--padding position-relative">
         <span class="ring-shape ring-shape-1"></span>
         <span class="ring-shape ring-shape-2"></span>
@@ -118,7 +118,8 @@
                                     <div class="btn-box">
                                         <div class="d-flex align-items-center justify-content-between pb-4">
                                             <div class="custom-control custom-checkbox fs-15">
-                                                <input type="checkbox" class="custom-control-input" id="rememberMeCheckbox">
+                                                <input type="checkbox" class="custom-control-input" id="rememberMeCheckbox"
+                                                    name="remember">
                                                 <label class="custom-control-label custom--control-label"
                                                     for="rememberMeCheckbox">Remember Me</label>
                                             </div><!-- end custom-control -->
@@ -128,7 +129,7 @@
                                                 class="la la-arrow-right icon ml-1"></i></button>
 
                                 </form>
-                                <p class="fs-14 pt-2">Don't have an account? <a href="sign-up.html"
+                                <p class="fs-14 pt-2">Don't have an account? <a href="{{ route('register') }}"
                                         class="text-color hover-underline">Register</a></p>
                         </div><!-- end btn-box -->
                         </form>
@@ -139,6 +140,6 @@
         </div><!-- end container -->
     </section><!-- end contact-area -->
     <!-- ================================
-                                                                                                   END CONTACT AREA
-                                                                                            ================================= -->
+                                                                                                                                                           END CONTACT AREA
+                                                                                                                                                    ================================= -->
 @endsection
