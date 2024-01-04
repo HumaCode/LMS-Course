@@ -61,12 +61,12 @@
                                             @csrf
 
                                             <div class="col-12">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email"
-                                                    class="form-control @error('email') is-invalid @enderror"
-                                                    name="email" id="email" value="{{ old('email') }}"
-                                                    placeholder="Enter Your Email">
-                                                @error('email')
+                                                <label for="email" class="form-label">Name/Email/Username</label>
+                                                <input type="text"
+                                                    class="form-control @error('login') is-invalid @enderror"
+                                                    name="login" id="login" value="{{ old('login') }}"
+                                                    placeholder="Name/Email/Username">
+                                                @error('login')
                                                     <span class="text-danger mt-2">{{ $message }}</span>
                                                 @enderror
                                             </div>
