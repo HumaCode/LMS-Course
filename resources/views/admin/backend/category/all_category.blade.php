@@ -22,7 +22,8 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary"><i class="bx bx-plus"></i>Add Category</button>
+                    <button type="button" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
+                        Category</button>
                 </div>
             </div>
 
@@ -36,32 +37,38 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Sl</th>
+                                <th>Category Image</th>
+                                <th>Category Name</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
+
+                            @foreach ($category as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>
+                                        <img src="{{ !empty($category->image) ? url('upload/category_images/' . $category->image) : url('upload/no_image.jpg') }}"
+                                            alt="{{ $category->name }}" width="70px" srcset="">
+                                    </td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-success px-5"><i
+                                                class="bx bx-edit-alt"></i>Edit</a>
+                                        <a href="" class="btn btn-danger px-5"><i
+                                                class="bx bx-trash-alt"></i>Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Sl</th>
+                                <th>Category Image</th>
+                                <th>Category Name</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>

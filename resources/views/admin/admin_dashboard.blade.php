@@ -30,6 +30,30 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
     @stack('css')
+
+    <style>
+        /* Gaya dasar tombol */
+        .tbl-custom {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+            /* Transisi untuk efek zoom in dengan kecepatan perlahan */
+        }
+
+        /* Gaya hover untuk efek zoom in */
+        .tbl-custom:hover {
+            transform: scale(1.1);
+            background-color: #3498db;
+            color: #fff;
+            /* Memperbesar ukuran tombol */
+        }
+    </style>
 </head>
 
 <body>
