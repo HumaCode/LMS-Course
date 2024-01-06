@@ -1,6 +1,12 @@
 @extends('admin.admin_dashboard')
 
 @push('css')
+    <style>
+        .cst {
+            background: aliceblue;
+            cursor: no-drop;
+        }
+    </style>
 @endpush
 
 @section('admin')
@@ -36,7 +42,8 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="" enctype="multipart/form-data" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('store.category') }}"
+                            enctype="multipart/form-data" class="row g-3">
                             @csrf
 
                             <div class="col-md-6">
@@ -51,7 +58,8 @@
                                 <div class="form-group">
                                     <label for="category_slug" class="form-label">Category Slug <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="category_slug" id="category_slug">
+                                    <input type="text" class="form-control cst" name="category_slug" id="category_slug"
+                                        placeholder="Auto-fill" readonly>
                                 </div>
                             </div>
 
@@ -137,6 +145,17 @@
                 }
                 reader.readAsDataURL(e.target.files['0']);
             })
+        });
+
+
+        // slug
+        const name = document.querySelector('#category_name');
+        const slug = document.querySelector('#category_slug');
+
+        name.addEventListener('change', function() {
+            fetch('/category/checkSlug?category_name=' + name.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.category_slug)
         });
     </script>
 @endpush

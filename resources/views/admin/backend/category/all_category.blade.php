@@ -2,6 +2,13 @@
 
 @push('css')
     <link href="{{ asset('backend') }}/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+    <style>
+        tbody td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 @endpush
 
 @section('admin')
@@ -33,8 +40,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
+                    <table id="category" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="text-center">
                             <tr>
                                 <th>Sl</th>
                                 <th>Category Image</th>
@@ -46,13 +53,13 @@
 
                             @foreach ($category as $key => $item)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>
-                                        <img src="{{ !empty($category->image) ? url('upload/category_images/' . $category->image) : url('upload/no_image.jpg') }}"
-                                            alt="{{ $category->name }}" width="70px" srcset="">
+                                    <td class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-center">
+                                        <img src="{{ !empty($item->image) ? url($item->image) : url('upload/no_image.jpg') }}"
+                                            alt="{{ $item->category_name }}" width="20%" srcset="">
                                     </td>
-                                    <td>{{ $category->name }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $item->category_name }}</td>
+                                    <td class="text-center">
                                         <a href="" class="btn btn-success px-5"><i
                                                 class="bx bx-edit-alt"></i>Edit</a>
                                         <a href="" class="btn btn-danger px-5"><i
@@ -83,7 +90,7 @@
     <script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#category').DataTable();
         });
     </script>
 @endpush
