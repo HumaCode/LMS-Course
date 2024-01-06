@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +24,9 @@ Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// user
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
 });
 
 
@@ -74,10 +72,10 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
-}); // end admin group middleware
+}); // end instructor group middleware
 
 
-// login admin
+// login instructor
 Route::get('/instructor/login', [InstructorController::class, 'instructorLogin'])->name('instructor.login');
 // user
 // Route::get('/user/dashboard', [UserController::class, 'userDashboard'])->name('user.dashboard');
