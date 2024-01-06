@@ -69,6 +69,25 @@
     </div>
     <!-- end scroll top -->
 
+    <!-- Modal -->
+    <div class="modal fade modal-container" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="la la-exclamation-circle fs-60 text-warning"></span>
+                    <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">You want to log
+                        out</h4>
+                    <p>You're sure you want to end the session ?</p>
+                    <div class="btn-box pt-4">
+                        <button type="button" class="btn font-weight-medium mr-3" data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('user.logout') }}" class="btn theme-btn theme-btn-sm lh-30">Yes</a>
+                    </div>
+                </div><!-- end modal-body -->
+            </div><!-- end modal-content -->
+        </div><!-- end modal-dialog -->
+    </div><!-- end modal -->
+
     <div class="tooltip_templates">
         <div id="tooltip_content_1">
             <div class="card card-item">
