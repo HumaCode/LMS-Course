@@ -91,12 +91,12 @@
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <span class="la la-exclamation-circle fs-60 text-warning"></span>
-                    <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">Your account
-                        will be deleted permanently!</h4>
-                    <p>Are you sure you want to delete your account?</p>
+                    <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">You want to log
+                        out</h4>
+                    <p>You're sure you want to end the session ?</p>
                     <div class="btn-box pt-4">
                         <button type="button" class="btn font-weight-medium mr-3" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn theme-btn theme-btn-sm lh-30">Ok, Delete</button>
+                        <a href="{{ route('user.logout') }}" class="btn theme-btn theme-btn-sm lh-30">Yes</a>
                     </div>
                 </div><!-- end modal-body -->
             </div><!-- end modal-content -->

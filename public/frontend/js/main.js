@@ -18,6 +18,7 @@ Author Email:   contact@techydevs.com
         var isMenuOpen = false;
         // var togglePassword = $('.toggle-password');
         var togglePassword = $('.custom-pass3');
+        var togglePassword4 = $('.custom-pass4');
         var togglePassword2 = $('.custom-pass');
         var heroSlider = $('.hero-slider');
         var courseCarousel = $('.course-carousel');
@@ -788,6 +789,16 @@ Author Email:   contact@techydevs.com
                 passInput2.attr('type', 'text');
             } else {
                 passInput2.attr('type', 'password');
+            }
+        });
+       
+        togglePassword4.on('click', function () {
+            var passInput4 = $('.custom-pass-pass');
+            $(this).toggleClass('active');
+            if (passInput4.attr('type') === 'password') {
+                passInput4.attr('type', 'text');
+            } else {
+                passInput4.attr('type', 'password');
             }
         });
 
