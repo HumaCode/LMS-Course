@@ -55,7 +55,8 @@
         <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
             <div class="setting-body">
                 <h3 class="fs-17 font-weight-semi-bold pb-4">Edit Profile</h3>
-                <form method="post" class="row pt-40px" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('user.profile.update') }}" class="row pt-40px" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <div class="media media-card align-items-center">
@@ -69,48 +70,73 @@
                                 <input type="file" name="photo" class="multi file-upload-input with-preview">
                                 <span class="file-upload-text"><i class="la la-photo mr-2"></i>Upload a Photo</span>
                             </div><!-- file-upload-wrap -->
-                            <p class="fs-14">Max file size is 5MB, Minimum dimension: 200x200 And Suitable files are .jpg &
-                                .png</p>
+                            <p class="fs-14">Max file size is 5MB, Suitable files are jpg, png and jpeg</p>
+                            @error('photo')
+                                <span class="text-danger mt-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div><!-- end media -->
 
                     <div class="input-box col-lg-6 mt-3">
                         <label class="label-text">Name</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="name"
-                                value="{{ old('name', $profileData->name) }}">
+                            <input class="form-control form--control @error('name') is-invalid @enderror" type="text"
+                                name="name" value="{{ $profileData->name }}">
                             <span class="la la-user input-icon"></span>
+                            @error('name')
+                                <span class="text-danger mt-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div><!-- end input-box -->
 
                     <div class="input-box col-lg-6 mt-3">
                         <label class="label-text">Username</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="username"
-                                value="{{ old('name', $profileData->username) }}">
+                            <input class="form-control form--control @error('username') is-invalid @enderror" type="text"
+                                name="username" value="{{ $profileData->username }}">
                             <span class="la la-user input-icon"></span>
+                            @error('username')
+                                <span class="text-danger mt-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div><!-- end input-box -->
+
                     <div class="input-box col-lg-6">
                         <label class="label-text">Phone</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="phone"
-                                value="{{ old('name', $profileData->phone) }}">
+                            <input class="form-control form--control @error('phone') is-invalid @enderror" type="text"
+                                name="phone" value="{{ $profileData->phone }}">
                             <span class="la la-phone input-icon"></span>
+                            @error('phone')
+                                <span class="text-danger mt-2">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div><!-- end input-box -->
+
                     <div class="input-box col-lg-6">
                         <label class="label-text">Email</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="email" name="email"
-                                value="{{ old('name', $profileData->email) }}">
+                            <input class="form-control form--control @error('email') is-invalid @enderror" type="email"
+                                name="email" value="{{ $profileData->email }}">
                             <span class="la la-envelope input-icon"></span>
+                            @error('email')
+                                <span class="text-danger mt-2">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div><!-- end input-box -->
+
+                    <div class="input-box col-lg-12">
+                        <label class="label-text">Address</label>
+                        <div class="form-group">
+                            <input class="form-control form--control" type="text" name="address"
+                                value="{{ $profileData->address }}">
+                            <span class="las la-map-marker input-icon"></span>
                         </div>
                     </div><!-- end input-box -->
 
 
                     <div class="input-box col-lg-12 py-2">
-                        <button class="btn theme-btn">Save Changes</button>
+                        <button type="submit" class="btn theme-btn">Save Changes</button>
                     </div><!-- end input-box -->
                 </form>
             </div><!-- end setting-body -->

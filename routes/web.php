@@ -26,7 +26,10 @@ Route::get('/dashboard', function () {
 
 // user
 Route::middleware('auth')->group(function () {
+
+    // user profile
     Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
+    Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
 });
 
 
