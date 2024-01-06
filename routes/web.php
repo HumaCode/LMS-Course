@@ -30,6 +30,10 @@ Route::middleware('auth')->group(function () {
     // user profile
     Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
     Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
+
+
+    // logout user
+    Route::get('/user/logout', [UserController::class, 'userLogout'])->name('user.logout');
 });
 
 
