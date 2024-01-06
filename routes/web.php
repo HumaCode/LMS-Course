@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,13 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // logout
     Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+
+
+
+    // category manage
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/all/category', 'allCategory')->name('all.category');
+    });
 }); // end admin group middleware
 
 // login admin
