@@ -66,6 +66,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // category manage
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/all/category', 'allCategory')->name('all.category');
+        Route::get('/add/category', 'addCategory')->name('add.category');
     });
 }); // end admin group middleware
 

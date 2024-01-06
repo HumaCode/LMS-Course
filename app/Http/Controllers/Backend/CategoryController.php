@@ -16,4 +16,12 @@ class CategoryController extends Controller
 
         return view('admin.backend.category.all_category', compact('category', 'title', 'subtitle'));
     }
+
+    public function addCategory()
+    {
+        $title      = 'Add Category';
+        $subtitle   = 'add category';
+
+        return view('admin.backend.category.add_category', compact('title', 'subtitle'));
+    }
 }

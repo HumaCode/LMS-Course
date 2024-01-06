@@ -35,11 +35,7 @@
         /* Gaya dasar tombol */
         .tbl-custom {
             display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
             text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
             overflow: hidden;
             position: relative;
             transition: transform 0.3s ease;

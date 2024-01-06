@@ -22,14 +22,13 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
-                        Category</button>
+                    <a href="{{ route('add.category') }}" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
+                        Category</a>
                 </div>
             </div>
 
         </div>
         <!--end breadcrumb-->
-        <h6 class="mb-0 text-uppercase">{{ $title }}</h6>
         <hr />
         <div class="card">
             <div class="card-body">
