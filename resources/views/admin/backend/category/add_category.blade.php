@@ -35,22 +35,33 @@
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
-                        <form class="row g-3">
+
+                        <form id="myForm" method="POST" action="" enctype="multipart/form-data" class="row g-3">
+                            @csrf
+
                             <div class="col-md-6">
-                                <label for="category_name" class="form-label">Category Name <span
-                                        class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="category_name" id="category_name"
-                                    placeholder="Category Name">
+                                <div class="form-group">
+                                    <label for="category_name" class="form-label">Category Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="category_name" id="category_name"
+                                        placeholder="Category Name">
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="category_slug" class="form-label">Category Slug</label>
-                                <input type="text" class="form-control" name="category_slug" id="category_slug">
+                                <div class="form-group">
+                                    <label for="category_slug" class="form-label">Category Slug <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="category_slug" id="category_slug">
+                                </div>
                             </div>
 
                             <div class="col-md-12">
-                                <label for="category_slug" class="form-label">Category Image</label>
-                                <input class="form-control" type="file" name="image" id="image"
-                                    accept=".jpg,.jpeg,.png">
+                                <div class="form-group">
+                                    <label for="category_slug" class="form-label">Category Image <span
+                                            class="text-danger">*</span></label>
+                                    <input class="form-control" type="file" name="image" id="image"
+                                        accept=".jpg,.jpeg,.png">
+                                </div>
                             </div>
 
                             <div class="col-md-12">
@@ -75,7 +86,49 @@
 
 
 @push('script')
-    <script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myForm').validate({
+                rules: {
+                    category_name: {
+                        required: true,
+                    },
+                    category_slug: {
+                        required: true,
+                    },
+                    image: {
+                        required: true,
+                    },
+
+                },
+                messages: {
+                    category_name: {
+                        required: 'Please Enter Category Name',
+                    },
+                    category_slug: {
+                        required: 'Please Enter Category Slug',
+                    },
+                    image: {
+                        required: 'Please Select Category Image',
+                    },
+
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+
+
+        // image picker
         $(document).ready(function() {
             $('#image').change(function(e) {
                 var reader = new FileReader();
