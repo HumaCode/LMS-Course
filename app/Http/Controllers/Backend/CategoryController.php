@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
@@ -143,5 +144,18 @@ class CategoryController extends Controller
         $slug = SlugService::createSlug(Category::class, 'category_slug', $request->category_name);
 
         return response()->json(['category_slug' => $slug]);
+    }
+
+
+
+    // ---------------------Sub Category Manage -----------------------//
+
+    public function allSubCategory()
+    {
+        $title          = 'All Sub Category';
+        $subtitle       = 'all sub category';
+        $subcategory    = SubCategory::latest()->get();
+
+        return view('admin.backend.subcategory.all_subcategory', compact('subcategory', 'title', 'subtitle'));
     }
 }
