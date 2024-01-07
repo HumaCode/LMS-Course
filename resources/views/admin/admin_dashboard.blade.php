@@ -95,7 +95,17 @@
     <script src="{{ asset('backend') }}/assets/js/index.js"></script>
     <!--app JS-->
     <script src="{{ asset('backend') }}/assets/js/app.js"></script>
+
+
+    {{-- plugin --}}
     <script src="{{ asset('backend') }}/assets/js/validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    {{-- my js --}}
+    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+
+
     <script>
         new PerfectScrollbar(".app-container")
     </script>

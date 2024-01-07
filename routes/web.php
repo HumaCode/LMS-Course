@@ -71,6 +71,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/category/checkSlug', 'checkSlug');
         Route::get('/edit/category/{slug}', 'editCategory')->name('edit.category');
         Route::post('/update/category', 'updateCategory')->name('update.category');
+        Route::get('/delete/category/{slug}', 'deleteCategory')->name('delete.category');
     });
 }); // end admin group middleware
 

@@ -62,7 +62,8 @@
                                     <td class="text-center">
                                         <a href="{{ route('edit.category', $item->category_slug) }}"
                                             class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="" class="btn btn-danger px-5"><i
+                                        <a href="{{ route('delete.category', $item->category_slug) }}"
+                                            class="btn btn-danger px-5" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>

@@ -120,6 +120,23 @@ class CategoryController extends Controller
         return redirect()->route('all.category')->with($notification);
     }
 
+    public function deleteCategory($slug)
+    {
+
+        $data = Category::where('category_slug', $slug)->first();
+
+        unlink($data->image);
+
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Category Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
 
     public function checkSlug(Request $request)
     {
