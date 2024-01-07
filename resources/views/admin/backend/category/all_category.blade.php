@@ -21,7 +21,7 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-category-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $subtitle }}</li>
                     </ol>
                 </nav>
             </div>
@@ -60,8 +60,8 @@
                                     </td>
                                     <td class="text-center">{{ $item->category_name }}</td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-success px-5"><i
-                                                class="bx bx-edit-alt"></i>Edit</a>
+                                        <a href="{{ route('edit.category', $item->category_slug) }}"
+                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
                                         <a href="" class="btn btn-danger px-5"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>

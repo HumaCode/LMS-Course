@@ -42,16 +42,18 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.category') }}"
+                        <form id="myForm" method="POST" action="{{ route('update.category') }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{ $category->id }}">
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_name" class="form-label">Category Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="category_name" id="category_name"
-                                        placeholder="Category Name">
+                                        placeholder="Category Name" value="{{ $category->category_name }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -59,7 +61,7 @@
                                     <label for="category_slug" class="form-label">Category Slug <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control cst" name="category_slug" id="category_slug"
-                                        placeholder="Auto-fill" readonly>
+                                        placeholder="Auto-fill" readonly value="{{ $category->category_slug }}">
                                 </div>
                             </div>
 
@@ -73,8 +75,9 @@
                             </div>
 
                             <div class="col-md-12">
-                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
-                                    class="p-1 bg-primary" width="20%"> <br>
+                                <img id="showImage"
+                                    src="{{ !empty($category->image) ? url($category->image) : url('upload/no_image.jpg') }}"
+                                    alt="{{ $category->category_name }}" class="p-1 bg-primary" width="20%"> <br>
                                 <span class="text-danger">* Max file size is 2MB, Suitable files are jpg, png and
                                     jpeg.</span>
                             </div>
@@ -82,7 +85,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
-                                            class="bx bx-save"></i>Add Category</button>
+                                            class="bx bx-save"></i>Update Category</button>
                                 </div>
                             </div>
                         </form>
@@ -106,9 +109,6 @@
                     category_slug: {
                         required: true,
                     },
-                    image: {
-                        required: true,
-                    },
 
                 },
                 messages: {
@@ -118,9 +118,7 @@
                     category_slug: {
                         required: 'Please Enter Category Slug',
                     },
-                    image: {
-                        required: 'Please Select Category Image',
-                    },
+
 
                 },
                 errorElement: 'span',

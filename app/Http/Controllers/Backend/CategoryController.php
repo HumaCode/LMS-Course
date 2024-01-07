@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $manager = new ImageManager(Driver::class);
         $image = $manager->read($images);
 
-        $image->cover(370, 246);
+        $image->resize(370, 246);
         $image->save('upload/category_images/' . $name_gen);
 
         $save_url = 'upload/category_images/' . $name_gen;
@@ -61,6 +61,65 @@ class CategoryController extends Controller
 
         return redirect()->route('all.category')->with($notification);
     }
+
+    public function editCategory($slug)
+    {
+        $title      = 'Edit Category';
+        $subtitle   = 'edit category';
+        $category   = Category::where('category_slug', $slug)->first();
+
+        return view('admin.backend.category.edit_category', compact('title', 'subtitle', 'category'));
+    }
+
+    public function updateCategory(Request $request)
+    {
+
+        $id = $request->id;
+        $data = Category::findOrFail($id);
+
+        $attr = $request->validate([
+            'category_name'      => 'required',
+            'image'              => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
+        ]);
+
+        if ($request->file('image')) {
+
+            // unlink foto
+            if ($data->image <> "") {
+                unlink($data->image);
+            }
+
+            $images = $request->file('image');
+            $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
+
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($images);
+
+            $image->resize(370, 246);
+            $image->save('upload/category_images/' . $name_gen);
+
+            $save_url = 'upload/category_images/' . $name_gen;
+
+            $data->update([
+                'category_name' => $attr['category_name'],
+                'category_slug' => $request['category_slug'],
+                'image'         => $save_url,
+            ]);
+        } else {
+            $data->update([
+                'category_name' => $attr['category_name'],
+                'category_slug' => $request['category_slug'],
+            ]);
+        }
+
+        $notification = [
+            'message'       => 'Category Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.category')->with($notification);
+    }
+
 
     public function checkSlug(Request $request)
     {
