@@ -154,8 +154,48 @@ class CategoryController extends Controller
     {
         $title          = 'All Sub Category';
         $subtitle       = 'all sub category';
-        $subcategory    = SubCategory::latest()->get();
+        $subcategory    = SubCategory::with('category')->latest()->get();
 
         return view('admin.backend.subcategory.all_subcategory', compact('subcategory', 'title', 'subtitle'));
+    }
+
+    public function addSubCategory()
+    {
+        $title          = 'Add Sub Category';
+        $subtitle       = 'add sub category';
+        $category       = Category::latest()->get();
+
+
+        return view('admin.backend.subcategory.add_subcategory', compact('category', 'title', 'subtitle'));
+    }
+
+    public function storeSubCategory(Request $request)
+    {
+        $attr = $request->validate([
+            'category_id'           => 'required',
+            'subcategory_name'      => 'required',
+            'subcategory_slug'      => 'required|unique:sub_categories,subcategory_slug',
+        ]);
+
+        SubCategory::insert([
+            'category_id'           => $attr['category_id'],
+            'subcategory_name'      => $attr['subcategory_name'],
+            'subcategory_slug'      => $attr['subcategory_slug'],
+        ]);
+
+        $notification = [
+            'message'       => 'Sub Category Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.subcategory')->with($notification);
+    }
+
+
+    public function checkSlugSubCategory(Request $request)
+    {
+        $slug = SlugService::createSlug(SubCategory::class, 'subcategory_slug', $request->subcategory_name);
+
+        return response()->json(['subcategory_slug' => $slug]);
     }
 }
