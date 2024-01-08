@@ -90,6 +90,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 
 
+Route::get('/become/instructor', [AdminController::class, 'becomeInstructor'])->name('become.instructor');
+
+
 
 // instructor group middleware
 Route::middleware(['auth', 'roles:instructor'])->group(function () {

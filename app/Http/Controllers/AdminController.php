@@ -121,4 +121,9 @@ class AdminController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function becomeInstructor()
+    {
+        return view('frontend.instructor.reg_instructor');
+    }
 }
