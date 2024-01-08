@@ -91,6 +91,7 @@ Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.
 
 
 Route::get('/become/instructor', [AdminController::class, 'becomeInstructor'])->name('become.instructor');
+Route::post('/instructor/register', [AdminController::class, 'instructorRegister'])->name('instructor.register');
 
 
 
