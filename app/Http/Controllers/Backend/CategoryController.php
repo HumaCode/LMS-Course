@@ -191,6 +191,56 @@ class CategoryController extends Controller
         return redirect()->route('all.subcategory')->with($notification);
     }
 
+    public function editSubCategory($slug)
+    {
+        $title          = 'Edit Sub Category';
+        $subtitle       = 'edit sub category';
+        $category       = Category::latest()->get();
+        $subcategory    = SubCategory::where('subcategory_slug', $slug)->first();
+
+
+        return view('admin.backend.subcategory.edit_subcategory', compact('category', 'subcategory', 'title', 'subtitle'));
+    }
+    
+    public function updateSubCategory(Request $request)
+    {
+        $id = $request->id; 
+        $data = SubCategory::findOrFail($id);
+
+
+        $attr = $request->validate([
+            'category_id'           => 'required',
+            'subcategory_name'      => 'required',
+            'subcategory_slug'      => 'required|unique:sub_categories,subcategory_slug, ' . $id,
+        ]);
+
+        $data->update([
+            'category_id'           => $attr['category_id'],
+            'subcategory_name'      => $attr['subcategory_name'],
+            'subcategory_slug'      => $attr['subcategory_slug'],
+        ]);
+
+        $notification = [
+            'message'       => 'Sub Category Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.subcategory')->with($notification);
+    }
+
+    public function deleteSubCategory($slug)
+    {
+
+        $data = SubCategory::where('subcategory_slug', $slug)->first()->delete();
+
+        $notification = [
+            'message'       => 'Sub Category Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
 
     public function checkSlugSubCategory(Request $request)
     {

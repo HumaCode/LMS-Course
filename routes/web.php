@@ -80,9 +80,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/add/subcategory', 'addSubCategory')->name('add.subcategory');
         Route::post('/store/subcategory', 'storeSubCategory')->name('store.subcategory');
         Route::get('/subcategory/checkSlugSubCategory', 'checkSlugSubCategory');
-        // Route::get('/edit/category/{slug}', 'editCategory')->name('edit.category');
-        // Route::post('/update/category', 'updateCategory')->name('update.category');
-        // Route::get('/delete/category/{slug}', 'deleteCategory')->name('delete.category');
+        Route::get('/edit/subcategory/{slug}', 'editSubCategory')->name('edit.subcategory');
+        Route::post('/update/subcategory', 'updateSubCategory')->name('update.subcategory');
+        Route::get('/delete/subcategory/{slug}', 'deleteSubCategory')->name('delete.subcategory');
     });
 }); // end admin group middleware
 

@@ -58,9 +58,9 @@
                                     <td class="text-center">{{ $item->category->category_name }}</td>
                                     <td class="text-center">{{ $item->subcategory_name }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.category', $item->subcategory_slug) }}"
+                                        <a href="{{ route('edit.subcategory', $item->subcategory_slug) }}"
                                             class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $item->subcategory_slug) }}"
+                                        <a href="{{ route('delete.subcategory', $item->subcategory_slug) }}"
                                             class="btn btn-danger px-5" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
