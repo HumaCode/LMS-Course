@@ -89,6 +89,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // instructor  manage
     Route::controller(AdminController::class)->group(function () {
         Route::get('/all/instructor', 'allInstructor')->name('all.instructor');
+        Route::post('/update/user/stauts', 'updateUserStauts')->name('update.user.stauts');
     });
 }); // end admin group middleware
 

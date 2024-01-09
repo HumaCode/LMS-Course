@@ -79,7 +79,7 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if ($item->email == 1)
+                                        @if ($item->status == 1)
                                             <span class="badge bg-success">Active</span>
                                         @else
                                             <span class="badge bg-danger">Inactive</span>
@@ -139,7 +139,7 @@
                     data: {
                         user_id: userId,
                         is_checked: isChecked ? 1 : 0,
-                        _token: "{{ csrf_token }}"
+                        _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
                         toastr.success(response.message);
