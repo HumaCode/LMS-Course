@@ -201,10 +201,10 @@ class CategoryController extends Controller
 
         return view('admin.backend.subcategory.edit_subcategory', compact('category', 'subcategory', 'title', 'subtitle'));
     }
-    
+
     public function updateSubCategory(Request $request)
     {
-        $id = $request->id; 
+        $id = $request->id;
         $data = SubCategory::findOrFail($id);
 
 

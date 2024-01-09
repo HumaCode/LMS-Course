@@ -46,7 +46,7 @@
                             @csrf
 
 
-                            <input type="hidden" name="id" value="{{ $subcategory->category_id }}">
+                            <input type="hidden" name="id" value="{{ $subcategory->id }}">
 
                             <div class="col-md-12">
                                 <div class="form-group">
