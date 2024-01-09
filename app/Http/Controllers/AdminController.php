@@ -158,4 +158,13 @@ class AdminController extends Controller
 
         return redirect()->route('instructor.login')->with($notification);
     }
+
+    public function allInstructor()
+    {
+        $title      = 'All Instructor';
+        $subtitle   = 'all instructor';
+        $allInstructor = User::where('role', 'instructor')->latest()->get();
+
+        return view('admin.backend.instructor.all_instructor', compact('title', 'subtitle', 'allInstructor'));
+    }
 }
