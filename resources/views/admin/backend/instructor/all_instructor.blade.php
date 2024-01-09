@@ -1,12 +1,19 @@
 @extends('admin.admin_dashboard')
 
 @push('css')
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+
     <link href="{{ asset('backend') }}/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <style>
         tbody td {
             text-align: center;
             vertical-align: middle;
+        }
+
+        .large-checkbox {
+            transform: scale(1.5)
         }
     </style>
 @endpush
@@ -78,11 +85,13 @@
                                             <span class="badge bg-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('edit.category', $item->id) }}" class="btn btn-success px-5"><i
-                                                class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $item->id) }}" class="btn btn-danger px-5"
-                                            id="delete"><i class="bx bx-trash-alt"></i>Delete</a>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input status-toggle large-checkbox" type="checkbox"
+                                                id="flexSwitchCheckChecked" data-user-id={{ $item->id }}
+                                                {{ $item->status ? 'checked' : '' }}>
+
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -112,6 +121,34 @@
     <script>
         $(document).ready(function() {
             $('#category').DataTable();
+        });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('.status-toggle').on('change', function() {
+                var userId = $(this).data('user-id');
+                var isChecked = $(this).is(':checked');
+
+
+                $.ajax({
+                    url: "{{ route('update.user.stauts') }}",
+                    method: "POST",
+                    data: {
+                        user_id: userId,
+                        is_checked: isChecked ? 1 : 0,
+                        _token: "{{ csrf_token }}"
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                    },
+                    error: function() {
+
+                    }
+                })
+            })
         });
     </script>
 @endpush
