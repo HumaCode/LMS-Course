@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -84,8 +85,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/update/subcategory', 'updateSubCategory')->name('update.subcategory');
         Route::get('/delete/subcategory/{slug}', 'deleteSubCategory')->name('delete.subcategory');
     });
-    
-    
+
+
     // instructor  manage
     Route::controller(AdminController::class)->group(function () {
         Route::get('/all/instructor', 'allInstructor')->name('all.instructor');
@@ -115,6 +116,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     // change password
     Route::get('/instructor/change/store', [InstructorController::class, 'instructorChangePassword'])->name('instructor.change.password');
     Route::post('/instructor/password/update', [InstructorController::class, 'instructorPasswordUpdate'])->name('instructor.password.update');
+
+    // courses  manage
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('/all/course', 'allCourse')->name('all.course');
+    });
 
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
