@@ -120,6 +120,8 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     // courses  manage
     Route::controller(CourseController::class)->group(function () {
         Route::get('/all/course', 'allCourse')->name('all.course');
+        Route::get('/add/course', 'addCourse')->name('add.course');
+        Route::get('/course/checkSlug', 'checkSlugCourse');
     });
 
     // logout

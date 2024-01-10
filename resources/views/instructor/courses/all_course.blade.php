@@ -29,7 +29,7 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('add.category') }}" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
+                    <a href="{{ route('add.course') }}" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
                         Course</a>
                 </div>
             </div>
