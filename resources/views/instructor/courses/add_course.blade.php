@@ -115,7 +115,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="video" class="form-label">Video Course Intro<span
+                                    <label for="video" class="form-label">Video Course Intro <span
                                             class="text-danger">*</span></label>
                                     <input class="form-control" type="file" name="video" id="video">
                                 </div>
@@ -124,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="certificate" class="form-label">Certificate Available </label>
-                                    <select id="certificate" name="certificate" class="form-select " required>
+                                    <select id="certificate" name="certificate" class="form-select ">
                                         <option selected disabled>Choose...</option>
 
                                         <option value="Yes">Yes</option>
@@ -135,7 +135,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="label" class="form-label">Label <span
+                                            class="text-danger">*</span></label>
+                                    <select id="label" name="label" class="form-select ">
+                                        <option selected disabled>Choose...</option>
+
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Middle">Middle</option>
+                                        <option value="Advance">Advance</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="selling_price" class="form-label">Course Price<span
                                             class="text-danger">*</span></label>
@@ -143,7 +159,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="discount_price" class="form-label">Discount Price</label>
                                     <input class="form-control" type="text" name="discount_price"
@@ -169,10 +185,52 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="resources" class="form-label">Course Prerequisites</label>
+                                    <label for="prerequisites" class="form-label">Course Prerequisites</label>
                                     <textarea class="form-control name="prerequisites" id="prerequisites" rows="3"></textarea>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description" class="form-label">Course Description</label>
+                                    <textarea class="form-control name="description" id="myeditorinstance" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" id="bestseller"
+                                            name="bestseller">
+                                        <label class="form-check-label" for="bestseller">
+                                            Bestseller
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="2" id="featured"
+                                            name="featured">
+                                        <label class="form-check-label" for="featured">
+                                            Featured
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="3" id="highestrated"
+                                            name="highestrated">
+                                        <label class="form-check-label" for="highestrated">
+                                            Highest Rated
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
@@ -191,6 +249,20 @@
 
 
 @push('script')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'powerpaste advcode table lists checklist',
+            toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table',
+            height: 350,
+            init_instance_callback: function(editor) {
+                var freeTiny = document.querySelector('.tox .tox-notification--in');
+                freeTiny.style.display = 'none';
+            }
+        });
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#myForm').validate({
