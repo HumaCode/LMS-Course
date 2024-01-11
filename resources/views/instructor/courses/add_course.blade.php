@@ -88,9 +88,8 @@
                                     <label for="subcategory_id" class="form-label">Course Sub Category <span
                                             class="text-danger">*</span></label>
                                     <select id="subcategory_id" name="subcategory_id" class="form-select " required>
-                                        <option selected disabled>Choose...</option>
 
-                                        <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                        <option></option>
 
                                     </select>
 
@@ -262,6 +261,35 @@
             }
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name="category_id"]').on('change', function() {
+                var category_id = $(this).val();
+                if (category_id) {
+                    $.ajax({
+                        url: "{{ url('/subcategory/ajax') }}/" + category_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="subcategory_id"]').html('');
+                            var d = $('select[name="subcategory_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subcategory_id"]').append(
+                                    '<option value="' + value.id + '">' + value
+                                    .subcategory_name + '</option>');
+                            });
+                        },
+
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
+        });
+    </script>
+
+
 
     <script type="text/javascript">
         $(document).ready(function() {
