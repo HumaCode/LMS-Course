@@ -56,7 +56,7 @@
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('course_name') is-invalid @enderror"
-                                        name="course_name" id="course_name" placeholder="Course Name">
+                                        name="course_name" id="course_name" value="{{ $course->course_title }}">
                                     @error('course_name')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -69,7 +69,8 @@
                                             class="text-danger">*</span></label>
                                     <input type="text"
                                         class="form-control cst @error('course_name_slug') is-invalid @enderror"
-                                        name="course_name_slug" id="course_name_slug" placeholder="Auto-fill" readonly>
+                                        name="course_name_slug" id="course_name_slug" placeholder="Auto-fill"
+                                        value="{{ $course->course_name_slug }}" readonly>
                                     @error('course_name_slug')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -85,7 +86,12 @@
                                         <option selected disabled>Choose...</option>
 
                                         @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                            @if ($item->id == $course->category_id)
+                                                <option value="{{ $item->id }}" selected>{{ $item->category_name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                                            @endif
                                         @endforeach
 
                                     </select>
@@ -102,8 +108,14 @@
                                     <select id="subcategory_id" name="subcategory_id"
                                         class="form-select @error('subcategory_id') is-invalid @enderror">
 
-                                        <option></option>
+                                        <option disabled selected>Choose</option>
 
+                                        @foreach ($subcategories as $item)
+                                            @if ($item->id == $course->subcategory_id)
+                                                <option value="{{ $item->id }}" selected>{{ $item->subcategory_name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
                                     </select>
 
                                     @error('subcategory_id')
@@ -113,47 +125,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="course_image" class="form-label">Course Image <span
-                                            class="text-danger">*</span></label>
-                                    <input class="form-control @error('course_image') is-invalid @enderror" type="file"
-                                        name="course_image" id="image" accept=".jpg,.jpeg,.png">
-
-                                    @error('course_image')
-                                        <span class="text-danger mt-2">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
-                                    class="p-1 bg-primary" width="20%"> <br>
-                                <span class="text-danger">* Max file size is 2MB, Suitable files are jpg, png and
-                                    jpeg.</span>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="video" class="form-label">Video Course Intro <span
-                                            class="text-danger">*</span></label>
-                                    <input class="form-control @error('video') is-invalid @enderror" type="file"
-                                        name="video" id="video" accept=".mp4">
-                                    @error('video')
-                                        <span class="text-danger mt-2">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="certificate" class="form-label">Certificate Available </label>
                                     <select id="certificate" name="certificate"
                                         class="form-select @error('certificate') is-invalid @enderror">
                                         <option selected disabled>Choose...</option>
 
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="Yes" {{ $course->certificate == 'Yes' ? 'selected' : '' }}>Yes
+                                        </option>
+                                        <option value="No" {{ $course->certificate == 'No' ? 'selected' : '' }}>No
+                                        </option>
 
                                     </select>
                                     @error('certificate')
@@ -163,7 +145,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="label" class="form-label">Label <span
                                             class="text-danger">*</span></label>
@@ -171,9 +153,12 @@
                                         class="form-select @error('label') is-invalid @enderror ">
                                         <option selected disabled>Choose...</option>
 
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Middle">Middle</option>
-                                        <option value="Advance">Advance</option>
+                                        <option value="Beginner" {{ $course->label == 'Beginner' ? 'selected' : '' }}>
+                                            Beginner</option>
+                                        <option value="Middle" {{ $course->label == 'Middle' ? 'selected' : '' }}>Middle
+                                        </option>
+                                        <option value="Advance" {{ $course->label == 'Advance' ? 'selected' : '' }}>Advance
+                                        </option>
 
                                     </select>
 
@@ -184,25 +169,24 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="selling_price" class="form-label">Course Price<span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control @error('selling_price') is-invalid @enderror "
-                                        type="text" name="selling_price" id="selling_price"
-                                        placeholder="Selling Price">
+                                    <input class="form-control @error('selling_price') is-invalid @enderror " type="text"
+                                        name="selling_price" id="selling_price" value="{{ $course->selling_price }}">
                                     @error('selling_price')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="discount_price" class="form-label">Discount Price</label>
                                     <input class="form-control @error('discount_price') is-invalid @enderror"
                                         type="text" name="discount_price" id="discount_price"
-                                        placeholder="Discount Price">
+                                        value="{{ $course->discount_price }}">
                                     @error('discount_price')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -214,7 +198,7 @@
                                     <label for="duration" class="form-label">Duration <span
                                             class="text-danger">*</span></label>
                                     <input class="form-control @error('duration') is-invalid @enderror" type="text"
-                                        name="duration" id="duration" placeholder="Duration">
+                                        name="duration" id="duration" value="{{ $course->duration }}">
                                     @error('duration')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -226,7 +210,7 @@
                                     <label for="resources" class="form-label">Resources <span
                                             class="text-danger">*</span></label>
                                     <input class="form-control @error('resources') is-invalid @enderror" type="text"
-                                        name="resources" id="resources" placeholder="Resources">
+                                        name="resources" id="resources" value="{{ $course->resources }}">
                                     @error('resources')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -237,7 +221,7 @@
                                 <div class="form-group">
                                     <label for="prerequisites" class="form-label">Course Prerequisites</label>
                                     <textarea class="form-control @error('prerequisites') is-invalid @enderror" name="prerequisites" id="prerequisites"
-                                        placeholder="Prerequisites..." rows="3"></textarea>
+                                        placeholder="Prerequisites..." rows="3">{{ $course->prerequisites }}</textarea>
                                     @error('prerequisites')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -248,7 +232,7 @@
                                 <div class="form-group">
                                     <label for="description" class="form-label">Course Description</label>
                                     <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="myeditorinstance"
-                                        rows="3" placeholder="Description"></textarea>
+                                        rows="3" placeholder="Description">{{ $course->description }}</textarea>
                                     @error('description')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -302,7 +286,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" id="bestseller"
+                                        <input class="form-check-input" type="checkbox" value="1"
+                                            {{ $course->bestseller == 1 ? 'checked' : '' }} id="bestseller"
                                             name="bestseller">
                                         <label class="form-check-label" for="bestseller">
                                             Bestseller
@@ -312,7 +297,8 @@
 
                                 <div class="col-md-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" id="featured"
+                                        <input class="form-check-input" type="checkbox"
+                                            {{ $course->featured == 1 ? 'checked' : '' }} value="1" id="featured"
                                             name="featured">
                                         <label class="form-check-label" for="featured">
                                             Featured
@@ -323,7 +309,7 @@
                                 <div class="col-md-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="1" id="highestrated"
-                                            name="highestrated">
+                                            name="highestrated" {{ $course->highestrated == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label" for="highestrated">
                                             Highest Rated
                                         </label>
