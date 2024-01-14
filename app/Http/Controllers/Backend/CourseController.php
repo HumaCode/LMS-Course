@@ -151,4 +151,15 @@ class CourseController extends Controller
 
         return redirect()->route('all.course')->with($notification);
     }
+
+    public function editCourse($slug)
+    {
+        $title          = 'Edit Course';
+        $subtitle       = 'edit Course';
+        $course         = Course::where('course_name_slug', $slug)->first();
+        $categories     = Category::get();
+        $subcategories  = SubCategory::get();
+
+        return view('instructor.courses.edit_course', compact('title', 'subtitle', 'course', 'categories', 'subcategories'));
+    }
 }
