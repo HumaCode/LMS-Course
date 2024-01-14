@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Course_goal;
 use App\Models\SubCategory;
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use PHPUnit\Framework\Constraint\Count;
 
 class CourseController extends Controller
 {
@@ -68,7 +72,7 @@ class CourseController extends Controller
         ]);
 
         // course image
-        $images = $request->file($attr['course_image']);
+        $images = $request->file('course_image');
         $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
 
         $manager = new ImageManager(Driver::class);
@@ -80,10 +84,71 @@ class CourseController extends Controller
         $save_url = 'upload/course_asset/thumbnail/' . $name_gen;
 
         // course video
-        $video = $request->file($attr['video']);
+        $video = $request->file('video');
         $video_name = time() . '.' . $video->getClientOriginalExtension();
 
         $video->move(public_path('upload/course_asset/video'), $video_name);
         $save_video = 'upload/course_asset/thumbnail/' . $video_name;
+
+        try {
+            DB::beginTransaction();
+
+            $course_id = Course::insertGetId([
+                'category_id'       => $attr['category_id'],
+                'subcategory_id'    => $attr['subcategory_id'],
+                'subcategory_id'    => $attr['subcategory_id'],
+                'instructor_id'     => Auth::user()->id,
+                'course_title'      => $attr['course_name'],
+                'course_name_slug'  => $attr['course_name_slug'],
+                'description'       => $attr['description'],
+                'video'             => $save_video,
+
+                'label'             => $attr['label'],
+                'duration'          => $attr['duration'],
+                'resources'         => $attr['resources'],
+                'certificate'       => $attr['certificate'],
+                'selling_price'     => $attr['selling_price'],
+                'discount_price'    => $attr['discount_price'],
+                'prerequisites'     => $attr['prerequisites'],
+
+                'bestseller'        => $request->bestseller,
+                'featured'          => $request->featured,
+                'highestrated'      => $request->highestrated,
+                'status'            => 1,
+                'course_image'      => $save_url,
+                'created_at'        => Carbon::now(),
+                // 'updated_at'        => Carbon::now(),
+            ]);
+
+
+            // goals
+            $goals = count($request->course_goals);
+            if ($goals > 0) {
+                for ($i = 0; $i < $goals; $i++) {
+                    $goal_name = $request->course_goals[$i];
+
+                    // Check apakah $goal_name tidak kosong sebelum menyimpan
+                    if (!empty($goal_name)) {
+                        $g = new Course_goal();
+                        $g->course_id = $course_id;
+                        $g->goal_name = $request->course_goals[$i];
+                        $g->save(); // Simpan ke database jika diperlukan
+                    }
+                }
+            }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            throw $th;
+        }
+
+        $notification = [
+            'message'       => 'Course Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.course')->with($notification);
     }
 }

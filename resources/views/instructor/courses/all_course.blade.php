@@ -59,9 +59,9 @@
                                     <td class="text-center">{{ $key + 1 }}</td>
                                     <td class="text-center">
                                         <img src="{{ !empty($item->course_image) ? url($item->course_image) : url('upload/no_image.jpg') }}"
-                                            alt="{{ $item->course_name_slug }}" width="20%" srcset="">
+                                            alt="{{ $item->course_name_slug }}" width="80%" srcset="">
                                     </td>
-                                    <td class="text-center">{{ $item->course_name }}</td>
+                                    <td class="text-center">{{ $item->course_title }}</td>
                                     <td class="text-center">{{ $item->category_id }}</td>
                                     <td class="text-center">{{ $item->selling_price }}</td>
                                     <td class="text-center">{{ $item->discount_price }}</td>
