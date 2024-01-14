@@ -47,7 +47,7 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.category') }}"
+                        <form id="myForm" method="POST" action="{{ route('store.course') }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
 
@@ -55,16 +55,24 @@
                                 <div class="form-group">
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="course_name" id="course_name"
-                                        placeholder="Course Name">
+                                    <input type="text" class="form-control @error('course_name') is-invalid @enderror"
+                                        name="course_name" id="course_name" placeholder="Course Name">
+                                    @error('course_name')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="course_name_slug" class="form-label">Course Slug <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control cst" name="course_name_slug"
-                                        id="course_name_slug" placeholder="Auto-fill" readonly>
+                                    <input type="text"
+                                        class="form-control cst @error('course_name_slug') is-invalid @enderror"
+                                        name="course_name_slug" id="course_name_slug" placeholder="Auto-fill" readonly>
+                                    @error('course_name_slug')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -73,7 +81,7 @@
                                     <label for="category_id" class="form-label">Course Category <span
                                             class="text-danger">*</span></label>
                                     <select id="category_id" name="category_id"
-                                        class="form-select @error('category_id') is-invalid @enderror" required>
+                                        class="form-select @error('category_id') is-invalid @enderror">
                                         <option selected disabled>Choose...</option>
 
                                         @foreach ($categories as $item)
@@ -81,9 +89,9 @@
                                         @endforeach
 
                                     </select>
-                                    {{-- @error('category_id')
+                                    @error('category_id')
                                         <span class="text-danger mt-2">{{ $message }}</span>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                             </div>
 
@@ -91,11 +99,16 @@
                                 <div class="form-group">
                                     <label for="subcategory_id" class="form-label">Course Sub Category <span
                                             class="text-danger">*</span></label>
-                                    <select id="subcategory_id" name="subcategory_id" class="form-select " required>
+                                    <select id="subcategory_id" name="subcategory_id"
+                                        class="form-select @error('subcategory_id') is-invalid @enderror">
 
                                         <option></option>
 
                                     </select>
+
+                                    @error('subcategory_id')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -104,8 +117,12 @@
                                 <div class="form-group">
                                     <label for="course_image" class="form-label">Course Image <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="file" name="image" id="image"
-                                        accept=".jpg,.jpeg,.png">
+                                    <input class="form-control @error('course_image') is-invalid @enderror" type="file"
+                                        name="course_image" id="image" accept=".jpg,.jpeg,.png">
+
+                                    @error('course_image')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -120,20 +137,28 @@
                                 <div class="form-group">
                                     <label for="video" class="form-label">Video Course Intro <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="file" name="video" id="video">
+                                    <input class="form-control @error('video') is-invalid @enderror" type="file"
+                                        name="video" id="video" accept=".mp4">
+                                    @error('video')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="certificate" class="form-label">Certificate Available </label>
-                                    <select id="certificate" name="certificate" class="form-select ">
+                                    <select id="certificate" name="certificate"
+                                        class="form-select @error('certificate') is-invalid @enderror">
                                         <option selected disabled>Choose...</option>
 
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
 
                                     </select>
+                                    @error('certificate')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -142,7 +167,8 @@
                                 <div class="form-group">
                                     <label for="label" class="form-label">Label <span
                                             class="text-danger">*</span></label>
-                                    <select id="label" name="label" class="form-select ">
+                                    <select id="label" name="label"
+                                        class="form-select @error('label') is-invalid @enderror ">
                                         <option selected disabled>Choose...</option>
 
                                         <option value="Beginner">Beginner</option>
@@ -151,6 +177,10 @@
 
                                     </select>
 
+                                    @error('label')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
+
                                 </div>
                             </div>
 
@@ -158,15 +188,24 @@
                                 <div class="form-group">
                                     <label for="selling_price" class="form-label">Course Price<span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="selling_price" id="selling_price">
+                                    <input class="form-control @error('selling_price') is-invalid @enderror "
+                                        type="text" name="selling_price" id="selling_price"
+                                        placeholder="Selling Price">
+                                    @error('selling_price')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="discount_price" class="form-label">Discount Price</label>
-                                    <input class="form-control" type="text" name="discount_price"
-                                        id="discount_price">
+                                    <input class="form-control @error('discount_price') is-invalid @enderror"
+                                        type="text" name="discount_price" id="discount_price"
+                                        placeholder="Discount Price">
+                                    @error('discount_price')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -174,7 +213,11 @@
                                 <div class="form-group">
                                     <label for="duration" class="form-label">Duration <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="duration" id="duration">
+                                    <input class="form-control @error('duration') is-invalid @enderror" type="text"
+                                        name="duration" id="duration" placeholder="Duration">
+                                    @error('duration')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -182,21 +225,33 @@
                                 <div class="form-group">
                                     <label for="resources" class="form-label">Resources <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="resources" id="resources">
+                                    <input class="form-control @error('resources') is-invalid @enderror" type="text"
+                                        name="resources" id="resources" placeholder="Resources">
+                                    @error('resources')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="prerequisites" class="form-label">Course Prerequisites</label>
-                                    <textarea class="form-control name="prerequisites" id="prerequisites" rows="3"></textarea>
+                                    <textarea class="form-control @error('prerequisites') is-invalid @enderror" name="prerequisites" id="prerequisites"
+                                        placeholder="Prerequisites..." rows="3"></textarea>
+                                    @error('prerequisites')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description" class="form-label">Course Description</label>
-                                    <textarea class="form-control name="description" id="myeditorinstance" rows="3"></textarea>
+                                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="myeditorinstance"
+                                        rows="3" placeholder="Description"></textarea>
+                                    @error('description')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -208,7 +263,7 @@
                                     <div class="mb-3">
                                         <label for="goals" class="form-label"> Goals </label>
                                         <input type="text" name="course_goals[]" id="goals" class="form-control"
-                                            placeholder="Goals ">
+                                            placeholder="Goals">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6" style="padding-top: 30px;">
@@ -257,7 +312,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="2" id="featured"
+                                        <input class="form-check-input" type="checkbox" value="1" id="featured"
                                             name="featured">
                                         <label class="form-check-label" for="featured">
                                             Featured
@@ -267,7 +322,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="3" id="highestrated"
+                                        <input class="form-check-input" type="checkbox" value="1" id="highestrated"
                                             name="highestrated">
                                         <label class="form-check-label" for="highestrated">
                                             Highest Rated
@@ -358,10 +413,40 @@
         $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
-                    category_name: {
+                    course_name: {
                         required: true,
                     },
-                    category_slug: {
+                    course_name_slug: {
+                        required: true,
+                    },
+                    category_id: {
+                        required: true,
+                    },
+                    subcategory_id: {
+                        required: true,
+                    },
+                    certificate: {
+                        required: true,
+                    },
+                    label: {
+                        required: true,
+                    },
+                    selling_price: {
+                        required: true,
+                    },
+                    discount_price: {
+                        required: true,
+                    },
+                    duration: {
+                        required: true,
+                    },
+                    resources: {
+                        required: true,
+                    },
+                    prerequisites: {
+                        required: true,
+                    },
+                    description: {
                         required: true,
                     },
                     image: {
@@ -370,14 +455,44 @@
 
                 },
                 messages: {
-                    category_name: {
-                        required: 'Please Enter Category Name',
+                    course_name: {
+                        required: 'Please Enter Course Name',
                     },
-                    category_slug: {
-                        required: 'Please Enter Category Slug',
+                    course_name_slug: {
+                        required: 'Please Enter Course Name Slug',
+                    },
+                    category_id: {
+                        required: 'Please Choose Course Category',
+                    },
+                    category_id: {
+                        required: 'Please Choose Course Subcategory',
+                    },
+                    certificate: {
+                        required: 'Please Choose Course Sertificate',
+                    },
+                    label: {
+                        required: 'Please Choose Course Label',
+                    },
+                    selling_price: {
+                        required: 'Please Enter Selling Price',
+                    },
+                    discount_price: {
+                        required: 'Please Enter Discount Price',
+                    },
+                    duration: {
+                        required: 'Please Enter Duration',
+                    },
+                    resources: {
+                        required: 'Please Enter Resources',
+                    },
+                    prerequisites: {
+                        required: 'Please Enter Prerequisites',
+                    },
+                    description: {
+                        required: 'Please Enter Description',
                     },
                     image: {
-                        required: 'Please Select Category Image',
+                        required: 'Please Select Course Image',
                     },
 
                 },

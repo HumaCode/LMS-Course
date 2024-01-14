@@ -90,7 +90,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // instructor  manage
     Route::controller(AdminController::class)->group(function () {
         Route::get('/all/instructor', 'allInstructor')->name('all.instructor');
-        Route::post('/update/user/stauts', 'updateUserStauts')->name('update.user.stauts');        
+        Route::post('/update/user/stauts', 'updateUserStauts')->name('update.user.stauts');
     });
 }); // end admin group middleware
 
@@ -121,6 +121,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(CourseController::class)->group(function () {
         Route::get('/all/course', 'allCourse')->name('all.course');
         Route::get('/add/course', 'addCourse')->name('add.course');
+        Route::post('/store/course', 'storeCourse')->name('store.course');
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
     });
