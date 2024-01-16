@@ -68,7 +68,7 @@
                                     <td class="text-center">
                                         <a href="{{ route('edit.course', $item->course_name_slug) }}"
                                             class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $item->course_name_slug) }}"
+                                        <a href="{{ route('delete.course', $item->course_name_slug) }}"
                                             class="btn btn-danger px-5" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>

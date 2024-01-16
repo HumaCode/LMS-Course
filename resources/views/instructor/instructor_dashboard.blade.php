@@ -79,6 +79,14 @@
         new PerfectScrollbar(".app-container")
     </script>
 
+    {{-- plugin --}}
+    <script src="{{ asset('backend') }}/assets/js/validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    {{-- my js --}}
+    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+
     @stack('script')
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

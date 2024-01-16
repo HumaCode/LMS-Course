@@ -127,10 +127,10 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::post('/update/course/image', 'updateCourseImage')->name('update.course.image');
         Route::post('/update/course/video', 'updateCourseVideo')->name('update.course.video');
         Route::post('/update/course/goal', 'updateCourseGoal')->name('update.course.goal');
-        
+        Route::get('/delete/course/{slug}', 'deleteCourse')->name('delete.course');
+
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
-        
     });
 
     // logout

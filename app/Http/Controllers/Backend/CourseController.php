@@ -183,7 +183,7 @@ class CourseController extends Controller
 
         $id = $request->id;
 
-         Course::find($id)->update([
+        Course::find($id)->update([
             'category_id'       => $attr['category_id'],
             'subcategory_id'    => $attr['subcategory_id'],
             'subcategory_id'    => $attr['subcategory_id'],
@@ -255,7 +255,7 @@ class CourseController extends Controller
 
         return redirect()->route('all.course')->with($notification);
     }
-    
+
     public function updateCourseVideo(Request $request)
     {
         $attr = $request->validate([
@@ -295,7 +295,7 @@ class CourseController extends Controller
 
         if ($request->course_goals == NULL) {
             return redirect()->back();
-        }else{
+        } else {
             Course_goal::where('course_id', $id)->delete();
 
             $goals = count($request->course_goals);
@@ -317,8 +317,31 @@ class CourseController extends Controller
                 'message'       => 'Course Updated Goals Successfully',
                 'alert-type'    => 'success',
             ];
-    
+
             return redirect()->route('all.course')->with($notification);
         }
+    }
+
+    public function deleteCourse($slug)
+    {
+        $course   = Course::where('course_name_slug', $slug)->first();
+
+        unlink($course->course_image);
+        unlink($course->video);
+
+        Course::find($course->id)->delete();
+
+        $goalData = Course_goal::where('course_id', $course->id)->get();
+        foreach ($goalData as $item) {
+            $item->goal_name;
+            Course_goal::where('course_id', $course->id)->delete();
+        }
+
+        $notification = [
+            'message'       => 'Course Delete Goals Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.course')->with($notification);
     }
 }
