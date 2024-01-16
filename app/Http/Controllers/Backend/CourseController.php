@@ -157,10 +157,11 @@ class CourseController extends Controller
         $title          = 'Edit Course';
         $subtitle       = 'edit Course';
         $course         = Course::where('course_name_slug', $slug)->first();
+        $goals          = Course_goal::where('course_id', $course->id)->get();
         $categories     = Category::get();
         $subcategories  = SubCategory::get();
 
-        return view('instructor.courses.edit_course', compact('title', 'subtitle', 'course', 'categories', 'subcategories'));
+        return view('instructor.courses.edit_course', compact('title', 'subtitle', 'course', 'categories', 'subcategories', 'goals'));
     }
 
     public function updateCourse(Request $request)
