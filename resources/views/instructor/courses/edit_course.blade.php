@@ -293,6 +293,53 @@
             </div>
         </div>
     </div>
+
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{{ route('update.course.image') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <input type="hidden" name="id" value="{{ $course->id }}">
+                    <input type="hidden" name="old_image" value="{{ $course->course_image }}">
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="course_image" class="form-label">Course Image <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control @error('course_image') is-invalid @enderror" type="file"
+                                    name="course_image" id="image" accept=".jpg,.jpeg,.png">
+
+                                @error('course_image')
+                                    <span class="text-danger mt-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <img id="showImage" src="{{ asset($course->course_image) }}" alt="Admin"
+                                class="p-1 bg-primary" width="20%"> <br>
+                            <span class="text-danger">* Max file size is 2MB, Suitable files are jpg, png and
+                                jpeg.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="d-md-flex d-grid align-items-center gap-3">
+                            <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
+                                    class="bx bx-save"></i>Update Image</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 

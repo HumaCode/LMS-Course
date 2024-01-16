@@ -216,4 +216,42 @@ class CourseController extends Controller
 
         return redirect()->route('all.course')->with($notification);
     }
+
+    public function updateCourseImage(Request $request)
+    {
+        $attr = $request->validate([
+            'course_image'          => 'required|image|mimes:jpeg,png,jpg|max:2000',
+        ]);
+
+        $id = $request->id;
+        $oldImage = $request->old_image;
+
+        // course image
+        $images = $request->file('course_image');
+        $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
+
+        $manager = new ImageManager(Driver::class);
+        $image = $manager->read($images);
+
+        $image->resize(370, 246);
+        $image->save('upload/course_asset/thumbnail/' . $name_gen);
+
+        $save_url = 'upload/course_asset/thumbnail/' . $name_gen;
+
+        if (file_exists($oldImage)) {
+            unlink($oldImage);
+        }
+
+        Course::find($id)->update([
+            'course_image'  => $save_url,
+            'updated_at'    => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Course Updated Image Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.course')->with($notification);
+    }
 }
