@@ -88,7 +88,7 @@ class CourseController extends Controller
         $video_name = time() . '.' . $video->getClientOriginalExtension();
 
         $video->move(public_path('upload/course_asset/video'), $video_name);
-        $save_video = 'upload/course_asset/thumbnail/' . $video_name;
+        $save_video = 'upload/course_asset/video/' . $video_name;
 
         try {
             DB::beginTransaction();
@@ -249,6 +249,39 @@ class CourseController extends Controller
 
         $notification = [
             'message'       => 'Course Updated Image Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.course')->with($notification);
+    }
+    
+    public function updateCourseVideo(Request $request)
+    {
+        $attr = $request->validate([
+            'video'                 => 'required|mimes:mp4|max:10000'
+        ]);
+
+        $id = $request->id;
+        $oldVideo = $request->old_video;
+
+        // course video
+        $video = $request->file('video');
+        $video_name = time() . '.' . $video->getClientOriginalExtension();
+
+        $video->move(public_path('upload/course_asset/video'), $video_name);
+        $save_video = 'upload/course_asset/video/' . $video_name;
+
+        if (file_exists($oldVideo)) {
+            unlink($oldVideo);
+        }
+
+        Course::find($id)->update([
+            'video'         => $save_video,
+            'updated_at'    => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Course Updated Video Successfully',
             'alert-type'    => 'success',
         ];
 

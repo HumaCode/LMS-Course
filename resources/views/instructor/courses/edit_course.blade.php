@@ -340,6 +340,55 @@
             </div>
         </div>
     </div>
+
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{{ route('update.course.video') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <input type="hidden" name="id" value="{{ $course->id }}">
+                    <input type="hidden" name="old_video" value="{{ $course->video }}">
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="video" class="form-label">Course Intro Video <span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control @error('video') is-invalid @enderror" type="file"
+                                    name="video" id="video" accept=".mp4">
+
+                                @error('video')
+                                    <span class="text-danger mt-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <video width="320" height="140" controls>
+                                <source src="{{ asset($course->video) }}" type="video/mp4">
+                            </video>
+
+                            <br>
+                            <span class="text-danger">* Max video size is 20MB, Suitable files are mp4.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <div class="d-md-flex d-grid align-items-center gap-3">
+                            <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
+                                    class="bx bx-save"></i>Update Intro Video</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -388,107 +437,6 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#myForm').validate({
-                rules: {
-                    course_name: {
-                        required: true,
-                    },
-                    course_name_slug: {
-                        required: true,
-                    },
-                    category_id: {
-                        required: true,
-                    },
-                    subcategory_id: {
-                        required: true,
-                    },
-                    certificate: {
-                        required: true,
-                    },
-                    label: {
-                        required: true,
-                    },
-                    selling_price: {
-                        required: true,
-                    },
-                    discount_price: {
-                        required: true,
-                    },
-                    duration: {
-                        required: true,
-                    },
-                    resources: {
-                        required: true,
-                    },
-                    prerequisites: {
-                        required: true,
-                    },
-                    description: {
-                        required: true,
-                    },
-                    image: {
-                        required: true,
-                    },
-
-                },
-                messages: {
-                    course_name: {
-                        required: 'Please Enter Course Name',
-                    },
-                    course_name_slug: {
-                        required: 'Please Enter Course Name Slug',
-                    },
-                    category_id: {
-                        required: 'Please Choose Course Category',
-                    },
-                    category_id: {
-                        required: 'Please Choose Course Subcategory',
-                    },
-                    certificate: {
-                        required: 'Please Choose Course Sertificate',
-                    },
-                    label: {
-                        required: 'Please Choose Course Label',
-                    },
-                    selling_price: {
-                        required: 'Please Enter Selling Price',
-                    },
-                    discount_price: {
-                        required: 'Please Enter Discount Price',
-                    },
-                    duration: {
-                        required: 'Please Enter Duration',
-                    },
-                    resources: {
-                        required: 'Please Enter Resources',
-                    },
-                    prerequisites: {
-                        required: 'Please Enter Prerequisites',
-                    },
-                    description: {
-                        required: 'Please Enter Description',
-                    },
-                    image: {
-                        required: 'Please Select Course Image',
-                    },
-
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-            });
-        });
-
-
         // image picker
         $(document).ready(function() {
             $('#image').change(function(e) {

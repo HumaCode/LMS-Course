@@ -125,6 +125,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/edit/course/{slug}', 'editCourse')->name('edit.course');
         Route::post('/update/course', 'updateCourse')->name('update.course');
         Route::post('/update/course/image', 'updateCourseImage')->name('update.course.image');
+        Route::post('/update/course/video', 'updateCourseVideo')->name('update.course.video');
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
         
