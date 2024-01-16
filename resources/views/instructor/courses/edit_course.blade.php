@@ -47,9 +47,11 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.course') }}"
+                        <form id="myForm" method="POST" action="{{ route('update.course') }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{ $course->id }}">
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -173,8 +175,9 @@
                                 <div class="form-group">
                                     <label for="selling_price" class="form-label">Course Price<span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control @error('selling_price') is-invalid @enderror " type="text"
-                                        name="selling_price" id="selling_price" value="{{ $course->selling_price }}">
+                                    <input class="form-control @error('selling_price') is-invalid @enderror "
+                                        type="text" name="selling_price" id="selling_price"
+                                        value="{{ $course->selling_price }}">
                                     @error('selling_price')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -239,47 +242,6 @@
                                 </div>
                             </div>
 
-                            <p>Course Goals</p>
-
-                            <div class="row add_item">
-
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="goals" class="form-label"> Goals </label>
-                                        <input type="text" name="course_goals[]" id="goals" class="form-control"
-                                            placeholder="Goals">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6" style="padding-top: 30px;">
-                                    <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add
-                                        More..</a>
-                                </div>
-                            </div>
-
-                            <!--========== Start of add multiple class with ajax ==============-->
-                            <div style="visibility: hidden">
-                                <div class="whole_extra_item_add" id="whole_extra_item_add">
-                                    <div class="whole_extra_item_delete" id="whole_extra_item_delete">
-                                        <div class="container mt-2">
-                                            <div class="row rw-cs">
-
-
-                                                <div class="form-group col-md-6">
-                                                    <label for="goals">Goals</label>
-                                                    <input type="text" name="course_goals[]" id="goals"
-                                                        class="form-control" placeholder="Goals  ">
-                                                </div>
-                                                <div class="form-group col-md-6" style="padding-top: 20px">
-                                                    <span class="btn btn-success btn-sm addeventmore"><i
-                                                            class="fa fa-plus-circle">Add</i></span>
-                                                    <span class="btn btn-danger btn-sm removeeventmore"><i
-                                                            class="fa fa-minus-circle">Remove</i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <hr>
 
@@ -321,7 +283,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
-                                            class="bx bx-save"></i>Add Course</button>
+                                            class="bx bx-save"></i>Update Course</button>
                                 </div>
                             </div>
                         </form>
@@ -348,23 +310,6 @@
             }
         });
     </script>
-
-    <!----For Section-------->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var counter = 0;
-            $(document).on("click", ".addeventmore", function() {
-                var whole_extra_item_add = $("#whole_extra_item_add").html();
-                $(this).closest(".add_item").append(whole_extra_item_add);
-                counter++;
-            });
-            $(document).on("click", ".removeeventmore", function(event) {
-                $(this).closest("#whole_extra_item_delete").remove();
-                counter -= 1
-            });
-        });
-    </script>
-    <!--========== End of add multiple class with ajax ==============-->
 
     <script type="text/javascript">
         $(document).ready(function() {

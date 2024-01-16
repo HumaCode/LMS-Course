@@ -123,6 +123,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/add/course', 'addCourse')->name('add.course');
         Route::post('/store/course', 'storeCourse')->name('store.course');
         Route::get('/edit/course/{slug}', 'editCourse')->name('edit.course');
+        Route::post('/update/course', 'updateCourse')->name('update.course');
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
     });

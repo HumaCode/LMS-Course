@@ -162,4 +162,58 @@ class CourseController extends Controller
 
         return view('instructor.courses.edit_course', compact('title', 'subtitle', 'course', 'categories', 'subcategories'));
     }
+
+    public function updateCourse(Request $request)
+    {
+        $attr = $request->validate([
+            'course_name'           => 'required',
+            'course_name_slug'      => 'required|unique:courses,course_name_slug',
+            'category_id'           => 'required|exists:categories,id',
+            'subcategory_id'        => 'required|exists:sub_categories,id',
+            'certificate'           => 'required',
+            'label'                 => 'required',
+            'selling_price'         => 'required',
+            'discount_price'        => 'required',
+            'duration'              => 'required',
+            'resources'             => 'required',
+            'prerequisites'         => 'required',
+            'description'           => 'required',
+        ]);
+
+        $id = $request->id;
+
+         Course::find($id)->update([
+            'category_id'       => $attr['category_id'],
+            'subcategory_id'    => $attr['subcategory_id'],
+            'subcategory_id'    => $attr['subcategory_id'],
+            'instructor_id'     => Auth::user()->id,
+            'course_title'      => $attr['course_name'],
+            'course_name_slug'  => $attr['course_name_slug'],
+            'description'       => $attr['description'],
+
+            'label'             => $attr['label'],
+            'duration'          => $attr['duration'],
+            'resources'         => $attr['resources'],
+            'certificate'       => $attr['certificate'],
+            'selling_price'     => $attr['selling_price'],
+            'discount_price'    => $attr['discount_price'],
+            'prerequisites'     => $attr['prerequisites'],
+
+            'bestseller'        => $request->bestseller,
+            'featured'          => $request->featured,
+            'highestrated'      => $request->highestrated,
+            'status'            => 1,
+            // 'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+
+
+
+        $notification = [
+            'message'       => 'Course Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('all.course')->with($notification);
+    }
 }
