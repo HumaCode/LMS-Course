@@ -288,4 +288,37 @@ class CourseController extends Controller
 
         return redirect()->route('all.course')->with($notification);
     }
+
+    public function updateCourseGoal(Request $request)
+    {
+        $id = $request->id;
+
+        if ($request->course_goals == NULL) {
+            return redirect()->back();
+        }else{
+            Course_goal::where('course_id', $id)->delete();
+
+            $goals = count($request->course_goals);
+            if ($goals > 0) {
+                for ($i = 0; $i < $goals; $i++) {
+                    $goal_name = $request->course_goals[$i];
+
+                    // Check apakah $goal_name tidak kosong sebelum menyimpan
+                    if (!empty($goal_name)) {
+                        $g = new Course_goal();
+                        $g->course_id = $id;
+                        $g->goal_name = $request->course_goals[$i];
+                        $g->save(); // Simpan ke database jika diperlukan
+                    }
+                }
+            }
+
+            $notification = [
+                'message'       => 'Course Updated Goals Successfully',
+                'alert-type'    => 'success',
+            ];
+    
+            return redirect()->route('all.course')->with($notification);
+        }
+    }
 }

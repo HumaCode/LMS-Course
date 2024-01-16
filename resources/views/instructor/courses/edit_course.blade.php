@@ -397,11 +397,10 @@
         <div class="card">
             <div class="card-body">
 
-                <form action="{{ route('update.course.video') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update.course.goal') }}" method="POST">
                     @csrf
 
                     <input type="hidden" name="id" value="{{ $course->id }}">
-                    <input type="hidden" name="old_video" value="{{ $course->video }}">
 
 
                     @foreach ($goals as $item)
@@ -409,7 +408,7 @@
 
                             <div class="whole_extra_item_delete" id="whole_extra_item_delete">
                                 <div class="container mt-2">
-                                    <div class="row">
+                                    <div class="row rw-cs">
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -460,7 +459,7 @@
                     <div class="col-md-12 mt-3">
                         <div class="d-md-flex d-grid align-items-center gap-3">
                             <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
-                                    class="bx bx-save"></i>Update Intro Video</button>
+                                    class="bx bx-save"></i>Update Goals</button>
                         </div>
                     </div>
 
