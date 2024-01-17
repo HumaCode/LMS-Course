@@ -67,16 +67,18 @@
                                     <td class="text-center">{{ $item->discount_price }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('edit.course', $item->course_name_slug) }}"
-                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
+                                            class="btn btn-success px-3" title="edit"><i class="lni lni-eraser"></i></a>
                                         <a href="{{ route('delete.course', $item->course_name_slug) }}"
-                                            class="btn btn-danger px-5" id="delete"><i
-                                                class="bx bx-trash-alt"></i>Delete</a>
+                                            class="btn btn-danger px-3 " title="delete" id="delete"><i
+                                                class="lni lni-trash"></i></a>
+                                        <a href="{{ route('edit.course', $item->course_name_slug) }}"
+                                            class="btn btn-success px-3" title="lecture"><i class="lni lni-list"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
 
                         </tbody>
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th>Sl</th>
                                 <th>Image</th>
