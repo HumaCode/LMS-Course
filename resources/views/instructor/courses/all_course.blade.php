@@ -40,12 +40,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="category" class="table table-striped table-bordered" style="width:100%">
+                    <table id="course" class="table table-striped table-bordered">
                         <thead class="text-center">
                             <tr>
                                 <th>Sl</th>
                                 <th>Image</th>
-                                <th>Course Name</th>
+                                <th width="30px">Course Name</th>
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Discount</th>
@@ -71,8 +71,8 @@
                                         <a href="{{ route('delete.course', $item->course_name_slug) }}"
                                             class="btn btn-danger px-3 " title="delete" id="delete"><i
                                                 class="lni lni-trash"></i></a>
-                                        <a href="{{ route('edit.course', $item->course_name_slug) }}"
-                                            class="btn btn-success px-3" title="lecture"><i class="lni lni-list"></i></a>
+                                        <a href="{{ route('add.course.lecture', $item->id) }}"
+                                            class="btn btn-secondary px-3" title="lecture"><i class="lni lni-list"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,7 +82,7 @@
                             <tr>
                                 <th>Sl</th>
                                 <th>Image</th>
-                                <th>Course Name</th>
+                                <th width="30px">Course Name</th>
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Discount</th>
@@ -102,7 +102,7 @@
     <script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#category').DataTable();
+            $('#course').DataTable();
         });
     </script>
 @endpush

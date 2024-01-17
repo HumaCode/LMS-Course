@@ -56,6 +56,7 @@ class CourseController extends Controller
     {
         $attr = $request->validate([
             'course_name'           => 'required',
+            'course_title'          => 'required',
             'course_name_slug'      => 'required|unique:courses,course_name_slug',
             'category_id'           => 'required|exists:categories,id',
             'subcategory_id'        => 'required|exists:sub_categories,id',
@@ -98,7 +99,8 @@ class CourseController extends Controller
                 'subcategory_id'    => $attr['subcategory_id'],
                 'subcategory_id'    => $attr['subcategory_id'],
                 'instructor_id'     => Auth::user()->id,
-                'course_title'      => $attr['course_name'],
+                'course_name'       => $attr['course_name'],
+                'course_title'      => $attr['course_title'],
                 'course_name_slug'  => $attr['course_name_slug'],
                 'description'       => $attr['description'],
                 'video'             => $save_video,
@@ -343,5 +345,14 @@ class CourseController extends Controller
         ];
 
         return redirect()->route('all.course')->with($notification);
+    }
+
+    public function addCourseLecture($id)
+    {
+        $course = Course::find($id); 
+        $title      = 'Add Course Lecture';
+        $subtitle   = 'add course lecture';
+
+        return view('instructor.courses.section.add_course_lecture', compact('course', 'title', 'subtitle'));
     }
 }

@@ -51,7 +51,7 @@
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="course_name_slug" class="form-label">Course Slug <span
                                             class="text-danger">*</span></label>
@@ -71,6 +71,18 @@
                                         class="form-control cst @error('course_name_slug') is-invalid @enderror"
                                         name="course_name_slug" id="course_name_slug" placeholder="Auto-fill" readonly>
                                     @error('course_name_slug')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="course_title" class="form-label">Course Title <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('course_title') is-invalid @enderror"
+                                        name="course_title" id="course_title" placeholder="Course Title">
+                                    @error('course_title')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -416,6 +428,9 @@
                     course_name: {
                         required: true,
                     },
+                    course_title: {
+                        required: true,
+                    },
                     course_name_slug: {
                         required: true,
                     },
@@ -457,6 +472,9 @@
                 messages: {
                     course_name: {
                         required: 'Please Enter Course Name',
+                    },
+                    course_title: {
+                        required: 'Please Enter Course Title',
                     },
                     course_name_slug: {
                         required: 'Please Enter Course Name Slug',

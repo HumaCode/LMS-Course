@@ -132,6 +132,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
     });
+    
+    // courses section & lecture manage
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('/all/course/lecture/{id}', 'addCourseLecture')->name('add.course.lecture');
+    });
 
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');

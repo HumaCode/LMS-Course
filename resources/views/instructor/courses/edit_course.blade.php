@@ -53,7 +53,7 @@
 
                             <input type="hidden" name="id" value="{{ $course->id }}">
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="course_name_slug" class="form-label">Course Slug <span
                                             class="text-danger">*</span></label>
@@ -74,6 +74,19 @@
                                         name="course_name_slug" id="course_name_slug" placeholder="Auto-fill"
                                         value="{{ $course->course_name_slug }}" readonly>
                                     @error('course_name_slug')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="course_title" class="form-label">Course Title <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('course_title') is-invalid @enderror"
+                                        name="course_title" id="course_title" placeholder="Course Title"
+                                        value="{{ $course->course_title }}">
+                                    @error('course_title')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -159,7 +172,8 @@
                                             Beginner</option>
                                         <option value="Middle" {{ $course->label == 'Middle' ? 'selected' : '' }}>Middle
                                         </option>
-                                        <option value="Advance" {{ $course->label == 'Advance' ? 'selected' : '' }}>Advance
+                                        <option value="Advance" {{ $course->label == 'Advance' ? 'selected' : '' }}>
+                                            Advance
                                         </option>
 
                                     </select>
