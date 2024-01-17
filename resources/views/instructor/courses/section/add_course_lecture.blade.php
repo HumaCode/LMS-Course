@@ -41,10 +41,56 @@
                     <div class="flex-grow-1 ms-3">
                         <h5 class="mt-0">{{ $course->course_name }}</h5>
                         <p class="mb-0">{{ $course->course_title }}</p>
+
+                        <hr>
+                        <button type="button" class="btn btn-primary mt-2 tbl-custom" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"><i class="bx bx-plus"></i>Add Section</button>
                     </div>
                 </div>
             </div>
         </div>
 
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Section</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{ route('add.course.section') }}" method="POST">
+                    @csrf
+
+                    <input type="hidden" name="id" value="{{ $course->id }}">
+
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="section_title" class="form-label">Course Section <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('section_title') is-invalid @enderror"
+                                    name="section_title" id="section_title" placeholder="Course Section" required>
+                                @error('section_title')
+                                    <span class="text-danger mt-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger tbl-custom" data-bs-dismiss="modal"><i
+                                class="lni lni-ban"></i>Close</button>
+                        <button type="submit" class="btn btn-primary tbl-custom"> <i class="lni lni-save"></i> Add</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
     </div>
 @endsection
