@@ -64,10 +64,32 @@
                                         <button type="submit" class="btn btn-danger "> <i class="lni lni-trash"></i>Delete
                                             Section</button> &nbsp;
 
-                                        <a href="" class="btn btn-primary"><i class="bx bx-plus"></i>Add Lecture</a>
+                                        <a href=""
+                                            onclick="addLectureDiv({{ $course->id }}, {{ $item->id }}, 'lectureContainer{{ $key }}')"
+                                            id="addLectureBtn($key)" class="btn btn-primary"><i class="bx bx-plus"></i>Add
+                                            Lecture</a>
                                     </div>
 
                                 </div>
+
+
+                                <div class="courseHide" id="lectureContainer{{ $key }}">
+                                    <div class="container">
+                                        <div class="lectureDiv mb-3 d-flex align-items-center justify-content-between">
+                                            <div class="">
+                                                <strong>Lecture Title</strong>
+                                            </div>
+
+                                            <div class="btn-group">
+                                                <a href="" class="btn btn-sm btn-primary">Edit</a> &nbsp;
+                                                <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -119,3 +141,20 @@
         </div>
     </div>
 @endsection
+
+
+@push('script')
+    <script>
+        function addLectureDiv(courseId, sectionId, containerId) {
+            const lectureContainer = document.getElementById(containerId);
+
+            const newLectureDiv = document.createElement('div');
+            newLectureDiv.classList.add('lectureDiv', 'mb-3');
+
+            newLectureDiv.innerHTML = `
+                
+            `;
+
+        }
+    </script>
+@endpush
