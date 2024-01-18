@@ -350,11 +350,12 @@ class CourseController extends Controller
 
     public function addCourseLecture($id)
     {
-        $course = Course::find($id); 
         $title      = 'Add Course Lecture';
         $subtitle   = 'add course lecture';
+        $course     = Course::find($id); 
+        $section    = CourseSection::where('course_id', $id)->orderBy('id', 'asc')->get(); 
 
-        return view('instructor.courses.section.add_course_lecture', compact('course', 'title', 'subtitle'));
+        return view('instructor.courses.section.add_course_lecture', compact('course', 'title', 'subtitle', 'section'));
     }
     
     public function addCourseSection(Request $request)
