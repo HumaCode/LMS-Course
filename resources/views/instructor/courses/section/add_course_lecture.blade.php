@@ -162,19 +162,50 @@
                 <input type="text" name="url" class="form-control" placeholder="Add URL">
 
 
-                <button class="btn btn-primary mt-3 btn-sm" onclick="">Save Lecture</button>
+                <button class="btn btn-primary mt-3 btn-sm" onclick="saveLecture('${courseId}', '${sectionId}', ${containerId})">Save Lecture</button>
                 <button class="btn btn-secondary mt-3 btn-sm" onclick="hideLectureContainer('${containerId}')">Cancle</button>
             </div>
             `;
 
             lectureContainer.appendChild(newLectureDiv);
 
-            function hideLectureContainer(containerId) {
-                const lectureContainer = document.getElementById(containerId);
-                lectureContainer.style.display = 'none';
-                location.reload();
-            }
+        }
 
+        function hideLectureContainer(containerId) {
+            const lectureContainer = document.getElementById(containerId);
+            lectureContainer.style.display = 'none';
+            location.reload();
+        }
+    </script>
+
+    <script>
+        function saveLecture(courseId, sectionId, containerId) {
+            const lectureContainer = document.getElementById(containerId);
+            const lectureTitle = lectureContainer.querySelector('input[type="text"]').value;
+            const lectureContent = lectureContainer.querySelector('textarea').value;
+            const lectureUrl = lectureContainer.querySelector('input[name="url"]').value;
+
+            fetch('/save-lecture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({
+                        course_id: courseId,
+                        section_id: sectionId,
+                        lecture_title: lectureTitle,
+                        lecture_url: lectureUrl,
+                        content: lectureContent,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            })
         }
     </script>
 @endpush
