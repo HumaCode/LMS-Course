@@ -64,8 +64,7 @@
                                         <button type="submit" class="btn btn-danger "> <i class="lni lni-trash"></i>Delete
                                             Section</button> &nbsp;
 
-                                        <a href=""
-                                            onclick="addLectureDiv({{ $course->id }}, {{ $item->id }}, 'lectureContainer{{ $key }}')"
+                                        <a onclick="addLectureDiv({{ $course->id }}, {{ $item->id }}, 'lectureContainer{{ $key }}')"
                                             id="addLectureBtn($key)" class="btn btn-primary"><i class="bx bx-plus"></i>Add
                                             Lecture</a>
                                     </div>
@@ -143,6 +142,7 @@
 @endsection
 
 
+
 @push('script')
     <script>
         function addLectureDiv(courseId, sectionId, containerId) {
@@ -152,8 +152,22 @@
             newLectureDiv.classList.add('lectureDiv', 'mb-3');
 
             newLectureDiv.innerHTML = `
-                
+            <div class="container">
+                <h6>Lecture Title</h6>
+                <input type="text" class="form-control" placeholder="Enter Lecture Title">
+                <textarea name="" id="" class="form-control mt-2" cols="" rows="3"
+                    placeholder="Enter Lecture Content"></textarea>
+
+                <h6 class="mt-3">Add Video Url</h6>
+                <input type="text" name="url" class="form-control" placeholder="Add URL">
+
+
+                <button class="btn btn-primary mt-3 btn-sm" onclick="">Save Lecture</button>
+                <button class="btn btn-secondary mt-3 btn-sm" onclick="">Cancle</button>
+            </div>
             `;
+
+            lectureContainer.appendChild(newLectureDiv);
 
         }
     </script>
