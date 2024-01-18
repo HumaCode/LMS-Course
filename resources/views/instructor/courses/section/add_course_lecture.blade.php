@@ -163,11 +163,17 @@
 
 
                 <button class="btn btn-primary mt-3 btn-sm" onclick="">Save Lecture</button>
-                <button class="btn btn-secondary mt-3 btn-sm" onclick="">Cancle</button>
+                <button class="btn btn-secondary mt-3 btn-sm" onclick="hideLectureContainer('${containerId}')">Cancle</button>
             </div>
             `;
 
             lectureContainer.appendChild(newLectureDiv);
+
+            function hideLectureContainer(containerId) {
+                const lectureContainer = document.getElementById(containerId);
+                lectureContainer.style.display = 'none';
+                location.reload();
+            }
 
         }
     </script>
