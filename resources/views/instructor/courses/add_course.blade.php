@@ -56,7 +56,8 @@
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('course_name') is-invalid @enderror"
-                                        name="course_name" id="course_name" placeholder="Course Name">
+                                        name="course_name" id="course_name" placeholder="Course Name"
+                                        value="{{ old('course_name') }}">
                                     @error('course_name')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -69,7 +70,8 @@
                                             class="text-danger">*</span></label>
                                     <input type="text"
                                         class="form-control cst @error('course_name_slug') is-invalid @enderror"
-                                        name="course_name_slug" id="course_name_slug" placeholder="Auto-fill" readonly>
+                                        name="course_name_slug" id="course_name_slug" placeholder="Auto-fill" readonly
+                                        value="{{ old('course_name_slug') }}">
                                     @error('course_name_slug')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -81,7 +83,8 @@
                                     <label for="course_title" class="form-label">Course Title <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('course_title') is-invalid @enderror"
-                                        name="course_title" id="course_title" placeholder="Course Title">
+                                        name="course_title" id="course_title" placeholder="Course Title"
+                                        value="{{ old('course_title') }}">
                                     @error('course_title')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -139,7 +142,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
+                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Image"
                                     class="p-1 bg-primary" width="20%"> <br>
                                 <span class="text-danger">* Max file size is 2MB, Suitable files are jpg, png and
                                     jpeg.</span>
@@ -202,7 +205,7 @@
                                             class="text-danger">*</span></label>
                                     <input class="form-control @error('selling_price') is-invalid @enderror "
                                         type="text" name="selling_price" id="selling_price"
-                                        placeholder="Selling Price">
+                                        placeholder="Selling Price" value="{{ old('selling_price') }}">
                                     @error('selling_price')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -214,7 +217,7 @@
                                     <label for="discount_price" class="form-label">Discount Price</label>
                                     <input class="form-control @error('discount_price') is-invalid @enderror"
                                         type="text" name="discount_price" id="discount_price"
-                                        placeholder="Discount Price">
+                                        placeholder="Discount Price" value="{{ old('discount_price') }}">
                                     @error('discount_price')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -226,7 +229,8 @@
                                     <label for="duration" class="form-label">Duration <span
                                             class="text-danger">*</span></label>
                                     <input class="form-control @error('duration') is-invalid @enderror" type="text"
-                                        name="duration" id="duration" placeholder="Duration">
+                                        name="duration" id="duration" placeholder="Duration"
+                                        value="{{ old('duration') }}">
                                     @error('duration')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -238,7 +242,8 @@
                                     <label for="resources" class="form-label">Resources <span
                                             class="text-danger">*</span></label>
                                     <input class="form-control @error('resources') is-invalid @enderror" type="text"
-                                        name="resources" id="resources" placeholder="Resources">
+                                        name="resources" id="resources" placeholder="Resources"
+                                        value="{{ old('resources') }}">
                                     @error('resources')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
