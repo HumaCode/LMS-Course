@@ -137,6 +137,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(CourseController::class)->group(function () {
         Route::get('/add/course/lecture/{id}', 'addCourseLecture')->name('add.course.lecture');
         Route::post('/all/course/section', 'addCourseSection')->name('add.course.section');
+        Route::post('/save-lecture/', 'saveLecture')->name('save-lecture');
     });
 
     // logout
