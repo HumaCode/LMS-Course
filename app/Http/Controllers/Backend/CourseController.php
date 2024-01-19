@@ -121,7 +121,7 @@ class CourseController extends Controller
                 'status'            => 1,
                 'course_image'      => $save_url,
                 'created_at'        => Carbon::now(),
-                // 'updated_at'        => Carbon::now(),
+                'updated_at'        => Carbon::now(),
             ]);
 
 

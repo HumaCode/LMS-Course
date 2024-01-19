@@ -31,12 +31,14 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer('frontend.home.course-area', function ($view) {
             $courses = Course::with('user')->where('status', 1)->orderBy('id', 'ASC')->limit(6)->get(); // Misalnya, Anda ingin mengambil data user saat ini
+            $courseData = Course::with('user')->get(); // Misalnya, Anda ingin mengambil data user saat ini
             $categories = Category::orderBy('category_name', 'ASC')->get(); // Misalnya, Anda ingin mengambil data user saat ini
 
 
             $view->with([
                 'courses' => $courses,
                 'categories' => $categories,
+                'courseData' => $courseData,
             ]);
         });
     }
