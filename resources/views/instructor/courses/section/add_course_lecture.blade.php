@@ -80,25 +80,26 @@
 
                                         <div class="courseHide" id="lectureContainer{{ $key }}">
                                             <div class="container">
-                                                <div
-                                                    class="lectureDiv mb-3 d-flex align-items-center justify-content-between">
-                                                    <div>
-                                                        <strong> Title</strong>
-                                                    </div>
 
-                                                    <div class="btn-group">
-                                                        <a href="" class="btn btn-sm btn-primary">Edit</a> &nbsp;
-                                                        <a href="" class="btn btn-sm btn-danger"
-                                                            id="delete">Delete</a>
+                                                @foreach ($item->lectures as $lecture)
+                                                    <div
+                                                        class="lectureDiv mb-3 d-flex align-items-center justify-content-between">
+                                                        <div>
+                                                            <strong> {{ $loop->iteration }}.
+                                                                {{ $lecture->lecture_title }}</strong>
+                                                        </div>
 
+                                                        <div class="btn-group">
+                                                            <a href="" class="btn btn-sm btn-primary">Edit</a> &nbsp;
+                                                            <a href="" class="btn btn-sm btn-danger"
+                                                                id="delete">Delete</a>
+
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
 
                                             </div>
                                         </div>
-
-
-
 
 
 
@@ -151,9 +152,9 @@
             </div>
         </div>
     </div>
+@endsection
 
-
-
+@push('script')
     <script>
         function addLectureDiv(courseId, sectionId, containerId) {
             const lectureContainer = document.getElementById(containerId);
@@ -162,18 +163,18 @@
             newLectureDiv.classList.add('lectureDiv', 'mb-3');
 
             newLectureDiv.innerHTML = `
-        <div class="container">
-    <h6>Lecture Title </h6>
-    <input type="text" class="form-control" placeholder="Enter Lecture Title">
-    <textarea class="form-control mt-2" placeholder="Enter Lecture Content"  ></textarea>
+            <div class="container">
+                <h6>Lecture Title </h6>
+                <input type="text" class="form-control" placeholder="Enter Lecture Title">
+                <textarea class="form-control mt-2" placeholder="Enter Lecture Content"  ></textarea>
 
-    <h6 class="mt-3">Add Video Url</h6>
-    <input type="text" name="url" class="form-control" placeholder="Add URL">
+                <h6 class="mt-3">Add Video Url</h6>
+                <input type="text" name="url" class="form-control" placeholder="Add URL">
 
-    <button class="btn btn-primary mt-3" onclick="saveLecture('${courseId}',${sectionId},'${containerId}')" >Save Lecture</button>
-    <button class="btn btn-secondary mt-3" onclick="hideLectureContainer('${containerId}')">Cancel</button>
-</div> 
-     `;
+                <button class="btn btn-primary mt-3" onclick="saveLecture('${courseId}',${sectionId},'${containerId}')" >Save Lecture</button>
+                <button class="btn btn-secondary mt-3" onclick="hideLectureContainer('${containerId}')">Cancel</button>
+            </div> 
+            `;
 
             lectureContainer.appendChild(newLectureDiv);
 
@@ -249,4 +250,4 @@
                 });
         }
     </script>
-@endsection
+@endpush
