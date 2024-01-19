@@ -141,6 +141,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/edit/lecture/{id}', 'editLecture')->name('edit.lecture');
         Route::post('/update/course/lecture', 'updateCourseLecture')->name('update.course.lecture');
         Route::get('/delete/lecture/{id}', 'deleteLecture')->name('delete.lecture');
+        Route::post('/delete/section/{id}', 'deleteSection')->name('delete.section');
     });
 
     // logout

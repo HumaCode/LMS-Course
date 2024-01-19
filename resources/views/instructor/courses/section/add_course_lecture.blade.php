@@ -60,7 +60,8 @@
 
                                             <div class="d-flex justify-content-between align-items-center">
 
-                                                <form action="" method="POST">
+                                                <form action="{{ route('delete.section', ['id' => $item->id]) }}"
+                                                    method="POST">
                                                     @csrf
 
                                                     <button type="submit" class="btn btn-danger px-2 ms-auto"> Delete
