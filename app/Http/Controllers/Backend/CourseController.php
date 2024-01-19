@@ -353,18 +353,18 @@ class CourseController extends Controller
     {
         $title      = 'Add Course Lecture';
         $subtitle   = 'add course lecture';
-        $course     = Course::find($id); 
-        $section    = CourseSection::where('course_id', $id)->orderBy('id', 'asc')->get(); 
+        $course     = Course::find($id);
+        $section    = CourseSection::where('course_id', $id)->orderBy('id', 'asc')->get();
 
         return view('instructor.courses.section.add_course_lecture', compact('course', 'title', 'subtitle', 'section'));
     }
-    
+
     public function addCourseSection(Request $request)
     {
         $id = $request->id;
-    
+
         CourseSection::insert([
-            'course_id'         => $id, 
+            'course_id'         => $id,
             'section_title'     => $request->section_title,
             'created_at'        => Carbon::now(),
         ]);
@@ -389,6 +389,14 @@ class CourseController extends Controller
         $lecture->save();
 
         return response()->json(['success' => 'Lecture Saved Successfully']);
+    }
 
+    public function editLecture($id)
+    {
+        $title      = 'Edit Course Lecture';
+        $subtitle   = 'edit course lecture';
+        $clecture   = CourseLecture::find($id);
+
+        return view('instructor.courses.lecture.edit_course_lecture', compact('clecture', 'title', 'subtitle'));
     }
 }

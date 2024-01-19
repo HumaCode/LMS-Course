@@ -132,12 +132,13 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/course/checkSlug', 'checkSlugCourse');
         Route::get('/subcategory/ajax/{category_id}', 'getSubCategory');
     });
-    
+
     // courses section & lecture manage
     Route::controller(CourseController::class)->group(function () {
         Route::get('/add/course/lecture/{id}', 'addCourseLecture')->name('add.course.lecture');
         Route::post('/all/course/section', 'addCourseSection')->name('add.course.section');
         Route::post('/save-lecture/', 'saveLecture')->name('save-lecture');
+        Route::get('/edit/lecture/{id}', 'editLecture')->name('edit.lecture');
     });
 
     // logout
