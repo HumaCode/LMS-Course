@@ -36,9 +36,10 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.category') }}"
-                            enctype="multipart/form-data" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('update.course.lecture') }}" class="row g-3">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{ $clecture->id }}">
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -57,7 +58,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="lecture_title" class="form-label">Lecture Content</label>
+                                    <label for="content" class="form-label">Lecture Content</label>
 
                                     <textarea name="content" id="content" cols="30" rows="5" class="form-control">{{ $clecture->content }}</textarea>
                                 </div>

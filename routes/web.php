@@ -139,6 +139,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::post('/all/course/section', 'addCourseSection')->name('add.course.section');
         Route::post('/save-lecture/', 'saveLecture')->name('save-lecture');
         Route::get('/edit/lecture/{id}', 'editLecture')->name('edit.lecture');
+        Route::post('/update/course/lecture', 'updateCourseLecture')->name('update.course.lecture');
     });
 
     // logout

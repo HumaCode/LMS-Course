@@ -399,4 +399,29 @@ class CourseController extends Controller
 
         return view('instructor.courses.lecture.edit_course_lecture', compact('clecture', 'title', 'subtitle'));
     }
+
+    public function updateCourseLecture(Request $request)
+    {
+        $attr = $request->validate([
+            'lecture_title'       => 'required',
+            'url'                 => 'required',
+            'content'             => 'required',
+        ]);
+
+
+        $id = $request->id;
+
+        CourseLecture::find($id)->update([
+            'lecture_title' => $attr['lecture_title'],
+            'url'           => $attr['url'],
+            'content'       => $attr['content'],
+        ]);
+
+        $notification = [
+            'message'       => 'Course Lecture Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }
