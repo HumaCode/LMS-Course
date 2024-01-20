@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function courseDetail($id, $slug)
     {
-        $course = Course::find($id);
+        $course = Course::with('category', 'subcategory', 'user')->find($id);
 
         return view('frontend.course.course_details', compact('course'));
     }

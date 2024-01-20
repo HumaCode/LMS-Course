@@ -41,4 +41,14 @@ class Course extends Model
     {
         return $this->belongsTo(User::class, 'instructor_id', 'id');
     }
+
+    /**
+     * Get the subcategory that owns the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subcategory(): BelongsTo
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id', 'id');
+    }
 }
