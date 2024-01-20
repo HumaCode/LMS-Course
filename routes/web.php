@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -152,4 +153,6 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 // login instructor
 Route::get('/instructor/login', [InstructorController::class, 'instructorLogin'])->name('instructor.login');
 // user
-// Route::get('/user/dashboard', [UserController::class, 'userDashboard'])->name('user.dashboard');
+
+// frontend
+Route::get('/course/details/{id}/{slug}', [IndexController::class, 'courseDetail']);
