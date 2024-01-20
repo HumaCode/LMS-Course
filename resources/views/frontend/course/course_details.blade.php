@@ -187,7 +187,6 @@
                                                                     <span>
                                                                         <i class="la la-play-circle mr-1"></i>
                                                                         {{ $item->lecture_title }}
-                                                                        <span class="ribbon ml-2 fs-13">Preview</span>
                                                                     </span>
                                                                     <span>02:27</span>
                                                                 </a>
@@ -205,7 +204,6 @@
 
                                 </div><!-- end generic-accordion -->
                             </div><!-- end curriculum-content -->
-
                         </div><!-- end course-overview-card -->
 
                         <div class="course-overview-card pt-4">
@@ -349,14 +347,18 @@
                                 </div><!-- end card -->
                             </div><!-- end view-more-carousel -->
                         </div><!-- end course-overview-card -->
+
+
                         <div class="course-overview-card pt-4">
                             <h3 class="fs-24 font-weight-semi-bold pb-4">About the instructor</h3>
                             <div class="instructor-wrap">
                                 <div class="media media-card">
                                     <div class="instructor-img">
                                         <a href="teacher-detail.html" class="media-img d-block">
-                                            <img class="lazy" src="{{ asset('frontend') }}/images/img-loading.png"
-                                                data-src="images/small-avatar-1.jpg" alt="Avatar image">
+                                            <img class="lazy"
+                                                src="{{ !empty($course->user->photo) ? url('upload/instructor_images/' . $course->user->photo) : url('upload/no_image.jpg') }}"
+                                                data-src="{{ !empty($course->user->photo) ? url('upload/instructor_images/' . $course->user->photo) : url('upload/no_image.jpg') }}"
+                                                alt="Avatar image">
                                         </a>
                                         <ul class="generic-list-item pt-3">
                                             <li><i class="la la-star mr-2 text-color-3"></i> 4.6 Instructor Rating</li>
@@ -367,10 +369,10 @@
                                         </ul>
                                     </div><!-- end instructor-img -->
                                     <div class="media-body">
-                                        <h5><a href="teacher-detail.html">Tim Buchalka</a></h5>
-                                        <span class="d-block lh-18 pt-2 pb-3">Joined 4 years ago</span>
-                                        <p class="text-black lh-18 pb-3">Java Python Android and C# Expert Developer -
-                                            878K+ students</p>
+                                        <h5><a href="teacher-detail.html">{{ $course->user->name }}</a></h5>
+                                        <span class="d-block lh-18 pt-2 pb-3">Joined
+                                            {{ Carbon\Carbon::parse($course->user->created_at)->diffForHumans() }}</span>
+                                        <p class="text-black lh-18 pb-3">{{ $course->user->email }}</p>
                                         <p class="pb-3">Lorem Ipsum is simply dummy text of the printing and typesetting
                                             industry. Lorem Ipsum has been the industry’s standard dummy text ever since the
                                             1500s, when an unknown printer took a galley of type and scrambled it to make a
