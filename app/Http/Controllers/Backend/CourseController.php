@@ -58,7 +58,6 @@ class CourseController extends Controller
     {
         $attr = $request->validate([
             'course_name'           => 'required',
-            'course_title'          => 'required',
             'course_name_slug'      => 'required|unique:courses,course_name_slug',
             'category_id'           => 'required|exists:categories,id',
             'subcategory_id'        => 'required|exists:sub_categories,id',
@@ -102,7 +101,7 @@ class CourseController extends Controller
                 'subcategory_id'    => $attr['subcategory_id'],
                 'instructor_id'     => Auth::user()->id,
                 'course_name'       => $attr['course_name'],
-                'course_title'      => $attr['course_title'],
+                'course_title'      => $attr['course_name'],
                 'course_name_slug'  => $attr['course_name_slug'],
                 'description'       => $attr['description'],
                 'video'             => $save_video,
@@ -192,6 +191,7 @@ class CourseController extends Controller
             'subcategory_id'    => $attr['subcategory_id'],
             'subcategory_id'    => $attr['subcategory_id'],
             'instructor_id'     => Auth::user()->id,
+            'course_name'       => $attr['course_name'],
             'course_title'      => $attr['course_name'],
             'course_name_slug'  => $attr['course_name_slug'],
             'description'       => $attr['description'],

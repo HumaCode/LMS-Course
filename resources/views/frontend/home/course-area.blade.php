@@ -221,7 +221,7 @@
                         <li>{{ $item->duration }} total hours</li>
                         <li>{{ $item->label }}</li>
                     </ul>
-                    <p class="card-text pt-1 fs-14 lh-22">{{ $item->prerequisites }}</p>
+                    <p class="card-text pt-1 fs-14 lh-22">{!! $item->prerequisites !!}</p>
 
                     @php
                         $goals = App\Models\Course_goal::where('course_id', $item->id)

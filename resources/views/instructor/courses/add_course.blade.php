@@ -51,7 +51,7 @@
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="course_name" class="form-label">Course Name <span
                                             class="text-danger">*</span></label>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="course_name_slug" class="form-label">Course Slug <span
                                             class="text-danger">*</span></label>
@@ -78,18 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="course_title" class="form-label">Course Title <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('course_title') is-invalid @enderror"
-                                        name="course_title" id="course_title" placeholder="Course Title"
-                                        value="{{ old('course_title') }}">
-                                    @error('course_title')
-                                        <span class="text-danger mt-2">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
+
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -366,19 +355,25 @@
 
 
 @push('script')
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
+    <script src="https://cdn.tiny.cloud/1/re1hyyagcsptel9z6bg836dptpkbrbpua7kjc4rgae0ap8kj/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
-            plugins: 'powerpaste advcode table lists checklist',
-            toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table',
+            selector: 'textarea#myeditorinstance',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             height: 350,
-            init_instance_callback: function(editor) {
-                var freeTiny = document.querySelector('.tox .tox-notification--in');
-                freeTiny.style.display = 'none';
-            }
+        });
+
+        tinymce.init({
+            selector: 'textarea#prerequisites',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            height: 200,
         });
     </script>
+
 
     <!----For Section-------->
     <script type="text/javascript">
