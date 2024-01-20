@@ -18,6 +18,9 @@ class IndexController extends Controller
         $lecture    = CourseLecture::where('course_id', $course->id)->get();
         $sections   = CourseSection::where('course_id', $course->id)->orderBy('id', 'ASC')->get();
 
-        return view('frontend.course.course_details', compact('course', 'goals', 'lecture', 'sections'));
+        $inst_id    = $course->instructor_id;
+        $instructorCourses = Course::where('instructor_id', $inst_id)->orderBy('id', 'DESC')->get();
+
+        return view('frontend.course.course_details', compact('course', 'goals', 'lecture', 'sections', 'instructorCourses'));
     }
 }
