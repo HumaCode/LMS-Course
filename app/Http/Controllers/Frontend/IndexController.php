@@ -32,9 +32,11 @@ class IndexController extends Controller
 
     public function categoryCourse($id, $slug)
     {
-        $courses    = Course::where('category_id', $id)->where('status', '1')->get();
-        $category   = Category::where('id', $id)->first();
+        $courses        = Course::with('user')->where('category_id', $id)->where('status', '1')->get();
+        $category       = Category::where('id', $id)->first();
+        $categories     = Category::latest()->get();
 
-        return view('frontend.category.category_all', compact('courses', 'category'));
+
+        return view('frontend.category.category_all', compact('courses', 'category', 'categories'));
     }
 }
