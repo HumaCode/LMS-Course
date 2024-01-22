@@ -106,8 +106,9 @@
                                                     $subcategory = App\Models\SubCategory::where('category_id', $category->id)->get();
                                                 @endphp
                                                 <li>
-                                                    <a href="course-grid.html">{{ $category->category_name }} <i
-                                                            class="la la-angle-right"></i></a>
+                                                    <a
+                                                        href="{{ url('category/' . $category->id . '/' . $category->category_slug) }}">{{ $category->category_name }}
+                                                        <i class="la la-angle-right"></i></a>
                                                     <ul class="sub-menu">
 
                                                         @foreach ($subcategory as $item)

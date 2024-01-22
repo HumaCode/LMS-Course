@@ -1,4 +1,4 @@
-<section class="footer-area pt-100px">
+<section class="footer-area pt-100px bg-gray">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 responsive-column-half">
