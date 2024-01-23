@@ -157,3 +157,4 @@ Route::get('/instructor/login', [InstructorController::class, 'instructorLogin']
 // frontend
 Route::get('/course/details/{id}/{slug}', [IndexController::class, 'courseDetail']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'categoryCourse']);
+Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategoryCourse']);
