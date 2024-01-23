@@ -169,7 +169,7 @@
                                     @foreach ($categories as $item)
                                         <li>
                                             <a
-                                                href="{{ url('category/' . $subcategory->id . '/' . $subcategory->subcategory_slug) }}">{{ $item->category_name }}</a>
+                                                href="{{ url('category/' . $item->id . '/' . $item->category_slug) }}">{{ $item->category_name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

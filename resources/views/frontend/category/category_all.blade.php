@@ -245,7 +245,7 @@
                 <div class="col-lg-8">
                     <div class="row">
 
-                        @foreach ($courses as $course)
+                        @forelse ($courses as $course)
                             <div class="col-lg-6 responsive-column-half">
                                 <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                                     <div class="card-image">
@@ -311,7 +311,14 @@
                                     </div><!-- end card-body -->
                                 </div><!-- end card -->
                             </div><!-- end col-lg-6 -->
-                        @endforeach
+                        @empty
+
+                            <div class="col-lg-12 responsive-column-half text-center">
+                                <div class="alert alert-danger">
+                                    Not Found.
+                                </div>
+                            </div>
+                        @endforelse
 
 
                     </div><!-- end row -->

@@ -203,7 +203,9 @@
             <div class="card card-item">
                 <div class="card-body">
                     <p class="card-text pb-2">By <a href="teacher-detail.html">{{ $item->user->name }}</a></p>
-                    <h5 class="card-title pb-1"><a href="course-details.html">{{ $item->course_name }}</a></h5>
+                    <h5 class="card-title pb-1"><a
+                            href="{{ url('course/details/' . $course->id . '/' . $course->course_name_slug) }}">{{ $item->course_name }}</a>
+                    </h5>
                     <div class="d-flex align-items-center pb-1">
 
                         @if ($item->bestseller == 1)
