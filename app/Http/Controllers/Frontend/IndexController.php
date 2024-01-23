@@ -9,6 +9,7 @@ use App\Models\Course_goal;
 use App\Models\CourseLecture;
 use App\Models\CourseSection;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -49,5 +50,13 @@ class IndexController extends Controller
 
 
         return view('frontend.category.subcategory_all', compact('courses', 'subcategory', 'categories'));
+    }
+
+    public function instructorDetail($id)
+    {
+        $instructor = User::find($id);
+        $courses    = Course::where('instructor_id', $id)->where('status', '1')->get();
+
+        return view('frontend.instructor.instructor_details', compact('instructor', 'courses'));
     }
 }

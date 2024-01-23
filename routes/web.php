@@ -158,3 +158,6 @@ Route::get('/instructor/login', [InstructorController::class, 'instructorLogin']
 Route::get('/course/details/{id}/{slug}', [IndexController::class, 'courseDetail']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'categoryCourse']);
 Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategoryCourse']);
+
+
+Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
