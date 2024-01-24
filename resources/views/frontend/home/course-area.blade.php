@@ -39,8 +39,8 @@
                                     <div class="card-image">
                                         <a href="{{ url('course/details/' . $course->id . '/' . $course->course_name_slug) }}"
                                             class="d-block">
-                                            <img class="card-img-top lazy" src="{{ $course->course_image }}"
-                                                data-src="{{ $course->course_image }}" alt="{{ $course->id }}">
+                                            <img class="card-img-top lazy" src="{{ asset($course->course_image) }}"
+                                                data-src="{{ asset($course->course_image) }}" alt="{{ $course->id }}">
                                         </a>
 
                                         @php
