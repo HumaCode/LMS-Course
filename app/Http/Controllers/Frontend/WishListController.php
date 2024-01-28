@@ -45,6 +45,7 @@ class WishListController extends Controller
 
         return response()->json([
             'wishlist'      => $wishlist->items(),
+            'wishQty'       => $wishlist->total(),
             'pagination'    => [
                 'current_page'  => $wishlist->currentPage(),
                 'from'          => $wishlist->firstItem(),

@@ -43,9 +43,24 @@
                             class="generic-list-item d-flex flex-wrap align-items-center fs-14 border-left border-left-gray pl-3 ml-3">
 
                             @auth
-                                <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
-                                        class="la la-sign-in mr-1"></i><a href="{{ route('dashboard') }}"> Dashboard</a>
-                                </li>
+
+                                @if (Auth::user()->role == 'admin')
+                                    <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
+                                            class="la la-sign-in mr-1"></i><a href="{{ route('admin.dashboard') }}">
+                                            Dashboard</a>
+                                    </li>
+                                @elseif(Auth::user()->role == 'instructor')
+                                    <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
+                                            class="la la-sign-in mr-1"></i><a href="{{ route('instructor.dashboard') }}">
+                                            Dashboard</a>
+                                    </li>
+                                @elseif(Auth::user()->role == 'user')
+                                    <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
+                                            class="la la-sign-in mr-1"></i><a href="{{ route('dashboard') }}"> Dashboard</a>
+                                    </li>
+                                @endif
+
+
                                 <li class="d-flex align-items-center"><i class="la la-user mr-1"></i><a href="#"
                                         data-toggle="modal" data-target="#deleteModal">
                                         Logout</a></li>
