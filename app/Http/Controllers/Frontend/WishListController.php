@@ -38,12 +38,21 @@ class WishListController extends Controller
         return view('frontend.wishlist.all_wishlist');
     }
 
-    public function getWishlistCourse()
+    public function getWishlistCourse(Request $request)
     {
-        $wishlist = Wishlist::with('course')->where('user_id', Auth::id())->latest()->get();
+        $perPage = 6; // Jumlah item per halaman
+        $wishlist = Wishlist::with('course')->where('user_id', Auth::id())->latest()->paginate($perPage);
 
         return response()->json([
-            'wishlist' => $wishlist,
+            'wishlist'      => $wishlist->items(),
+            'pagination'    => [
+                'current_page'  => $wishlist->currentPage(),
+                'from'          => $wishlist->firstItem(),
+                'to'            => $wishlist->lastItem(),
+                'total'         => $wishlist->total(),
+                'per_page'      => $wishlist->perPage(),
+                'total_pages'   => $wishlist->lastPage(),
+            ],
         ]);
     }
 }
