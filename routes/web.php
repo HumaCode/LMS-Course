@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(WishListController::class)->group(function () {
         Route::get('/user/wishlist', 'allWishlist')->name('user.wishlist');
         Route::get('/get-wishlist-course/', 'getWishlistCourse');
+        Route::get('/wishlist-remove/{id}', 'removeWishlist');
     });
 
     // change password 

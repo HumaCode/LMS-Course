@@ -54,6 +54,14 @@
 
             success: function(response) {
 
+                if (response.wishlist.length === 0) {
+                    $('#wishlist').html(
+                        '<div class="col-lg-12 responsive-column-half text-center">  <div class="alert alert-danger" role="alert"> No wishlist items found.</div></div>'
+                    );
+                    $('#paginate').html('');
+                    return;
+                }
+
                 $('#wishQty').text(response.wishQty);
 
                 var rows = "";
@@ -82,8 +90,8 @@
                                                     class="before-price font-weight-medium">$${value.course.selling_price}</span></p>`
                                             }
                                     
-                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer" data-toggle="tooltip"
-                                                data-placement="top" title="Remove from Wishlist"><i class="la la-heart"></i></div>
+                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer bg-danger" data-toggle="tooltip"
+                                                data-placement="top" title="Remove from Wishlist" id="${value.id}" onclick="wishlistRemove(this.id)"><i class="la la-trash text-white"></i></div>
                                         
                                             </div>
 
@@ -131,4 +139,43 @@
     }
 
     wishlist();
+
+
+    // wishlish remove
+    function wishlistRemove(id) {
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/wishlist-remove/" + id,
+
+            success: function(data) {
+                wishlist();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 6000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+            }
+        })
+
+    }
 </script>

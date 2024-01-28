@@ -56,4 +56,13 @@ class WishListController extends Controller
             ],
         ]);
     }
+
+    public function removeWishlist($id)
+    {
+        Wishlist::where('user_id', Auth::id())->where('id', $id)->delete();
+
+        return response()->json([
+            'success' => 'Successfully Course Remove',
+        ]);
+    }
 }
