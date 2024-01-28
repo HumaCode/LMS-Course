@@ -5,7 +5,7 @@
         }
     })
 
-
+    // wishlist
     function addToWishList(course_id) {
 
         $.ajax({
@@ -39,6 +39,21 @@
                         title: data.error,
                     })
                 }
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function wishlist() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/get-wishlist-course/',
+
+            success: function(response) {
+
             }
         })
     }
