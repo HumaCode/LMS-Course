@@ -179,3 +179,11 @@
 
     }
 </script>
+
+
+{{-- add card --}}
+<script>
+    function addToCard(courseId, courseName, instructorId, slug) {
+
+    }
+</script>
