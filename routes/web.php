@@ -35,6 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
     Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
 
+
+    // user wishlist
+    Route::controller(WishListController::class)->group(function () {
+        Route::get('/user/wishlist', 'allWishlist')->name('user.wishlist');
+    });
+
     // change password 
     Route::get('/user/change/password', [UserController::class, 'userChangePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'userPasswordUpdate'])->name('user.password.update');

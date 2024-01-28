@@ -41,7 +41,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'courseData' => $courseData,
             ]);
         });
-        
+
         View::composer('frontend.body.header', function ($view) {
             $categories = Category::orderBy('category_name', 'ASC')->get(); // Misalnya, Anda ingin mengambil data user saat ini
 
