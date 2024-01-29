@@ -183,7 +183,7 @@
 
 {{-- add card --}}
 <script>
-    function addToCard(courseId, courseName, instructorId, slug) {
+    function addToCart(courseId, courseName, instructorId, slug) {
 
         $.ajax({
             type: "POST",
@@ -197,8 +197,30 @@
             url: "/cart/data/store/" + courseId,
             success: function(data) {
 
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 6000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+
             }
-        })
+        });
 
     }
 </script>

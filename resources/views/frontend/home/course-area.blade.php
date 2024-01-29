@@ -247,11 +247,9 @@
                     <div class="d-flex justify-content-between align-items-center">
 
 
-                        <button type="submit" class="btn theme-btn flex-grow-1 mr-3"><i
-                                class="la la-shopping-cart mr-1 fs-18"
-                                onclick="addToCard('{{ $item->id }}', '{{ $item->course_name }}', '{{ $item->instructor_id }}', '{{ $item->course_name_slug }}')"></i>
-                            Add to
-                            Cart</button>
+                        <button type="submit" class="btn theme-btn flex-grow-1 mr-3"
+                            onclick="addToCart({{ $item->id }}, '{{ $item->course_name }}','{{ $item->instructor_id }}','{{ $item->course_name_slug }}' )"><i
+                                class="la la-shopping-cart mr-1 fs-18"></i>Add to Cart</button>
 
                         <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist">
                             <i class="la la-heart-o"></i>
