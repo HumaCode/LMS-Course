@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
@@ -170,6 +171,9 @@ Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategoryCour
 
 // wishlist
 Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'addToWishlist']);
+
+// add to cart
+Route::post('/cart/data/store/{course_id}', [CartController::class, 'addToCart']);
 
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
