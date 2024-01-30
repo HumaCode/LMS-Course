@@ -176,6 +176,7 @@ Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'addToWi
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
 Route::get('/cart/data/', [CartController::class, 'cartData']);
 Route::get('/course/mini/cart/', [CartController::class, 'miniCart']);
+Route::get('/minicart/course/remove/{rowId}', [CartController::class, 'miniCartCourseRemove']);
 
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');

@@ -21,7 +21,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 6000
+                    timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
 
@@ -197,11 +197,13 @@
             url: "/cart/data/store/" + courseId,
             success: function(data) {
 
+                miniCart();
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 6000
+                    timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
 
@@ -235,6 +237,7 @@
 
             success: function(response) {
 
+
                 $('span[id="cartSubTotal"]').text(response.cartTotal);
                 $('#cartQty').text(response.cartQty);
 
@@ -250,6 +253,9 @@
                             <div class="media-body">
                                 <h5><a href="/course/details/${value.id}/${value.options.slug}">${value.name}</a></h5>
                                 <span class="d-block fs-14">$${value.price}</span>
+
+                                <a type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="la la-trash" title="delete"></i></a>
+
                             </div>
                         </li>
                     `
@@ -261,4 +267,42 @@
     }
 
     miniCart();
+</script>
+
+<script>
+    // minicart Remove
+    function miniCartRemove(rowId) {
+        $.ajax({
+            type: "GET",
+            url: '/minicart/course/remove/' + rowId,
+            dataType: 'json',
+
+            success: function(data) {
+                miniCart();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+            }
+        })
+    }
 </script>
