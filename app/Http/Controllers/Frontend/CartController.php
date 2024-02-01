@@ -74,4 +74,10 @@ class CartController extends Controller
 
         return response()->json(['success' => 'Course Remove From Cart']);
     }
+
+    public function myCart()
+    {
+
+        return view('frontend.mycart.view_mycart');
+    }
 }

@@ -172,7 +172,9 @@
                                                 @endif
 
                                                 <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                    title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                                                    title="Add to Wishlist" id="{{ $course->id }}"
+                                                    onclick="addToWishList(this.id)"><i class="la la-heart-o"></i>
+                                                </div>
                                             </div>
                                         </div><!-- end card-body -->
                                     </div><!-- end card -->
@@ -251,12 +253,13 @@
                             onclick="addToCart({{ $item->id }}, '{{ $item->course_name }}','{{ $item->instructor_id }}','{{ $item->course_name_slug }}' )"><i
                                 class="la la-shopping-cart mr-1 fs-18"></i>Add to Cart</button>
 
-                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist">
-                            <i class="la la-heart-o"></i>
+                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist"
+                            id="{{ $item->id }}" onclick="addToWishList(this.id)"><i class="la la-heart-o"></i>
                         </div>
                     </div>
                 </div>
-            </div><!-- end card -->
-        </div>
+            </div>
+        </div><!-- end card -->
+    </div>
     </div><!-- end tooltip_templates -->
 @endforeach
