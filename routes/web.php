@@ -107,6 +107,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // courses  manage
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin/all/courses', 'adminAllCourses')->name('admin.all.courses');
+        Route::post('/update/course/stauts', 'updateCourseStauts')->name('update.course.stauts');
     });
 }); // end admin group middleware
 

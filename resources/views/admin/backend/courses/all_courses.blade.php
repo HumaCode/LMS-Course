@@ -80,7 +80,7 @@
                                     <td class="text-center">
                                         <div class="form-check form-switch">
                                             <input class="form-check-input status-toggle large-checkbox" type="checkbox"
-                                                id="flexSwitchCheckChecked" data-user-id={{ $item->id }}
+                                                id="flexSwitchCheckChecked" data-course-id={{ $item->id }}
                                                 {{ $item->status ? 'checked' : '' }}>
 
                                         </div>
@@ -123,15 +123,15 @@
     <script>
         $(document).ready(function() {
             $('.status-toggle').on('change', function() {
-                var userId = $(this).data('user-id');
+                var courseId = $(this).data('course-id');
                 var isChecked = $(this).is(':checked');
 
 
                 $.ajax({
-                    url: "{{ route('update.user.stauts') }}",
+                    url: "{{ route('update.course.stauts') }}",
                     method: "POST",
                     data: {
-                        user_id: userId,
+                        course_id: courseId,
                         is_checked: isChecked ? 1 : 0,
                         _token: "{{ csrf_token() }}"
                     },
