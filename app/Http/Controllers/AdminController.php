@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -127,7 +128,7 @@ class AdminController extends Controller
     {
         return view('frontend.instructor.reg_instructor');
     }
-    
+
     public function instructorRegister(Request $request)
     {
         $attr = $request->validate([
@@ -181,5 +182,14 @@ class AdminController extends Controller
         }
 
         return response()->json(['message' => 'User Status Updated Successfully']);
+    }
+
+    public function adminAllCourses()
+    {
+        $title      = 'All Instructor';
+        $subtitle   = 'all instructor';
+        $courses    = Course::with('user', 'category')->latest()->get();
+
+        return view('admin.backend.courses.all_courses', compact('courses', 'title', 'subtitle'));
     }
 }
