@@ -74,8 +74,8 @@
                                     <td>{{ $item->category->category_name }}</td>
                                     <td>${{ $item->selling_price }}</td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-primary" title="Detail"><i
-                                                class="lni lni-eye"></i></a>
+                                        <a href="{{ route('admin.course.detail', $item->course_name_slug) }}"
+                                            class="btn btn-primary" title="Detail"><i class="lni lni-eye"></i></a>
                                     </td>
                                     <td class="text-center">
                                         <div class="form-check form-switch">

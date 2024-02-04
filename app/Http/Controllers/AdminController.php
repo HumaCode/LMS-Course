@@ -186,8 +186,8 @@ class AdminController extends Controller
 
     public function adminAllCourses()
     {
-        $title      = 'All Instructor';
-        $subtitle   = 'all instructor';
+        $title      = 'All Courses';
+        $subtitle   = 'all courses';
         $courses    = Course::with('user', 'category')->latest()->get();
 
         return view('admin.backend.courses.all_courses', compact('courses', 'title', 'subtitle'));
@@ -205,5 +205,14 @@ class AdminController extends Controller
         }
 
         return response()->json(['message' => 'Course Status Updated Successfully']);
+    }
+
+    public function updateCourseDetail($slug)
+    {
+        $title      = 'Course Details';
+        $subtitle   = 'course details';
+        $course     = Course::where('course_name_slug', $slug)->first();
+
+        return view('admin.backend.courses.detail_course', compact('title', 'subtitle', 'course'));
     }
 }
