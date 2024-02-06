@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -109,6 +110,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/all/courses', 'adminAllCourses')->name('admin.all.courses');
         Route::post('/update/course/stauts', 'updateCourseStauts')->name('update.course.stauts');
         Route::get('/update/course/detail/{slug}', 'updateCourseDetail')->name('admin.course.detail');
+    });
+
+    // coupon  manage
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('/admin/all/coupon', 'adminAllCoupon')->name('admin.all.coupon');
     });
 }); // end admin group middleware
 
