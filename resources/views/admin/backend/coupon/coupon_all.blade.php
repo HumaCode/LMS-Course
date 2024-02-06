@@ -29,7 +29,8 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('add.category') }}" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
+                    <a href="{{ route('admin.add.coupon') }}" class="btn btn-primary tbl-custom"><i
+                            class="bx bx-plus"></i>Add
                         Coupon</a>
                 </div>
             </div>
@@ -57,7 +58,7 @@
                                 <tr>
                                     <td class="text-center">{{ $key + 1 }}</td>
                                     <td class="text-center">{{ $coupon->coupon_name }}</td>
-                                    <td class="text-center">{{ $coupon->coupon_discount }}</td>
+                                    <td class="text-center">{{ $coupon->coupon_discount }}%</td>
                                     <td class="text-center">
                                         {{ Carbon\Carbon::parse($coupon->coupon_validity)->format('D, d F Y') }}</td>
                                     <td>
@@ -68,11 +69,10 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.category', $item->category_slug) }}"
-                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $item->category_slug) }}"
-                                            class="btn btn-danger px-5" id="delete"><i
-                                                class="bx bx-trash-alt"></i>Delete</a>
+                                        <a href="{{ route('edit.category', $coupon->id) }}" class="btn btn-success px-5"><i
+                                                class="bx bx-edit-alt"></i>Edit</a>
+                                        <a href="{{ route('delete.category', $coupon->id) }}" class="btn btn-danger px-5"
+                                            id="delete"><i class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
