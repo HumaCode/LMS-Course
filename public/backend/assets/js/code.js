@@ -14,13 +14,15 @@ $(function(){
                     confirmButtonText: 'Yes, delete it!'
                   }).then((result) => {
                     if (result.isConfirmed) {
-                      window.location.href = link
                       Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
                         'success'
-                      )
-                    }
+                        ).then(() => {
+                          // Ketika tombol OK di Swal.fire ditekan, halaman akan di-reload
+                          window.location.href = link;
+                      });
+                  }
                   }) 
     });
   });

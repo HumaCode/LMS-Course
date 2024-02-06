@@ -117,6 +117,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/all/coupon', 'adminAllCoupon')->name('admin.all.coupon');
         Route::get('/admin/add/coupon', 'adminAddCoupon')->name('admin.add.coupon');
         Route::post('/admin/store/coupon', 'adminStoreCoupon')->name('admin.store.coupon');
+        Route::get('/admin/edit/coupon/{id}', 'adminEditCoupon')->name('admin.edit.coupon');
+        Route::post('/admin/update/coupon', 'adminUpdateCoupon')->name('admin.update.coupon');
+        Route::get('/admin/delete/coupon/{id}', 'adminDeleteCoupon')->name('admin.delete.coupon');
     });
 }); // end admin group middleware
 

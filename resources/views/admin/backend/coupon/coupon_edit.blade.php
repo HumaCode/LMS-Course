@@ -42,8 +42,11 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.coupon') }}" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('admin.update.coupon') }}" class="row g-3">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{ $coupon->id }}">
+
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -51,7 +54,7 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('coupon_name') is-invalid @enderror"
                                         name="coupon_name" id="coupon_name" placeholder="Coupon Name"
-                                        value="{{ old('coupon_name') }}">
+                                        value="{{ old('coupon_name', $coupon->coupon_name) }}">
                                     @error('coupon_name')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -65,7 +68,7 @@
                                     <input type="number" min="0"
                                         class="form-control @error('coupon_discount') is-invalid @enderror"
                                         name="coupon_discount" id="coupon_discount" placeholder="Coupon Discount"
-                                        value="{{ old('coupon_discount') }}">
+                                        value="{{ old('coupon_discount', $coupon->coupon_discount) }}">
                                     @error('coupon_discount')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -80,7 +83,7 @@
                                         class="form-control @error('coupon_validity') is-invalid @enderror"
                                         name="coupon_validity" id="coupon_validity" placeholder="Coupon Validity"
                                         min="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
-                                        value="{{ old('coupon_validity') }}">
+                                        value="{{ old('coupon_validity', $coupon->coupon_validity) }}">
                                     @error('coupon_validity')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -91,7 +94,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
-                                            class="bx bx-save"></i>Add Coupon</button>
+                                            class="bx bx-save"></i>Update Coupon</button>
                                 </div>
                             </div>
                         </form>

@@ -69,10 +69,11 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.category', $coupon->id) }}" class="btn btn-success px-5"><i
-                                                class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $coupon->id) }}" class="btn btn-danger px-5"
-                                            id="delete"><i class="bx bx-trash-alt"></i>Delete</a>
+                                        <a href="{{ route('admin.edit.coupon', $coupon->id) }}"
+                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
+                                        <a href="{{ route('admin.delete.coupon', $coupon->id) }}"
+                                            class="btn btn-danger px-5" id="delete"><i
+                                                class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
