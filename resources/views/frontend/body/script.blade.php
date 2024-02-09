@@ -411,6 +411,8 @@
             },
 
             success: function(data) {
+                couponCalculation();
+
 
                 if (data.validity == true) {
                     $('#couponField').hide();
@@ -483,6 +485,11 @@
                             <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
                                 <span class="text-black">Coupon Name :</span>
                                 <span>${data.coupon_name}</span>
+
+                                <button type="button" class="icon-element icon-element-xs shadow-sm border-0"
+                                    data-toggle="tooltip" data-placement="top" title="Remove" onclick="couponRemove()">
+                                    <i class="la la-times"></i>
+                                </button>
                             </li>
 
                             <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
@@ -503,4 +510,46 @@
     }
 
     couponCalculation();
+</script>
+
+
+<script>
+    // coupon remove
+    function couponRemove() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/coupon-remove",
+
+            success: function(data) {
+                couponCalculation();
+
+                $('#couponField').show();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+
+            }
+        })
+    }
 </script>

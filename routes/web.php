@@ -206,6 +206,7 @@ Route::controller(CartController::class)->group(function () {
 // apply coupon
 Route::post('/coupon-apply', [CartController::class, 'couponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'couponCalculation']);
+Route::get('/coupon-remove', [CartController::class, 'couponRemove']);
 
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
