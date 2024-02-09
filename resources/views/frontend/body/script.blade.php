@@ -395,3 +395,45 @@
         })
     }
 </script>
+
+
+<script>
+    // use coupon
+    function applyCoupon() {
+        var coupon_name = $('#coupon_name').val();
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/coupon-apply",
+            data: {
+                coupon_name: coupon_name,
+            },
+
+            success: function(data) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+            }
+        })
+    }
+</script>
