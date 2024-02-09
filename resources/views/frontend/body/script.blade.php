@@ -368,6 +368,8 @@
             success: function(data) {
                 miniCart();
                 cart();
+                couponCalculation();
+
 
                 const Toast = Swal.mixin({
                     toast: true,
