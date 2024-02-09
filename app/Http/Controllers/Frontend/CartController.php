@@ -8,6 +8,7 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -166,5 +167,33 @@ class CartController extends Controller
         Session::forget('coupon');
 
         return response()->json(['success' => 'Coupon Remove Successfully']);
+    }
+
+    public function checkoutCreate()
+    {
+        if (Auth::check()) {
+            if (Cart::total() > 0) {
+                $carts      = Cart::content();
+                $cartTotal  = Cart::total();
+                $cartQty    = Cart::count();
+
+
+                return view('frontend.checkout.checkout_view', compact('carts', 'cartTotal', 'cartQty'));
+            } else {
+                $notification = [
+                    'message'       => 'Add At List One Course',
+                    'alert-type'    => 'error',
+                ];
+
+                return redirect()->to('/')->with($notification);
+            }
+        } else {
+            $notification = [
+                'message'       => 'You Need to Login First',
+                'alert-type'    => 'error',
+            ];
+
+            return redirect()->route('login')->with($notification);
+        }
     }
 }

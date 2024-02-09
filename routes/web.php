@@ -208,5 +208,7 @@ Route::post('/coupon-apply', [CartController::class, 'couponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'couponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'couponRemove']);
 
+// checkout
+Route::get('/checkout', [CartController::class, 'checkoutCreate'])->name('checkout');
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
