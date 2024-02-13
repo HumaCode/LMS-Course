@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderConfirm;
 use App\Models\Coupon;
 use App\Models\Course;
 use App\Models\Order;
@@ -11,6 +12,7 @@ use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -207,6 +209,20 @@ class CartController extends Controller
             $total_amount = round(Cart::total());
         }
 
+        foreach ($request->course_title as $key => $course_title) {
+            $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
+
+            if ($exitingOrder) {
+                $notification = [
+                    'message'       => 'You Have Already Endrolled in This Course.',
+                    'alert-type'    => 'error',
+                ];
+
+                $request->session()->forget('cart');
+
+                return redirect()->route('index')->with($notification);
+            }
+        }
 
         $data = new Payment();
 
@@ -225,6 +241,7 @@ class CartController extends Controller
         $data->status           = 'pending';
         $data->created_at       = Carbon::now();
         $data->save();
+
 
 
         foreach ($request->course_title as $key => $course_title) {
@@ -257,8 +274,15 @@ class CartController extends Controller
         $payment_id = $data->id;
 
         // sent email notification
+        $sendmail = Payment::find($payment_id);
+        $data = [
+            'invoice_no'    => $sendmail->invoice_no,
+            'amount'        => $total_amount,
+            'name'          => $sendmail->name,
+            'email'         => $sendmail->email
+        ];
 
-
+        Mail::to($request->email)->send(new OrderConfirm($data));
 
 
         if ($request->cash_delivery == 'stripe') {
