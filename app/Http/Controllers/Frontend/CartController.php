@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\SmtpSetting;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -271,18 +272,25 @@ class CartController extends Controller
 
         $request->session()->forget('cart');
 
-        $payment_id = $data->id;
+        $smpt = SmtpSetting::find(1);
 
-        // sent email notification
-        $sendmail = Payment::find($payment_id);
-        $data = [
-            'invoice_no'    => $sendmail->invoice_no,
-            'amount'        => $total_amount,
-            'name'          => $sendmail->name,
-            'email'         => $sendmail->email
-        ];
+        // check status smpt
+        if ($smpt->status == 1) {
 
-        Mail::to($request->email)->send(new OrderConfirm($data));
+            $payment_id = $data->id;
+
+            // sent email notification
+            $sendmail = Payment::find($payment_id);
+            $data = [
+                'invoice_no'    => $sendmail->invoice_no,
+                'amount'        => $total_amount,
+                'name'          => $sendmail->name,
+                'email'         => $sendmail->email
+            ];
+
+
+            Mail::to($request->email)->send(new OrderConfirm($data));
+        }
 
 
         if ($request->cash_delivery == 'stripe') {
