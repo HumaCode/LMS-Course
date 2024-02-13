@@ -254,6 +254,13 @@ class CartController extends Controller
 
         $request->session()->forget('cart');
 
+        $payment_id = $data->id;
+
+        // sent email notification
+
+
+
+
         if ($request->cash_delivery == 'stripe') {
             echo 'stripe';
         } else {

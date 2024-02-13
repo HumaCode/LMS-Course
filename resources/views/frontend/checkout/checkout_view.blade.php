@@ -68,34 +68,35 @@
                                             @enderror
                                         </div>
                                     </div><!-- end input-box -->
+
+
+                                    <div class="input-box col-lg-12">
+                                        <label class="label-text">Address <span class="text-danger">*</span></label>
+                                        <div class="form-group">
+                                            <input class="form-control form--control @error('address') is-invalid @enderror"
+                                                type="text" name="address" placeholder="Enter Address"
+                                                value="{{ Auth::user()->address }}">
+                                            <span class="la la-map-marker input-icon"></span>
+                                            @error('address')
+                                                <span class="text-danger mt-2">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div><!-- end input-box -->
+                                    <div class="input-box col-lg-12">
+                                        <label class="label-text">Phone Number <span class="text-danger">*</span></label>
+                                        <div class="form-group">
+                                            <input id="phone"
+                                                class="form-control form--control @error('phone') is-invalid @enderror"
+                                                type="number" name="phone" min="0"
+                                                value="{{ Auth::user()->phone }}">
+                                            <span class="la la-phone input-icon"></span>
+                                            @error('phone')
+                                                <span class="text-danger mt-2">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+                                    </div><!-- end input-box -->
                                 </div>
-
-                                <div class="input-box col-lg-12">
-                                    <label class="label-text">Address <span class="text-danger">*</span></label>
-                                    <div class="form-group">
-                                        <input class="form-control form--control @error('address') is-invalid @enderror"
-                                            type="text" name="address" placeholder="Enter Address"
-                                            value="{{ Auth::user()->address }}">
-                                        <span class="la la-map-marker input-icon"></span>
-                                        @error('address')
-                                            <span class="text-danger mt-2">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div><!-- end input-box -->
-                                <div class="input-box col-lg-12">
-                                    <label class="label-text">Phone Number <span class="text-danger">*</span></label>
-                                    <div class="form-group">
-                                        <input id="phone"
-                                            class="form-control form--control @error('phone') is-invalid @enderror"
-                                            type="number" name="phone" min="0" value="{{ Auth::user()->phone }}">
-                                        <span class="la la-phone input-icon"></span>
-                                        @error('phone')
-                                            <span class="text-danger mt-2">{{ $message }}</span>
-                                        @enderror
-
-                                    </div>
-                                </div><!-- end input-box -->
-
 
                             </div><!-- end card-body -->
                         </div><!-- end card -->
