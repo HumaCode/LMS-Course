@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Course;
+use App\Models\Order;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -214,7 +215,7 @@ class CartController extends Controller
         $data->phone            = $request->phone;
         $data->address          = $request->address;
         $data->cash_delivery    = $request->cash_delivery;
-        $data->total_amount     = $request->total_amount;
+        $data->total_amount     = $total_amount;
         $data->payment_type     = 'Direct Payment';
 
         $data->invoice_no       = 'HCL' . mt_rand(10000000, 99999999);
@@ -224,5 +225,44 @@ class CartController extends Controller
         $data->status           = 'pending';
         $data->created_at       = Carbon::now();
         $data->save();
+
+
+        foreach ($request->course_title as $key => $course_title) {
+            $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
+
+            if ($exitingOrder) {
+                $notification = [
+                    'message'       => 'You Have Already Endrolled in This Course.',
+                    'alert-type'    => 'error',
+                ];
+
+                $request->session()->forget('cart');
+
+                return redirect()->route('index')->with($notification);
+            }
+
+
+            $order = new Order();
+            $order->payment_id      = $data->id;
+            $order->user_id         = Auth::user()->id;
+            $order->course_id       = $request->course_id[$key];
+            $order->instructor_id   = $request->instructor_id[$key];
+            $order->course_title    = $course_title;
+            $order->price           = $request->price[$key];
+            $order->save();
+        }
+
+        $request->session()->forget('cart');
+
+        if ($request->cash_delivery == 'stripe') {
+            echo 'stripe';
+        } else {
+            $notification = [
+                'message'       => 'Cash Payment Submit Success.',
+                'alert-type'    => 'success',
+            ];
+
+            return redirect()->route('index')->with($notification);
+        }
     }
 }

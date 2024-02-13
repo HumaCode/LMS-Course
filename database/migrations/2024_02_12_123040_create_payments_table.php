@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('cash_delivery')->nullable();
             $table->string('total_amount')->nullable();
-            $table->string('payment_amount')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('invoice_no')->nullable();
             $table->string('order_date')->nullable();
