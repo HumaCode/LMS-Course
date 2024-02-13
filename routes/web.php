@@ -126,6 +126,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // setting smpt
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/smpt/setting', 'adminSmptSetting')->name('admin.smpt.setting');
+        Route::post('/admin/update/smpt', 'adminUpdateSmpt')->name('admin.update.smpt');
     });
 }); // end admin group middleware
 
