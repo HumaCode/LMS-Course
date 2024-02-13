@@ -32,7 +32,7 @@
         <div class="container">
             <div class="row">
 
-                <form method="post" action="" enctype="multipart/form-data" class="row">
+                <form method="post" action="{{ route('payment') }}" enctype="multipart/form-data" class="row">
                     @csrf
 
 

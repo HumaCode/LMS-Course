@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Course;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -195,5 +196,33 @@ class CartController extends Controller
 
             return redirect()->route('login')->with($notification);
         }
+    }
+
+    public function payment(Request $request)
+    {
+        if (Session::has('coupon')) {
+            $total_amount = Session::get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
+
+
+        $data = new Payment();
+
+        $data->name             = $request->name;
+        $data->email            = $request->email;
+        $data->phone            = $request->phone;
+        $data->address          = $request->address;
+        $data->cash_delivery    = $request->cash_delivery;
+        $data->total_amount     = $request->total_amount;
+        $data->payment_type     = 'Direct Payment';
+
+        $data->invoice_no       = 'HCL' . mt_rand(10000000, 99999999);
+        $data->order_date       = Carbon::now()->format('d F Y');
+        $data->order_month      = Carbon::now()->format('F');
+        $data->order_year       = Carbon::now()->format('Y');
+        $data->status           = 'pending';
+        $data->created_at       = Carbon::now();
+        $data->save();
     }
 }

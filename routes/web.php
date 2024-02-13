@@ -211,4 +211,7 @@ Route::get('/coupon-remove', [CartController::class, 'couponRemove']);
 // checkout
 Route::get('/checkout', [CartController::class, 'checkoutCreate'])->name('checkout');
 
+// paymenr
+Route::post('/payment', [CartController::class, 'payment'])->name('payment');
+
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
