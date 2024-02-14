@@ -138,7 +138,7 @@
                                             <h6 class="mb-0 ">Coupon Discount</h6>
                                         </div>
                                         <div class="col-sm-8 text-secondary">
-                                            : ${{ $payment->coupon_discount }}
+                                            : {{ $payment->coupon_discount }}%
                                         </div>
                                     </div>
 
@@ -167,7 +167,8 @@
                                     </div>
                                     <div class="col-sm-8 text-secondary">
                                         : @if ($payment->status == 'pending')
-                                            <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
+                                            <a href="{{ route('pending-confirm', $payment->id) }}"
+                                                class="btn btn-block btn-success btn-sm" id="confirm">Confirm Order</a>
                                         @elseif($payment->status == 'confirm')
                                             <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
                                         @endif
@@ -208,6 +209,7 @@
                                                     </tr>
 
                                                     @php
+                                                        $discount_amount = $payment->discount_amount;
                                                         $totalPrice = 0;
                                                     @endphp
 
@@ -247,9 +249,16 @@
                                                     @endforeach
 
                                                     <tr>
-                                                        <td colspan="4"></td>
+                                                        <td colspan="4">Discount Amount</td>
                                                         <td class="col-md-3">
-                                                            <strong>Total Price : ${{ $totalPrice }}</strong>
+                                                            <strong> ${{ $discount_amount }}</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">Total Price</td>
+                                                        <td class="col-md-3">
+                                                            <strong>
+                                                                ${{ $totalPrice - $discount_amount }}</strong>
                                                         </td>
                                                     </tr>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -26,5 +27,20 @@ class OrderController extends Controller
         $order_item     = Order::with('user', 'payment', 'course')->where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
 
         return view('admin.backend.orders.admin_orders_detail', compact('title', 'subtitle', 'payment', 'order_item'));
+    }
+
+    public function pendingToConfirm($payment_id)
+    {
+        Payment::findOrFail($payment_id)->update([
+            'status'        => 'confirm',
+            'confirm_date'  => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Order Confirm Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

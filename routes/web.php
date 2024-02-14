@@ -128,6 +128,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/admin/pending/order', 'adminPendingOrder')->name('admin.pending.order');
         Route::get('/admin/order/detail/{id}', 'adminOrderDetail')->name('admin.order.details');
+        Route::get('/pending-confirm/{id}', 'pendingToConfirm')->name('pending-confirm');
     });
 
     // setting smpt

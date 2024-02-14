@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('order_month')->nullable();
             $table->string('order_year')->nullable();
             $table->string('status')->nullable();
+            $table->timestamp('confirm_date')->nullable();
             $table->timestamps();
         });
     }
