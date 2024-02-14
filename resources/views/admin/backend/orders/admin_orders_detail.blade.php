@@ -93,95 +93,90 @@
 
                     <div class="col-lg-6">
 
-                        <form action="{{ route('admin.profile.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                        <div class="card">
+                            <div class="card-body">
 
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Payment Type</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : <span class="badge bg-primary">{{ $payment->payment_type }}</span>
-                                        </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-0 ">Payment Type</h6>
                                     </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Invoice No</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : {{ $payment->invoice_no }}
-                                        </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        : <span class="badge bg-primary">{{ $payment->payment_type }}</span>
                                     </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Order Date</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : {{ $payment->order_date }}
-                                        </div>
-                                    </div>
-
-                                    @if ($payment->coupon_discount != 0 && $payment->coupon_name != '-' && $payment->discount_amount != 0)
-                                        <div class="row mb-3">
-                                            <div class="col-sm-4">
-                                                <h6 class="mb-0 ">Coupon Name</h6>
-                                            </div>
-                                            <div class="col-sm-8 text-secondary">
-                                                : {{ $payment->coupon_name }}
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-sm-4">
-                                                <h6 class="mb-0 ">Coupon Discount</h6>
-                                            </div>
-                                            <div class="col-sm-8 text-secondary">
-                                                : ${{ $payment->coupon_discount }}
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <div class="col-sm-4">
-                                                <h6 class="mb-0 ">Discount Amount</h6>
-                                            </div>
-                                            <div class="col-sm-8 text-secondary">
-                                                : ${{ $payment->discount_amount }}
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Total Amount</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : ${{ $payment->total_amount }}
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Order Status</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : @if ($payment->status == 'pending')
-                                                <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
-                                            @elseif($payment->status == 'confirm')
-                                                <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
-                                            @endif
-                                        </div>
-                                    </div>
-
-
                                 </div>
-                            </div>
-                        </form>
 
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-0 ">Invoice No</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        : {{ $payment->invoice_no }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-0 ">Order Date</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        : {{ $payment->order_date }}
+                                    </div>
+                                </div>
+
+                                @if ($payment->coupon_discount != 0 && $payment->coupon_name != '-' && $payment->discount_amount != 0)
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Coupon Name</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : {{ $payment->coupon_name }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Coupon Discount</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : ${{ $payment->coupon_discount }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Discount Amount</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : ${{ $payment->discount_amount }}
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-0 ">Total Amount</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        : ${{ $payment->total_amount }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-4">
+                                        <h6 class="mb-0 ">Order Status</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary">
+                                        : @if ($payment->status == 'pending')
+                                            <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
+                                        @elseif($payment->status == 'confirm')
+                                            <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
+                                        @endif
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
 
                     </div>
 
@@ -212,6 +207,10 @@
                                                         </td>
                                                     </tr>
 
+                                                    @php
+                                                        $totalPrice = 0;
+                                                    @endphp
+
 
                                                     @foreach ($order_item as $item)
                                                         <tr>
@@ -241,7 +240,18 @@
                                                                 </label>
                                                             </td>
                                                         </tr>
+
+                                                        @php
+                                                            $totalPrice += $item->price;
+                                                        @endphp
                                                     @endforeach
+
+                                                    <tr>
+                                                        <td colspan="4"></td>
+                                                        <td class="col-md-3">
+                                                            <strong>Total Price : ${{ $totalPrice }}</strong>
+                                                        </td>
+                                                    </tr>
 
                                                 </tbody>
                                             </table>
