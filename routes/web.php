@@ -203,6 +203,9 @@ Route::get('/cart/data/', [CartController::class, 'cartData']);
 Route::get('/course/mini/cart/', [CartController::class, 'miniCart']);
 Route::get('/minicart/course/remove/{rowId}', [CartController::class, 'miniCartCourseRemove']);
 
+// buy course
+Route::post('/buy/course/{id}', [CartController::class, 'buyToCart']);
+
 // cart
 Route::controller(CartController::class)->group(function () {
     Route::get('/mycart', 'myCart')->name('mycart');

@@ -228,6 +228,58 @@
 </script>
 
 
+{{-- buy course --}}
+<script>
+    function buyCourse(courseId, courseName, instructorId, slug) {
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_name: courseName,
+                course_name_slug: slug,
+                instructor: instructorId
+            },
+            url: "/buy/course/" + courseId,
+            success: function(data) {
+
+                // miniCart();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                    // redirect yo checkout page
+                    // Set timeout for 2 seconds before redirecting to checkout page
+                    setTimeout(function() {
+                        window.location.href = '/mycart';
+                    }, 2000);
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+
+            }
+        });
+
+    }
+</script>
+
 <script>
     function miniCart() {
         $.ajax({
