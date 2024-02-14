@@ -71,8 +71,9 @@
                                     <td class="text-center">
                                         <a href="{{ route('instructor.order.detail', $item->payment->id) }}"
                                             class="btn btn-success px-3" title="detail"><i class="lni lni-eye"></i></a>
-                                        <a href="{{ route('delete.course', $item->id) }}" class="btn btn-danger px-3 "
-                                            title="download pdf" id="delete"><i class="lni lni-download"></i></a>
+                                        <a href="{{ route('instructor.order.invoice', $item->payment->id) }}"
+                                            class="btn btn-danger px-3 " title="download pdf"><i
+                                                class="lni lni-download"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

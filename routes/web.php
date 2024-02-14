@@ -195,6 +195,9 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/all/order/', 'instructorAllOrder')->name('instructor.all.order');
         Route::get('/instructor/order/detail/{id}', 'instructorOrderDetail')->name('instructor.order.detail');
         Route::get('/instructor-pending-confirm/{id}', 'instructorPendingConfirm')->name('instructor.pending.confirm');
+
+        // invoice
+        Route::get('/instructor/order/invoice/{id}', 'instructorOrderInvoice')->name('instructor.order.invoice');
     });
 
     // logout
