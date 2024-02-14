@@ -251,9 +251,16 @@ class CartController extends Controller
     public function payment(Request $request)
     {
         if (Session::has('coupon')) {
-            $total_amount = Session::get('coupon')['total_amount'];
+            $total_amount       = Session::get('coupon')['total_amount'];
+
+            $coupon_discount    = Session::get('coupon')['coupon_discount']; //10%
+            $coupon_name        = Session::get('coupon')['coupon_name']; //coupon name 
+            $discount_amount    = Session::get('coupon')['discount_amount']; //discount amount 
         } else {
             $total_amount = round(Cart::total());
+            $coupon_discount    = 0;
+            $coupon_name        = '-';
+            $discount_amount    = 0;
         }
 
         foreach ($request->course_title as $key => $course_title) {
@@ -278,6 +285,9 @@ class CartController extends Controller
         $data->phone            = $request->phone;
         $data->address          = $request->address;
         $data->cash_delivery    = $request->cash_delivery;
+        $data->coupon_discount  = $coupon_discount;
+        $data->coupon_name      = $coupon_name;
+        $data->discount_amount  = $discount_amount;
         $data->total_amount     = $total_amount;
         $data->payment_type     = 'Direct Payment';
 

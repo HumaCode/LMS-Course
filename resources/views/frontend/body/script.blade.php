@@ -244,7 +244,8 @@
             url: "/buy/course/" + courseId,
             success: function(data) {
 
-                // miniCart();
+                miniCart();
+                couponRemove();
 
                 const Toast = Swal.mixin({
                     toast: true,
