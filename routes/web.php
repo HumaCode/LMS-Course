@@ -189,6 +189,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::post('/delete/section/{id}', 'deleteSection')->name('delete.section');
     });
 
+
+    // order manage
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/instructor/all/order/', 'instructorAllOrder')->name('instructor.all.order');
+    });
+
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end instructor group middleware

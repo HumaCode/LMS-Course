@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -52,5 +53,15 @@ class OrderController extends Controller
 
 
         return view('admin.backend.orders.confirm_orders', compact('payment', 'title', 'subtitle'));
+    }
+
+    public function instructorAllOrder()
+    {
+        $title          = 'All Orders';
+        $subtitle       = 'all orders';
+        $id             = Auth::user()->id;
+        $orderItem      = Order::where('instructor_id', $id)->orderBy('id', 'DESC')->get();
+
+        return view('instructor.orders.all_order', compact('orderItem', 'title', 'subtitle'));
     }
 }
