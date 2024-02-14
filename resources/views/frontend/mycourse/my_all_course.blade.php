@@ -5,6 +5,14 @@
     $profileData = App\Models\User::findOrFail($id);
 @endphp
 
+@push('css')
+    <style>
+        .card-item-list-layout .card-image .card-img-top {
+            object-fit: fill;
+        }
+    </style>
+@endpush
+
 @section('userdashboard')
     <div class="breadcrumb-content d-flex flex-wrap align-items-center justify-content-between mb-5">
         <div class="media media-card align-items-center">
@@ -27,62 +35,102 @@
 
     {{-- course --}}
     <div class="dashboard-cards mb-5">
-        <div class="card card-item card-item-list-layout">
-            <div class="card-image">
-                <a href="course-details.html" class="d-block">
-                    <img class="card-img-top" src="{{ asset('frontend') }}/images/img8.jpg" alt="Card image cap">
-                </a>
-                <div class="course-badge-labels">
-                    <div class="course-badge">Bestseller</div>
-                    <div class="course-badge blue">-39%</div>
-                </div>
-            </div><!-- end card-image -->
-            <div class="card-body">
-                <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                <h5 class="card-title"><a href="course-details.html">The Business Intelligence Analyst Course 2021</a></h5>
-                <p class="card-text"><a href="teacher-detail.html">Jose Portilla</a></p>
-                <div class="rating-wrap d-flex align-items-center py-2">
-                    <div class="review-stars">
-                        <span class="rating-number">4.4</span>
-                        <span class="la la-star"></span>
-                        <span class="la la-star"></span>
-                        <span class="la la-star"></span>
-                        <span class="la la-star"></span>
-                        <span class="la la-star-o"></span>
+
+
+        @forelse ($mycoruse as $item)
+            <div class="card card-item card-item-list-layout">
+                <div class="card-image">
+                    <a href="course-details.html" class="d-block">
+                        <img class="card-img-top" src="{{ asset($item->course->course_image) }}" alt="Card image cap">
+                    </a>
+                    <div class="course-badge-labels">
+
+                        @php
+                            $amount = $item->course->selling_price - $item->course->discount_price;
+                            $discount = ($amount / $item->course->selling_price) * 100;
+                        @endphp
+
+                        @if ($item->course->bestseller == 1)
+                            <div class="course-badge">Bestseller</div>
+                        @else
+                        @endif
+
+                        @if ($item->course->discount_price == null)
+                            <div class="course-badge red">New</div>
+                        @else
+                            <div class="course-badge blue">{{ $discount }}%</div>
+                        @endif
+
                     </div>
-                    <span class="rating-total pl-1">(20,230)</span>
-                </div><!-- end rating-wrap -->
-                <ul class="card-duration d-flex align-items-center fs-15 pb-2">
-                    <li class="mr-2">
-                        <span class="text-black">Status:</span>
-                        <span class="badge badge-success text-white">Published</span>
-                    </li>
-                    <li class="mr-2">
-                        <span class="text-black">Duration:</span>
-                        <span>3 hours 20 min</span>
-                    </li>
-                    <li class="mr-2">
-                        <span class="text-black">Students:</span>
-                        <span>30,405</span>
-                    </li>
-                </ul>
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="card-price text-black font-weight-bold">129.99</p>
-                    <div class="card-action-wrap pl-3">
-                        <a href="course-details.html"
-                            class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-success"
-                            data-toggle="tooltip" data-placement="top" data-title="View"><i class="la la-eye"></i></a>
-                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-secondary"
-                            data-toggle="tooltip" data-placement="top" data-title="Edit"><i class="la la-edit"></i></div>
-                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-danger"
-                            data-toggle="tooltip" data-placement="top" title="Delete">
-                            <span data-toggle="modal" data-target="#itemDeleteModal" class="w-100 h-100 d-inline-block"><i
-                                    class="la la-trash"></i></span>
+                </div><!-- end card-image -->
+
+                <div class="card-body">
+                    <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $item->course->label }}</h6>
+                    <h5 class="card-title"><a href="course-details.html">{{ $item->course->course_name }}</a>
+                    </h5>
+                    <p class="card-text"><a href="teacher-detail.html">{{ $item->course->user->name }}</a></p>
+                    <div class="rating-wrap d-flex align-items-center py-2">
+                        <div class="review-stars">
+                            <span class="rating-number">4.4</span>
+                            <span class="la la-star"></span>
+                            <span class="la la-star"></span>
+                            <span class="la la-star"></span>
+                            <span class="la la-star"></span>
+                            <span class="la la-star-o"></span>
+                        </div>
+                        <span class="rating-total pl-1">(20,230)</span>
+                    </div><!-- end rating-wrap -->
+                    <ul class="card-duration d-flex align-items-center fs-15 pb-2">
+                        <li class="mr-2">
+                            <span class="text-black">Status:</span>
+                            <span class="badge badge-success text-white">Published</span>
+                        </li>
+                        <li class="mr-2">
+                            <span class="text-black">Duration:</span>
+                            <span>{{ $item->course->duration }} Hours</span>
+                        </li>
+                        <li class="mr-2">
+                            <span class="text-black">Students:</span>
+                            <span>30,405</span>
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        @if ($item->course->discount_price == null)
+                            <p class="card-price text-black font-weight-bold">$
+                                {{ $item->course->selling_price }}</p>
+                        @else
+                            <p class="card-price text-black font-weight-bold">$
+                                {{ $item->course->discount_price }} <span class="before-price font-weight-medium">$
+                                    {{ $item->course->selling_price }}</span>
+                            </p>
+                        @endif
+
+
+                        <div class="card-action-wrap pl-3">
+                            <a href="course-details.html"
+                                class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-success"
+                                data-toggle="tooltip" data-placement="top" data-title="View"><i class="la la-eye"></i></a>
+                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-secondary"
+                                data-toggle="tooltip" data-placement="top" data-title="Edit"><i class="la la-edit"></i>
+                            </div>
+                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer ml-1 text-danger"
+                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                <span data-toggle="modal" data-target="#itemDeleteModal"
+                                    class="w-100 h-100 d-inline-block"><i class="la la-trash"></i></span>
+                            </div>
                         </div>
                     </div>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        @empty
+            <div class="card-body">
+                <div class="alert alert-danger text-center">
+                    <h5>Not Found.</h5>
                 </div>
-            </div><!-- end card-body -->
-        </div><!-- end card -->
+            </div>
+        @endforelse
+
 
     </div><!-- end col-lg-12 -->
 
