@@ -80,7 +80,7 @@
                     <a href="{{ route('admin.pending.order') }}"><i class='bx bx-radio-circle'></i>Pending Orders</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.all.coupon') }}"><i class='bx bx-radio-circle'></i>Confirm Orders</a>
+                    <a href="{{ route('admin-confirm-order') }}"><i class='bx bx-radio-circle'></i>Confirm Orders</a>
                 </li>
             </ul>
         </li>

@@ -167,14 +167,22 @@
                                     </div>
                                     <div class="col-sm-8 text-secondary">
                                         : @if ($payment->status == 'pending')
-                                            <a href="{{ route('pending-confirm', $payment->id) }}"
-                                                class="btn btn-block btn-success btn-sm" id="confirm">Confirm Order</a>
+                                            <span class="badge bg-danger">Pending</span>
                                         @elseif($payment->status == 'confirm')
-                                            <a href="" class="btn btn-block btn-success btn-sm">Confirm Order</a>
+                                            <span class="badge bg-success">Confirmed</span>
                                         @endif
                                     </div>
                                 </div>
 
+                                @if ($payment->status == 'pending')
+                                    <div class="row">
+                                        <div class="col-sm-12 text-secondary">
+
+                                            <a href="{{ route('admin-pending-confirm', $payment->id) }}"
+                                                class="btn btn-block btn-primary btn-sm" id="confirm">Confirm Order</a>
+                                        </div>
+                                    </div>
+                                @endif
 
                             </div>
                         </div>
@@ -248,12 +256,16 @@
                                                         @endphp
                                                     @endforeach
 
-                                                    <tr>
-                                                        <td colspan="4">Discount Amount</td>
-                                                        <td class="col-md-3">
-                                                            <strong> ${{ $discount_amount }}</strong>
-                                                        </td>
-                                                    </tr>
+                                                    @if ($discount_amount > 0)
+                                                        <tr>
+                                                            <td colspan="4">Discount Amount</td>
+                                                            <td class="col-md-3">
+                                                                <strong> ${{ $discount_amount }}</strong>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+
+
                                                     <tr>
                                                         <td colspan="4">Total Price</td>
                                                         <td class="col-md-3">

@@ -41,6 +41,16 @@ class OrderController extends Controller
             'alert-type'    => 'success',
         ];
 
-        return redirect()->back()->with($notification);
+        return redirect()->route('admin-confirm-order')->with($notification);
+    }
+
+    public function adminConfirmOrder()
+    {
+        $title          = 'Confirm Order';
+        $subtitle       = 'confirm order';
+        $payment        = Payment::where('status', 'confirm')->orderBy('id', 'DESC')->get();
+
+
+        return view('admin.backend.orders.confirm_orders', compact('payment', 'title', 'subtitle'));
     }
 }

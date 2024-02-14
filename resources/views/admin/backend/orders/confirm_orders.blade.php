@@ -62,7 +62,7 @@
                                     <td class="text-center">${{ $item->total_amount }}</td>
                                     <td class="text-center">{{ $item->payment_type }}</td>
                                     <td class="text-center">
-                                        <span class="badge bg-warning">{{ $item->status }}</span>
+                                        <span class="badge bg-success">{{ $item->status }}</span>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.order.details', $item->id) }}"
