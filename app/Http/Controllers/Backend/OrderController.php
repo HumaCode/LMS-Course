@@ -96,10 +96,10 @@ class OrderController extends Controller
     public function instructorOrderInvoice($payment_id)
     {
         $payment        = Payment::with('user')->where('id', $payment_id)->first();
-        $order_item     = Order::with('user', 'payment', 'course')->where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
+        $orderItem      = Order::with('user', 'payment', 'course')->where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
 
 
-        $pdf = Pdf::loadView('instructor.orders.order_pdf', compact('payment', 'order_item'))->setPaper('a4')->setOption([
+        $pdf = Pdf::loadView('instructor.orders.order_pdf', compact('payment', 'orderItem'))->setPaper('a4')->setOption([
             'tempDir' => public_path(),
             'chroot' => public_path(),
         ]);
