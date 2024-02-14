@@ -59,10 +59,14 @@ class OrderController extends Controller
 
     public function instructorAllOrder()
     {
-        $title          = 'All Orders';
-        $subtitle       = 'all orders';
-        $id             = Auth::user()->id;
-        $orderItem      = Order::with('payment')->where('instructor_id', $id)->orderBy('id', 'DESC')->get();
+        $title              = 'All Orders';
+        $subtitle           = 'all orders';
+        $id                 = Auth::user()->id;
+        $latestOrderItem    = Order::where('instructor_id', $id)->select('payment_id', \DB::raw('MAX(id) as max_id'))->groupBy('payment_id');
+
+        $orderItem          = Order::with('payment')->joinSub($latestOrderItem, 'latest_order', function ($join) {
+            $join->on('orders.id', '=', 'latest_order.max_id');
+        })->orderBy('latest_order.max_id', 'DESC')->get();
 
         return view('instructor.orders.all_order', compact('orderItem', 'title', 'subtitle'));
     }
