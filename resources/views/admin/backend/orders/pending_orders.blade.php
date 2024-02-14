@@ -65,7 +65,8 @@
                                         <span class="badge bg-warning">{{ $item->status }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="" class="btn btn-primary px-5">Detail</a>
+                                        <a href="{{ route('admin.order.details', $item->id) }}"
+                                            class="btn btn-primary px-5">Detail</a>
                                     </td>
                                 </tr>
                             @endforeach
