@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -121,6 +122,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/edit/coupon/{id}', 'adminEditCoupon')->name('admin.edit.coupon');
         Route::post('/admin/update/coupon', 'adminUpdateCoupon')->name('admin.update.coupon');
         Route::get('/admin/delete/coupon/{id}', 'adminDeleteCoupon')->name('admin.delete.coupon');
+    });
+
+    // order manage
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/admin/pending/order', 'adminPendingOrder')->name('admin.pending.order');
     });
 
     // setting smpt
