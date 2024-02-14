@@ -23,7 +23,7 @@ class OrderController extends Controller
         $title          = 'Detail Order';
         $subtitle       = 'detail order';
         $payment        = Payment::where('id', $payment_id)->first();
-        $order_item     = Order::where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
+        $order_item     = Order::with('user', 'payment', 'course')->where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
 
         return view('admin.backend.orders.admin_orders_detail', compact('title', 'subtitle', 'payment', 'order_item'));
     }

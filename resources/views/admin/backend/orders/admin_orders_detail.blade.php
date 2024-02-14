@@ -82,7 +82,7 @@
                                         <h6 class="mb-0">Payment Type</h6>
                                     </div>
                                     <div class="col-sm-8 text-secondary">
-                                        : {{ $payment->payment_type }}
+                                        : {{ strtoupper($payment->cash_delivery) }}
                                     </div>
                                 </div>
 
@@ -98,6 +98,33 @@
 
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Payment Type</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : <span class="badge bg-primary">{{ $payment->payment_type }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Invoice No</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : {{ $payment->invoice_no }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <h6 class="mb-0 ">Order Date</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary">
+                                            : {{ $payment->order_date }}
+                                        </div>
+                                    </div>
 
                                     @if ($payment->coupon_discount != 0 && $payment->coupon_name != '-' && $payment->discount_amount != 0)
                                         <div class="row mb-3">
@@ -128,41 +155,12 @@
                                         </div>
                                     @endif
 
-
-
                                     <div class="row mb-3">
                                         <div class="col-sm-4">
                                             <h6 class="mb-0 ">Total Amount</h6>
                                         </div>
                                         <div class="col-sm-8 text-secondary">
                                             : ${{ $payment->total_amount }}
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Payment Type</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : <span class="badge bg-primary">{{ $payment->payment_type }}</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Invoice No</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : {{ $payment->invoice_no }}
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <h6 class="mb-0 ">Order Date</h6>
-                                        </div>
-                                        <div class="col-sm-8 text-secondary">
-                                            : {{ $payment->order_date }}
                                         </div>
                                     </div>
 
@@ -185,6 +183,74 @@
                         </form>
 
 
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="table-responsive">
+                                            <table class="table" style="font-weight: 600;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-md-1">
+                                                            <label for="">Image</label>
+                                                        </td>
+                                                        <td class="col-md-2">
+                                                            <label for="">Course Name</label>
+                                                        </td>
+                                                        <td class="col-md-2">
+                                                            <label for="">Category</label>
+                                                        </td>
+                                                        <td class="col-md-2">
+                                                            <label for="">Instructor</label>
+                                                        </td>
+                                                        <td class="col-md-2">
+                                                            <label for="">Price</label>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    @foreach ($order_item as $item)
+                                                        <tr>
+                                                            <td class="col-md-1">
+                                                                <label for="">
+                                                                    <img src="{{ asset($item->course->course_image) }}"
+                                                                        alt="" style="width: 70px; height: 50px;">
+                                                                </label>
+                                                            </td>
+                                                            <td class="col-md-1">
+                                                                <label for=""> {{ $item->course->course_name }}
+                                                                </label>
+                                                            </td>
+                                                            <td class="col-md-1">
+                                                                <label for="">
+                                                                    {{ $item->course->category->category_name }}
+                                                                </label>
+                                                            </td>
+                                                            <td class="col-md-1">
+                                                                <label for="">
+                                                                    {{ $item->instructor->name }}
+                                                                </label>
+                                                            </td>
+                                                            <td class="col-md-1">
+                                                                <label for="">
+                                                                    ${{ $item->price }}
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
