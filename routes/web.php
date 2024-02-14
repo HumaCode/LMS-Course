@@ -47,6 +47,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/wishlist-remove/{id}', 'removeWishlist');
     });
 
+    // my course
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/my/course', 'myCourse')->name('my.course');
+    });
+
     // change password 
     Route::get('/user/change/password', [UserController::class, 'userChangePassword'])->name('user.change.password');
     Route::post('/user/password/update', [UserController::class, 'userPasswordUpdate'])->name('user.password.update');
