@@ -1,11 +1,11 @@
-@extends('admin.admin_dashboard')
+@extends('instructor.instructor_dashboard')
 
 @push('css')
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
 @endpush
 
-@section('admin')
+@section('instructor')
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -23,7 +23,7 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('admin.pending.order') }}" class="btn btn-danger tbl-custom"><i
+                    <a href="{{ route('instructor.all.order') }}" class="btn btn-danger tbl-custom"><i
                             class="bx bx-left-arrow-alt"></i>Back</a>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                                     <div class="row">
                                         <div class="col-sm-12 text-secondary">
 
-                                            <a href="{{ route('admin-pending-confirm', $payment->id) }}"
+                                            <a href="{{ route('instructor.pending.confirm', $payment->id) }}"
                                                 class="btn btn-block btn-primary btn-sm" id="confirm">Confirm Order</a>
                                         </div>
                                     </div>

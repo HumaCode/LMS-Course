@@ -96,7 +96,9 @@
     <script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#order').DataTable();
+            $('#order').DataTable({
+                'sort': false,
+            });
         });
     </script>
 @endpush

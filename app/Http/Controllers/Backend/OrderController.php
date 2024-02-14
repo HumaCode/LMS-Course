@@ -34,6 +34,7 @@ class OrderController extends Controller
     {
         Payment::findOrFail($payment_id)->update([
             'status'        => 'confirm',
+            'confirmed_by'  => Auth::user()->id,
             'confirm_date'  => Carbon::now(),
         ]);
 
@@ -60,8 +61,34 @@ class OrderController extends Controller
         $title          = 'All Orders';
         $subtitle       = 'all orders';
         $id             = Auth::user()->id;
-        $orderItem      = Order::where('instructor_id', $id)->orderBy('id', 'DESC')->get();
+        $orderItem      = Order::with('payment')->where('instructor_id', $id)->orderBy('id', 'DESC')->get();
 
         return view('instructor.orders.all_order', compact('orderItem', 'title', 'subtitle'));
+    }
+
+    public function instructorOrderDetail($payment_id)
+    {
+        $title          = 'Detail Order';
+        $subtitle       = 'detail order';
+        $payment        = Payment::with('user')->where('id', $payment_id)->first();
+        $order_item     = Order::with('user', 'payment', 'course')->where('payment_id', $payment_id)->orderBy('id', 'DESC')->get();
+
+        return view('instructor.orders.orders_detail', compact('title', 'subtitle', 'payment', 'order_item'));
+    }
+
+    public function instructorPendingConfirm($payment_id)
+    {
+        Payment::findOrFail($payment_id)->update([
+            'status'        => 'confirm',
+            'confirmed_by'  => Auth::user()->id,
+            'confirm_date'  => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Order Confirm Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

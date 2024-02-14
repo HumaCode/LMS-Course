@@ -56,7 +56,7 @@
 
                             @foreach ($orderItem as $key => $item)
                                 <tr>
-                                    <td class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-center">{{ $key + 1 }}.</td>
                                     <td class="text-center">{{ $item->payment->order_date }}</td>
                                     <td class="text-center">{{ $item->payment->invoice_no }}</td>
                                     <td class="text-center">${{ $item->payment->total_amount }}</td>
@@ -69,8 +69,8 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.course', $item->id) }}" class="btn btn-success px-3"
-                                            title="detail"><i class="lni lni-eye"></i></a>
+                                        <a href="{{ route('instructor.order.detail', $item->payment->id) }}"
+                                            class="btn btn-success px-3" title="detail"><i class="lni lni-eye"></i></a>
                                         <a href="{{ route('delete.course', $item->id) }}" class="btn btn-danger px-3 "
                                             title="download pdf" id="delete"><i class="lni lni-download"></i></a>
                                     </td>
@@ -102,7 +102,9 @@
     <script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#course').DataTable();
+            $('#course').DataTable({
+                'sort': false,
+            });
         });
     </script>
 @endpush
