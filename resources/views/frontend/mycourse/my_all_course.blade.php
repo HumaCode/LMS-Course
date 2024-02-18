@@ -58,7 +58,7 @@
                         @if ($item->course->discount_price == null)
                             <div class="course-badge red">New</div>
                         @else
-                            <div class="course-badge blue">{{ $discount }}%</div>
+                            <div class="course-badge blue">{{ round($discount) }}%</div>
                         @endif
 
                     </div>
