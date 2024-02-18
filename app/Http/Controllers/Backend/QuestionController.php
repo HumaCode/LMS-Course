@@ -3,11 +3,51 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Question;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
     public function userQuestion(Request $request)
     {
+        if (Auth::check()) {
+
+
+            $attr = $request->validate([
+                'course_id'     => 'required',
+                'instructor_id' => 'required',
+                'subject'       => 'required',
+                'question'      => 'required',
+            ]);
+
+            $course_id      = $attr['course_id'];
+            $instructor_id  = $attr['instructor_id'];
+
+            Question::insert([
+                'course_id'     => $course_id,
+                'instructor_id' => $instructor_id,
+                'user_id'       => Auth::user()->id,
+                'subject'       => $attr['subject'],
+                'question'      => $attr['question'],
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ]);
+
+            $notification = [
+                'message'       => 'Message Send Successfully',
+                'alert-type'    => 'success',
+            ];
+
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = [
+                'message'       => 'You Need to Login First',
+                'alert-type'    => 'error',
+            ];
+
+            return redirect()->route('login')->with($notification);
+        }
     }
 }
