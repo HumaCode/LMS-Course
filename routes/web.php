@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     // my course
     Route::controller(OrderController::class)->group(function () {
         Route::get('/my/course', 'myCourse')->name('my.course');
+        Route::get('/course/view/{id}', 'courseView')->name('course.view');
     });
 
     // change password 
