@@ -1,8 +1,5 @@
 @include('frontend.mycourse.body.header')
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-
 
 <body>
 
@@ -136,12 +133,6 @@
                     <div class="lecture-video-detail">
                         <div class="lecture-tab-body bg-gray p-4">
                             <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link" id="search-tab" data-toggle="tab" href="#search"
-                                        role="tab" aria-controls="search" aria-selected="false">
-                                        <i class="la la-search"></i>
-                                    </a>
-                                </li>
                                 <li class="nav-item mobile-menu-nav-item">
                                     <a class="nav-link" id="course-content-tab" data-toggle="tab"
                                         href="#course-content" role="tab" aria-controls="course-content"
@@ -174,26 +165,6 @@
 
                         <div class="lecture-video-detail-body">
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade" id="search" role="tabpanel"
-                                    aria-labelledby="search-tab">
-                                    <div class="search-course-wrap pt-40px">
-                                        <form action="#" class="pb-5">
-                                            <div class="input-group">
-                                                <input class="form-control form--control form--control-gray pl-3"
-                                                    type="text" name="search"
-                                                    placeholder="Search course content">
-                                                <div class="input-group-append">
-                                                    <button class="btn theme-btn"><span
-                                                            class="la la-search"></span></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="search-results-message text-center">
-                                            <h3 class="fs-24 font-weight-semi-bold pb-1">Start a new search</h3>
-                                            <p>To find captions, lectures or resources</p>
-                                        </div>
-                                    </div><!-- end search-course-wrap -->
-                                </div><!-- end tab-pane -->
                                 <div class="tab-pane fade" id="course-content" role="tabpanel"
                                     aria-labelledby="course-content-tab">
                                     <div class="mobile-course-menu pt-4">
@@ -441,20 +412,32 @@
                                             <div class="new-question-body pt-40px">
                                                 <h3 class="fs-20 font-weight-semi-bold">My question relates to</h3>
 
-                                                <form action="#" class="pt-4">
+                                                <form method="post" action="{{ route('user.question') }}"
+                                                    id="qna" class="pt-4">
+                                                    @csrf
+
+
+                                                    <input type="hidden" name="course_id"
+                                                        value="{{ $course->course_id }}">
+                                                    <input type="hidden" name="course_id"
+                                                        value="{{ $course->instructor_id }}">
+
                                                     <div class="custom-control-wrap">
 
-                                                        <div class="custom-control custom-radio mb-3 pl-0">
-                                                            <input type="text" name=""
-                                                                class="form-control form--control pl-3"
-                                                                placeholder="Name">
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-radio mb-3 pl-0">
+                                                                <input type="text"
+                                                                    class="form-control form--control pl-3"
+                                                                    name="subject" id="subject"
+                                                                    placeholder="Subject" required>
+                                                            </div>
                                                         </div>
 
-
-                                                        <div class="custom-control custom-radio mb-3 pl-0">
-                                                            <textarea class="form-control form--control pl-3" name="message" rows="4"
-                                                                placeholder="Write your response..."></textarea>
-
+                                                        <div class="form-group">
+                                                            <div class="custom-control custom-radio mb-3 pl-0">
+                                                                <textarea class="form-control form--control pl-3" id="message" name="message" rows="4"
+                                                                    placeholder="Write your response..." required></textarea>
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -1155,6 +1138,26 @@
         </div><!-- end modal-dialog -->
     </div><!-- end modal -->
 
+
+    <!-- template js files -->
+    <script src="{{ asset('frontend') }}/js/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/isotope.js"></script>
+    <script src="{{ asset('frontend') }}/js/waypoint.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/jquery.counterup.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/fancybox.js"></script>
+    <script src="{{ asset('frontend') }}/js/plyr.js"></script>
+    <script src="{{ asset('frontend') }}/js/datedropper.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/emojionearea.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/jquery-te-1.4.0.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/jquery.MultiFile.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/main.js"></script>
+    <script>
+        var player = new Plyr('#player');
+    </script>
+
     <script type="text/javascript">
         // Function to open the first lecture when the page loads
         function openFirstLecture() {
@@ -1208,7 +1211,42 @@
             openFirstLecture();
         });
     </script>
-    @include('frontend.mycourse.body.footer')
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#qna').validate({
+                rules: {
+                    subject: {
+                        required: true,
+                    },
+                    message: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    subject: {
+                        required: 'Please Enter Subject',
+                    },
+                    message: {
+                        required: 'Please Enter Message',
+                    },
+
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+    </script>
+
 
 
 

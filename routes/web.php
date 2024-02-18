@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -51,6 +52,11 @@ Route::middleware('auth')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/my/course', 'myCourse')->name('my.course');
         Route::get('/course/view/{id}', 'courseView')->name('course.view');
+    });
+
+    // Q&A route
+    Route::controller(QuestionController::class)->group(function () {
+        Route::post('/user/question', 'userQuestion')->name('user.question');
     });
 
     // change password 
