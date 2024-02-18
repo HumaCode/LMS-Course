@@ -50,9 +50,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="url" class="form-label">Video Url </label>
-                                    <input type="text" class="form-control" name="url" id="url"
-                                        placeholder="Video Url" value="{{ $clecture->url }}">
+                                    <label for="video" class="form-label">Video Url </label>
+                                    <input type="text" class="form-control" name="video" id="video"
+                                        placeholder="Video Url" value="{{ $clecture->video }}">
                                 </div>
                             </div>
 
@@ -61,6 +61,14 @@
                                     <label for="content" class="form-label">Lecture Content</label>
 
                                     <textarea name="content" id="content" cols="30" rows="5" class="form-control">{{ $clecture->content }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="url" class="form-label">Resource Url </label>
+                                    <input type="text" class="form-control" name="url" id="url"
+                                        placeholder="Resource Url" value="{{ $clecture->url }}">
                                 </div>
                             </div>
 
@@ -89,24 +97,16 @@
                     lecture_title: {
                         required: true,
                     },
-                    url: {
-                        required: true,
-                    },
-                    image: {
-                        required: true,
-                    },
+
+
 
                 },
                 messages: {
                     lecture_title: {
                         required: 'Please Enter Lecture Title',
                     },
-                    url: {
-                        required: 'Please Enter Video Url',
-                    },
-                    image: {
-                        required: 'Please Select Category Image',
-                    },
+
+
 
                 },
                 errorElement: 'span',

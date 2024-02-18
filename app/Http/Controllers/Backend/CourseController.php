@@ -384,6 +384,7 @@ class CourseController extends Controller
         $lecture->course_id         = $request->course_id;
         $lecture->section_id        = $request->section_id;
         $lecture->lecture_title     = $request->lecture_title;
+        $lecture->video             = $request->lecture_video;
         $lecture->url               = $request->lecture_url;
         $lecture->content           = $request->content;
         $lecture->save();
@@ -404,17 +405,16 @@ class CourseController extends Controller
     {
         $attr = $request->validate([
             'lecture_title'       => 'required',
-            'url'                 => 'required',
-            'content'             => 'required',
         ]);
-
 
         $id = $request->id;
 
+
         CourseLecture::find($id)->update([
             'lecture_title' => $attr['lecture_title'],
-            'url'           => $attr['url'],
-            'content'       => $attr['content'],
+            'video'         => $request->video,
+            'url'           => $request->url,
+            'content'       => $request->content,
         ]);
 
         $notification = [

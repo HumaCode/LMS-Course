@@ -1,5 +1,8 @@
 @include('frontend.mycourse.body.header')
 
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
 
 <body>
 
@@ -110,55 +113,26 @@
         <div class="course-dashboard-wrap">
             <div class="course-dashboard-container d-flex">
                 <div class="course-dashboard-column">
+
                     <div class="lecture-viewer-container">
                         <div class="lecture-video-item">
-                            <video controls crossorigin playsinline id="player">
-                                <!-- Video files -->
-                                <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                                    type="video/mp4" />
-                                <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
-                                    type="video/mp4" />
-                                <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4"
-                                    type="video/mp4" />
 
-                                <!-- Caption files -->
-                                <track kind="captions" label="English" srclang="en"
-                                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
-                                    default />
-                                <track kind="captions" label="Français" srclang="fr"
-                                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt" />
 
-                                <!-- Fallback for browsers that don't support the <video> element -->
-                                <a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                                    download>Download</a>
-                            </video>
-                        </div>
-                        <div class="lecture-viewer-text-wrap">
-                            <div class="lecture-viewer-text-content custom-scrollbar-styled">
-                                <div class="lecture-viewer-text-body">
-                                    <h2 class="fs-24 font-weight-semi-bold pb-4">Download your Footage for your Quick
-                                        Start</h2>
-                                    <div class="lecture-viewer-content-detail">
-                                        <ul class="generic-list-item pb-4">
-                                            <li>Hi</li>
-                                            <li>Welcome to Motion Graphics in After Effects. </li>
-                                            <li>In the next lectures you will start creating your first animation and
-                                                animate imported footage.</li>
 
-                                            <li><strong class="font-weight-semi-bold">Download your footage Now, Click
-                                                    on the Link Below.</strong></li>
-                                        </ul>
-                                        <div class="btn-box">
-                                            <h3 class="fs-18 font-weight-semi-bold pb-3">Resources for this lecture
-                                            </h3>
-                                            <a href="#" class="btn theme-btn theme-btn-transparent"><i
-                                                    class="la la-file-zip-o mr-1"></i>Quick-start.zip</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <iframe width="100%" height="500" id="videoContainer" src=""
+                                title="The Best Way to Learn With Videos and Online Classes I Video Notebook"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                            <div id="textLesson" class="fs-24 font-weight-semi-bold pb-2 text-center mt-4">
+                                <h3></h3>
                             </div>
+
                         </div>
                     </div><!-- end lecture-viewer-container -->
+
+
+
                     <div class="lecture-video-detail">
                         <div class="lecture-tab-body bg-gray p-4">
                             <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
@@ -258,7 +232,9 @@
                                                         <div class="card-body p-0">
                                                             <ul class="curriculum-sidebar-list">
                                                                 @foreach ($lectures1 as $lect1)
-                                                                    <li class="course-item-link active">
+                                                                    <li class="course-item-link  lecture-title"
+                                                                        data-video-url="{{ $lect1->video }}"
+                                                                        data-content="{{ $lect1->content }}">
                                                                         <div class="course-item-content-wrap">
                                                                             <div
                                                                                 class="custom-control custom-checkbox">
@@ -270,7 +246,7 @@
                                                                                     for="mobileCourseCheckbox"></label>
                                                                             </div><!-- end custom-control -->
                                                                             <div class="course-item-content">
-                                                                                <h4 class="fs-15">
+                                                                                <h4 class="fs-15 ">
                                                                                     {{ $lect1->lecture_title }}</h4>
                                                                                 <div class="courser-item-meta-wrap">
                                                                                     <p class="course-item-meta"><i
@@ -403,12 +379,12 @@
                                                     <div class="media media-card align-items-center">
                                                         <a href="teacher-detail.html"
                                                             class="media-img d-block rounded-full avatar-md">
-                                                            <img src="{{ !empty($course->user->photo) ? url('upload/user_images/' . $course->user->photo) : url('upload/no_image.jpg') }}"
+                                                            <img src="{{ !empty($course->instructor->photo) ? url('upload/instructor_images/' . $course->instructor->photo) : url('upload/no_image.jpg') }}"
                                                                 alt="Instructor avatar" class="rounded-full">
                                                         </a>
                                                         <div class="media-body">
                                                             <h5><a
-                                                                    href="teacher-detail.html">{{ $course->user->name }}</a>
+                                                                    href="teacher-detail.html">{{ $course->instructor->name }}</a>
                                                             </h5>
                                                             <span class="d-block lh-18 pt-2">Java Python Android and C#
                                                                 Expert Developer</span>
@@ -1236,7 +1212,9 @@
                                                 <ul class="curriculum-sidebar-list">
 
                                                     @foreach ($lectures as $lect)
-                                                        <li class="course-item-link active">
+                                                        <li class="course-item-link  lecture-title"
+                                                            data-video-url="{{ $lect->video }}"
+                                                            data-content="{{ $lect->content }}">
                                                             <div class="course-item-content-wrap">
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox"
@@ -1247,23 +1225,22 @@
                                                                         for="courseCheckbox"></label>
                                                                 </div><!-- end custom-control -->
                                                                 <div class="course-item-content">
-                                                                    <h4 class="fs-15">{{ $lect->lecture_title }}</h4>
-                                                                    <div class="courser-item-meta-wrap">
-                                                                        <p class="course-item-meta"><i
-                                                                                class="la la-play-circle"></i>2min</p>
-                                                                    </div>
-                                                                </div><!-- end course-item-content -->
-                                                            </div><!-- end course-item-content-wrap -->
+                                                                    <h4 class="fs-15 " ">
+                                                                        {{ $lect->lecture_title }}</h4>
+
+
+
+                                                                </div>
+                                                            </div><!-- end course-item-content -->
                                                         </li>
-                                                    @endforeach
-
-
+ @endforeach
                                                 </ul>
-                                            </div><!-- end card-body -->
-                                        </div><!-- end collapse -->
+                                            </div><!-- end course-item-content-wrap -->
+                                        </div><!-- end card-body -->
+                                    </div><!-- end collapse -->
 
 
-                                    </div><!-- end card -->
+
                                 @empty
                                     <div class="card">
                                         <div class="card-body">
@@ -1491,6 +1468,62 @@
         </div><!-- end modal-dialog -->
     </div><!-- end modal -->
 
+    <script type="text/javascript">
+        // Function to open the first lecture when the page loads
+        function openFirstLecture() {
+            const firstLecture = document.querySelector('.lecture-title'); // Get the first lecture element
+            if (firstLecture) {
+                firstLecture.click(); // Trigger the click event on the first lecture
+            }
+        }
 
+        // Function to handle lecture clicks and load content
+        function viewLesson(videoUrl, vimeoUrl, textContent) {
+            const video = document.getElementById("videoContainer");
+            const text = document.getElementById("textLesson");
+            const textContainer = document.createElement("div");
+
+            if (videoUrl && videoUrl.trim() !== "") {
+                video.classList.remove("d-none");
+                text.classList.add("d-none");
+                text.innerHTML = "";
+                video.setAttribute("src", videoUrl);
+            } else if (vimeoUrl && vimeoUrl.trim() !== "") {
+                video.classList.remove("d-none");
+                text.classList.add("d-none");
+                text.innerHTML = "";
+                video.setAttribute("src", vimeoUrl);
+            } else if (textContent && textContent.trim() !== "") {
+                video.classList.add("d-none");
+                text.classList.remove("d-none");
+                text.innerHTML = "";
+                textContainer.innerText = textContent;
+                textContainer.style.fontSize = "14px";
+                textContainer.style.textAlign = "left";
+                textContainer.style.paddingLeft = "40px";
+                textContainer.style.paddingRight = "40px";
+                text.appendChild(textContainer);
+            }
+        }
+
+        // Add a click event listener to all lecture elements
+        document.querySelectorAll('.lecture-title').forEach((lectureTitle) => {
+            lectureTitle.addEventListener('click', () => {
+                const videoUrl = lectureTitle.getAttribute('data-video-url');
+                const vimeoUrl = lectureTitle.getAttribute('data-vimeo-url');
+                const textContent = lectureTitle.getAttribute('data-content');
+                viewLesson(videoUrl, vimeoUrl, textContent);
+            });
+        });
+
+        // Open the first lecture when the page loads
+        window.addEventListener('load', () => {
+            openFirstLecture();
+        });
+    </script>
     @include('frontend.mycourse.body.footer')
+
+
+
+
 </body>

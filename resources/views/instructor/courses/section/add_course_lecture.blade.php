@@ -171,7 +171,10 @@
                 <textarea class="form-control mt-2" placeholder="Enter Lecture Content"  ></textarea>
 
                 <h6 class="mt-3">Add Video Url</h6>
-                <input type="text" name="url" class="form-control" placeholder="Add URL">
+                <input type="text" name="video" class="form-control" placeholder="Video URL">
+                
+                <h6 class="mt-3">Add Resource Url</h6>
+                <input type="text" name="url" class="form-control" placeholder="Resource URL">
 
                 <button class="btn btn-primary mt-3" onclick="saveLecture('${courseId}',${sectionId},'${containerId}')" >Save Lecture</button>
                 <button class="btn btn-secondary mt-3" onclick="hideLectureContainer('${containerId}')">Cancel</button>
@@ -196,6 +199,7 @@
             const lectureTitle = lectureContainer.querySelector('input[type="text"]').value;
             const lectureContent = lectureContainer.querySelector('textarea').value;
             const lectureUrl = lectureContainer.querySelector('input[name="url"]').value;
+            const lectureVideo = lectureContainer.querySelector('input[name="video"]').value;
 
             fetch('/save-lecture', {
                     method: 'POST',
@@ -208,6 +212,7 @@
                         section_id: sectionId,
                         lecture_title: lectureTitle,
                         lecture_url: lectureUrl,
+                        lecture_video: lectureVideo,
                         content: lectureContent,
                     }),
                 })
