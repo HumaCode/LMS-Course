@@ -60,4 +60,13 @@ class QuestionController extends Controller
 
         return view('instructor.question.all_question', compact('question', 'title', 'subtitle'));
     }
+
+    public function instructorQuestionDetail($id)
+    {
+        $title          = 'Question Details';
+        $subtitle       = 'question details';
+        $question = Question::findOrFail($id);
+
+        return view('instructor.question.question_details', compact('question', 'title', 'subtitle'));
+    }
 }
