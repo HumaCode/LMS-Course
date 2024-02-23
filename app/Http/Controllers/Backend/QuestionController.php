@@ -50,4 +50,14 @@ class QuestionController extends Controller
             return redirect()->route('login')->with($notification);
         }
     }
+
+    public function instructorAllQuestion()
+    {
+        $title          = 'All Question';
+        $subtitle       = 'all question';
+        $id             = Auth::user()->id;
+        $question       = Question::with('user', 'course')->where('instructor_id', $id)->where('parent_id', null)->orderBy('id', 'desc')->get();
+
+        return view('instructor.question.all_question', compact('question', 'title', 'subtitle'));
+    }
 }

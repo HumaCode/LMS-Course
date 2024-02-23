@@ -212,6 +212,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/order/invoice/{id}', 'instructorOrderInvoice')->name('instructor.order.invoice');
     });
 
+
+    // order question
+    Route::controller(QuestionController::class)->group(function () {
+        Route::get('/instructor/all/question/', 'instructorAllQuestion')->name('instructor.all.question');
+    });
+
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end instructor group middleware
