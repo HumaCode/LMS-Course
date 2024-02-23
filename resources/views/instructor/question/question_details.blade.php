@@ -3,6 +3,11 @@
 @push('css')
 @endpush
 
+@php
+    $id = Auth::user()->id;
+    $profileData = App\Models\User::find($id);
+@endphp
+
 @section('instructor')
     <div class="page-content">
         <div class="chat-wrapper">
@@ -10,11 +15,11 @@
                 <div class="chat-sidebar-header">
                     <div class="d-flex align-items-center">
                         <div class="chat-user-online">
-                            <img src="{{ asset('backend') }}/assets/images/avatars/avatar-1.png" width="45" height="45"
-                                class="rounded-circle" alt="">
+                            <img src="{{ !empty($profileData->photo) ? url('upload/instructor_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
+                                width="45" height="45" class="rounded-circle" alt="">
                         </div>
                         <div class="flex-grow-1 ms-2">
-                            <p class="mb-0">Rachel Zane</p>
+                            <p class="mb-0">{{ $profileData->name }}</p>
                         </div>
 
                     </div>
@@ -35,14 +40,15 @@
                                     <a href="javascript:;" class="list-group-item">
                                         <div class="d-flex">
                                             <div class="chat-user-online">
-                                                <img src="{{ asset('backend') }}/assets/images/avatars/avatar-2.png"
+                                                <img src="{{ !empty($question->user->photo) ? url('upload/user_images/' . $question->user->photo) : url('upload/no_image.jpg') }}"
                                                     width="42" height="42" class="rounded-circle" alt="">
                                             </div>
                                             <div class="flex-grow-1 ms-2">
-                                                <h6 class="mb-0 chat-title">Louis Litt</h6>
-                                                <p class="mb-0 chat-msg">You just got LITT up, Mike.</p>
+                                                <h6 class="mb-0 chat-title">{{ $question->user->name }}</h6>
+                                                <p class="mb-0 chat-msg">Student.</p>
                                             </div>
-                                            <div class="chat-time">9:51 AM</div>
+                                            <div class="chat-time">
+                                                {{ Carbon\Carbon::parse($question->created_at)->diffForHumans() }}</div>
                                         </div>
                                     </a>
 
@@ -62,7 +68,7 @@
                 <div class="chat-toggle-btn"><i class="bx bx-menu-alt-left"></i>
                 </div>
                 <div>
-                    <h4 class="mb-1 font-weight-bold">Harvey Inspector</h4>
+                    <h6 class="mb-1 font-weight-bold">{{ $question->course->course_name }}</h6>
 
                 </div>
                 <div class="chat-top-header-menu ms-auto"> <a href="javascript:;"><i class="bx bx-video"></i></a>
@@ -74,11 +80,12 @@
 
                 <div class="chat-content-leftside">
                     <div class="d-flex">
-                        <img src="{{ asset('backend') }}/assets/images/avatars/avatar-3.png" width="48" height="48"
-                            class="rounded-circle" alt="">
+                        <img src="{{ !empty($question->user->photo) ? url('upload/user_images/' . $question->user->photo) : url('upload/no_image.jpg') }}"
+                            width="48" height="48" class="rounded-circle" alt="">
                         <div class="flex-grow-1 ms-2">
-                            <p class="mb-0 chat-time">Harvey, 2:35 PM</p>
-                            <p class="chat-left-msg">Hi, harvey where are you now a days?</p>
+                            <p class="mb-0 chat-time">{{ $question->subject }},
+                                {{ Carbon\Carbon::parse($question->created_at)->diffForHumans() }}</p>
+                            <p class="chat-left-msg">{{ $question->question }}</p>
                         </div>
                     </div>
                 </div>
