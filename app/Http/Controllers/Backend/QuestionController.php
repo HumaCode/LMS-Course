@@ -69,4 +69,8 @@ class QuestionController extends Controller
 
         return view('instructor.question.question_details', compact('question', 'title', 'subtitle'));
     }
+
+    public function instructorReplay(Request $request)
+    {
+    }
 }

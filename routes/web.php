@@ -217,6 +217,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(QuestionController::class)->group(function () {
         Route::get('/instructor/all/question/', 'instructorAllQuestion')->name('instructor.all.question');
         Route::get('/instructor/question/details/{id}', 'instructorQuestionDetail')->name('instructor.question.detail');
+        Route::post('/instructor/replay', 'instructorReplay')->name('instructor.replay');
     });
 
     // logout
