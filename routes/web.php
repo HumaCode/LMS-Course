@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -152,7 +153,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 }); // end admin group middleware
 
 // login admin
-Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 
 Route::get('/become/instructor', [AdminController::class, 'becomeInstructor'])->name('become.instructor');
@@ -226,7 +227,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 
 
 // login instructor
-Route::get('/instructor/login', [InstructorController::class, 'instructorLogin'])->name('instructor.login');
+Route::get('/instructor/login', [InstructorController::class, 'instructorLogin'])->name('instructor.login')->middleware(RedirectIfAuthenticated::class);
 // user
 
 // frontend
