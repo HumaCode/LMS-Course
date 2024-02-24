@@ -1,12 +1,43 @@
-@extends('frontend.master')
+<!DOCTYPE html>
+<html lang="en">
 
-@push('css')
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="TechyDevs">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <title>Stripe Page</title>
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" sizes="16x16" href="{{ asset('frontend') }}/images/favicon.png">
+
+    <!-- inject:css -->
+    {{-- <link rel="stylesheet" href="{{ asset('frontend') }}/css/bootstrap.min.css"> --}}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/line-awesome.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/fancybox.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/tooltipster.bundle.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/css/style.css">
+    <!-- end inject -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
     <style>
-        .stripe {
-            top: 9px;
-        }
-
-
         .StripeElement {
             box-sizing: border-box;
             height: 40px;
@@ -31,9 +62,28 @@
             background-color: #fefde5 !important;
         }
     </style>
-@endpush
+</head>
 
-@section('home')
+<body>
+
+    <!-- start cssload-loader -->
+    <div class="preloader">
+        <div class="loader">
+            <svg class="spinner" viewBox="0 0 50 50">
+                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+        </div>
+    </div>
+    <!-- end cssload-loader -->
+
+    <!--======================================
+        START HEADER AREA
+    ======================================-->
+    @include('frontend.body.header')
+    <!--======================================
+        END HEADER AREA
+======================================-->
+
     {{-- START BREADCRUMB AREA --}}
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
@@ -71,7 +121,8 @@
                                     <div class="input-box col-lg-6">
                                         <label class="label-text">Name <span class="text-danger">*</span></label>
                                         <div class="form-group">
-                                            <input class="form-control form--control @error('name') is-invalid @enderror"
+                                            <input
+                                                class="form-control form--control @error('name') is-invalid @enderror"
                                                 type="text" name="name" placeholder="Enter Name"
                                                 value="{{ Auth::user()->name }}">
                                             <span class="la la-user input-icon"></span>
@@ -84,7 +135,8 @@
                                     <div class="input-box col-lg-6">
                                         <label class="label-text">Email <span class="text-danger">*</span></label>
                                         <div class="form-group">
-                                            <input class="form-control form--control @error('email') is-invalid @enderror"
+                                            <input
+                                                class="form-control form--control @error('email') is-invalid @enderror"
                                                 type="email" name="email" placeholder="Enter Email"
                                                 value="{{ Auth::user()->email }}">
                                             <span class="la la-envelope input-icon"></span>
@@ -98,7 +150,8 @@
                                     <div class="input-box col-lg-12">
                                         <label class="label-text">Address <span class="text-danger">*</span></label>
                                         <div class="form-group">
-                                            <input class="form-control form--control @error('address') is-invalid @enderror"
+                                            <input
+                                                class="form-control form--control @error('address') is-invalid @enderror"
                                                 type="text" name="address" placeholder="Enter Address"
                                                 value="{{ Auth::user()->address }}">
                                             <span class="la la-map-marker input-icon"></span>
@@ -108,7 +161,8 @@
                                         </div>
                                     </div><!-- end input-box -->
                                     <div class="input-box col-lg-12">
-                                        <label class="label-text">Phone Number <span class="text-danger">*</span></label>
+                                        <label class="label-text">Phone Number <span
+                                                class="text-danger">*</span></label>
                                         <div class="form-group">
                                             <input id="phone"
                                                 class="form-control form--control @error('phone') is-invalid @enderror"
@@ -135,27 +189,24 @@
                                 <div class="col-lg-12">
                                     <div class="border cart-totals p-40">
                                         <div class="divider-2 mb-30">
-                                            <div class="table-responsive order-table checkout">
-
-                                                <form id="payment-form" action="" method="POST">
+                                            <div class="table-responsive order_table checkout">
+                                                <form action="" method="post" id="payment-form">
                                                     @csrf
-
                                                     <div class="form-row">
-                                                        <label for="card-element">Credit or Debit Cart</label>
+                                                        <label for="card-element"> Credit or Debit Cart</label>
 
                                                         <div id="card-element">
-                                                            {{-- strip elemen --}}
+                                                            {{-- // stripe element will be inserted here --}}
                                                         </div>
                                                         <div id="card-errors" role="alert"></div>
                                                     </div>
-
-                                                    <button type="submit" class="btn btn-primary btn-sm">Submit
-                                                        Payment</button>
-
+                                                    <button class="btn btn-primary">Submit Payment</button>
                                                 </form>
 
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -197,7 +248,8 @@
 
 
                                 </div><!-- end order-details-lists -->
-                                <a href="{{ route('mycart') }}" class="btn-text"><i class="la la-edit mr-1"></i>Edit</a>
+                                <a href="{{ route('mycart') }}" class="btn-text"><i
+                                        class="la la-edit mr-1"></i>Edit</a>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
                         <div class="card card-item">
@@ -246,10 +298,12 @@
 
 
                                 <div class="btn-box border-top border-top-gray pt-3">
-                                    <p class="fs-14 lh-22 mb-2">Aduca is required by law to collect applicable transaction
+                                    <p class="fs-14 lh-22 mb-2">Aduca is required by law to collect applicable
+                                        transaction
                                         taxes for purchases made in certain tax jurisdictions.</p>
                                     <p class="fs-14 lh-22 mb-3">By completing your purchase you agree to these <a
-                                            href="#" class="text-color hover-underline">Terms of Service.</a></p>
+                                            href="#" class="text-color hover-underline">Terms of Service.</a>
+                                    </p>
 
 
                                     <button type="submit" class="btn theme-btn w-100">Proceed <i
@@ -263,10 +317,86 @@
 
         </div><!-- end container -->
     </section>
-@endsection
 
 
-@push('script')
+    <!-- ================================
+         END FOOTER AREA
+================================= -->
+    @include('frontend.body.footer')
+    <!-- ================================
+      END FOOTER AREA
+================================= -->
+
+    <!-- start scroll top -->
+    <div id="scroll-top">
+        <i class="la la-arrow-up" title="Go top"></i>
+    </div>
+    <!-- end scroll top -->
+
+    <!-- Modal -->
+    <div class="modal fade modal-container" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="la la-exclamation-circle fs-60 text-warning"></span>
+                    <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">You want to
+                        log
+                        out</h4>
+                    <p>You're sure you want to end the session ?</p>
+                    <div class="btn-box pt-4">
+                        <button type="button" class="btn font-weight-medium mr-3"
+                            data-dismiss="modal">Cancel</button>
+                        <a href="{{ route('user.logout') }}" class="btn theme-btn theme-btn-sm lh-30">Yes</a>
+                    </div>
+                </div><!-- end modal-body -->
+            </div><!-- end modal-content -->
+        </div><!-- end modal-dialog -->
+    </div><!-- end modal -->
+
+
+    <!-- template js files -->
+    <script src="{{ asset('frontend') }}/js/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/isotope.js"></script>
+    <script src="{{ asset('frontend') }}/js/waypoint.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/jquery.counterup.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/fancybox.js"></script>
+    <script src="{{ asset('frontend') }}/js/datedropper.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/emojionearea.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/tooltipster.bundle.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/jquery.lazy.min.js"></script>
+    <script src="{{ asset('frontend') }}/js/main.js"></script>
+
+    @stack('script')
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'success':
+                    toastr.success(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'warning':
+                    toastr.warning(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'error':
+                    toastr.error(" {{ Session::get('message') }} ");
+                    break;
+            }
+        @endif
+    </script>
+
     <script type="text/javascript">
         // Create a Stripe client.
         var stripe = Stripe(
@@ -334,4 +464,11 @@
             form.submit();
         }
     </script>
-@endpush
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    @include('frontend.body.script')
+
+</body>
+
+</html>
