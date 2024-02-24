@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class CartController extends Controller
 {
@@ -383,5 +385,62 @@ class CartController extends Controller
                 return redirect()->route('index')->with($notification);
             }
         }
+    }
+
+    public function stripeOrder(Request $request)
+    {
+        $attr = $request->validate([
+            'name'       => 'required',
+            'email'      => 'required',
+            'address'    => 'required',
+            'phone'      => 'required',
+        ]);
+
+        if (Session::has('coupon')) {
+            $total_amount       = Session::get('coupon')['total_amount'];
+
+            $coupon_discount    = Session::get('coupon')['coupon_discount']; //10%
+            $coupon_name        = Session::get('coupon')['coupon_name']; //coupon name 
+            $discount_amount    = Session::get('coupon')['discount_amount']; //discount amount 
+        } else {
+            $total_amount = round(Cart::total());
+            $coupon_discount    = 0;
+            $coupon_name        = '-';
+            $discount_amount    = 0;
+        }
+
+        Stripe::setApiKey('sk_test_51NRc2cClS3heOc5UTAxHnvMJIN5pOyoPjetCNbb5XnGWBzcU2faivUdVTWHpirHwmocjbrH0I6HIXcOg4MsXTVtg001qERrRiI');
+
+        $token = $_POST['stripeToken'];
+
+        $charge = Charge::create([
+            'amount'        => $total_amount * 100,
+            'currency'      => 'usd',
+            'description'   => 'LMS',
+            'source'        => $token,
+            'metadata'      => ['order' => '3434']
+        ]);
+
+        $order_id = Payment::insertGetId([
+            'name'              => $attr['name'],
+            'email'             => $attr['email'],
+            'phone'             => $attr['phone'],
+            'address'           => $attr['address'],
+            'cash_delivery'     => 'Stripe',
+            'coupon_discount'   => $coupon_discount,
+            'coupon_name'       => $coupon_name,
+            'discount_amount'   => $discount_amount,
+            'total_amount'      => $total_amount,
+            'payment_type'      => 'Stripe',
+
+            'invoice_no'        => 'HCL' . mt_rand(10000000, 99999999),
+            'order_date'        => Carbon::now()->format('d F Y'),
+            'order_month'       => Carbon::now()->format('F'),
+            'order_year'        => Carbon::now()->format('Y'),
+            'status'            => 'pending',
+            'created_at'        => Carbon::now(),
+
+
+        ]);
     }
 }

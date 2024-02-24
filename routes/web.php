@@ -263,5 +263,6 @@ Route::get('/checkout', [CartController::class, 'checkoutCreate'])->name('checko
 
 // paymenr
 Route::post('/payment', [CartController::class, 'payment'])->name('payment');
+Route::post('/strip_order', [CartController::class, 'stripeOrder'])->name('strip.order');
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');

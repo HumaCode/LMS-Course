@@ -190,17 +190,20 @@
                                     <div class="border cart-totals p-40">
                                         <div class="divider-2 mb-30">
                                             <div class="table-responsive order_table checkout">
-                                                <form action="" method="post" id="payment-form">
+
+                                                <form action="{{ route('strip_order') }}" method="post"
+                                                    id="payment-form">
                                                     @csrf
-                                                    <div class="form-row">
+                                                    <div class="form-row p-3 ">
                                                         <label for="card-element"> Credit or Debit Cart</label>
 
                                                         <div id="card-element">
                                                             {{-- // stripe element will be inserted here --}}
                                                         </div>
                                                         <div id="card-errors" role="alert"></div>
+                                                        <br>
+                                                        <button class="btn btn-primary">Submit Payment</button>
                                                     </div>
-                                                    <button class="btn btn-primary">Submit Payment</button>
                                                 </form>
 
                                             </div>
