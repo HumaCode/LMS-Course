@@ -132,7 +132,7 @@ class OrderController extends Controller
 
         $course         = Order::where('course_id', $course_id)->where('user_id', $id)->first();
         $section        = CourseSection::where('course_id', $course_id)->orderBy('id', 'asc')->get();
-        $allQuestion    = Question::latest()->get();
+        $allQuestion    = Question::where('course_id', $course_id)->latest()->get();
 
         return view('frontend.mycourse.course_view', compact('course', 'section', 'allQuestion'));
     }
