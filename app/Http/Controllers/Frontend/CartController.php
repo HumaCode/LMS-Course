@@ -439,8 +439,35 @@ class CartController extends Controller
             'order_year'        => Carbon::now()->format('Y'),
             'status'            => 'pending',
             'created_at'        => Carbon::now(),
-
-
         ]);
+
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            Order::insert([
+                'payment_id'    => $order_id,
+                'user_id'       => Auth::user()->id,
+                'course_id'     => $cart->id,
+                'instructor_id' => $cart->options->instructor,
+                'course_title'  => $cart->name,
+                'price'         => $cart->price,
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ]);
+        }
+
+        // hapus coupon
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
+        // hapus dara cart
+        Cart::destroy();
+
+        $notification = [
+            'message'       => 'Strip Payment Submit Success.',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('index')->with($notification);
     }
 }
