@@ -255,6 +255,14 @@ class CartController extends Controller
 
     public function payment(Request $request)
     {
+
+        $attr = $request->validate([
+            'name'       => 'required',
+            'email'      => 'required',
+            'address'    => 'required',
+            'phone'      => 'required',
+        ]);
+
         if (Session::has('coupon')) {
             $total_amount       = Session::get('coupon')['total_amount'];
 
@@ -268,101 +276,112 @@ class CartController extends Controller
             $discount_amount    = 0;
         }
 
-        foreach ($request->course_title as $key => $course_title) {
-            $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
-
-            if ($exitingOrder) {
-                $notification = [
-                    'message'       => 'You Have Already Endrolled in This Course.',
-                    'alert-type'    => 'error',
-                ];
-
-                $request->session()->forget('cart');
-
-                return redirect()->route('index')->with($notification);
-            }
-        }
-
-        $data = new Payment();
-
-        $data->name             = $request->name;
-        $data->email            = $request->email;
-        $data->phone            = $request->phone;
-        $data->address          = $request->address;
-        $data->cash_delivery    = $request->cash_delivery;
-        $data->coupon_discount  = $coupon_discount;
-        $data->coupon_name      = $coupon_name;
-        $data->discount_amount  = $discount_amount;
-        $data->total_amount     = $total_amount;
-        $data->payment_type     = 'Direct Payment';
-
-        $data->invoice_no       = 'HCL' . mt_rand(10000000, 99999999);
-        $data->order_date       = Carbon::now()->format('d F Y');
-        $data->order_month      = Carbon::now()->format('F');
-        $data->order_year       = Carbon::now()->format('Y');
-        $data->status           = 'pending';
-        $data->created_at       = Carbon::now();
-        $data->save();
+        $data = [];
+        $data['name']           = $attr['name'];
+        $data['email']          = $attr['email'];
+        $data['phone']          = $attr['phone'];
+        $data['address']        = $attr['address'];
+        $data['course_title']   = $request->course_title;
+        $cartTotal              = Cart::total();
+        $carts                  =  Cart::content();
 
 
-
-        foreach ($request->course_title as $key => $course_title) {
-            $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
-
-            if ($exitingOrder) {
-                $notification = [
-                    'message'       => 'You Have Already Endrolled in This Course.',
-                    'alert-type'    => 'error',
-                ];
-
-                $request->session()->forget('cart');
-
-                return redirect()->route('index')->with($notification);
-            }
-
-
-            $order = new Order();
-            $order->payment_id      = $data->id;
-            $order->user_id         = Auth::user()->id;
-            $order->course_id       = $request->course_id[$key];
-            $order->instructor_id   = $request->instructor_id[$key];
-            $order->course_title    = $course_title;
-            $order->price           = $request->price[$key];
-            $order->save();
-        }
-
-        $request->session()->forget('cart');
-
-        $smpt = SmtpSetting::find(1);
-
-        // check status smpt
-        if ($smpt->status == 1) {
-
-            $payment_id = $data->id;
-
-            // sent email notification
-            $sendmail = Payment::find($payment_id);
-            $data = [
-                'invoice_no'    => $sendmail->invoice_no,
-                'amount'        => $total_amount,
-                'name'          => $sendmail->name,
-                'email'         => $sendmail->email
-            ];
-
-
-            Mail::to($request->email)->send(new OrderConfirm($data));
-        }
-
-
+        // paymen
         if ($request->cash_delivery == 'stripe') {
-            echo 'stripe';
-        } else {
-            $notification = [
-                'message'       => 'Cash Payment Submit Success.',
-                'alert-type'    => 'success',
-            ];
 
-            return redirect()->route('index')->with($notification);
+            return view('frontend.payment.stripe', compact('data', 'cartTotal', 'carts'));
+        } elseif ($request->cash_delivery == 'handcash') {
+            foreach ($request->course_title as $key => $course_title) {
+                $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
+
+                if ($exitingOrder) {
+                    $notification = [
+                        'message'       => 'You Have Already Endrolled in This Course.',
+                        'alert-type'    => 'error',
+                    ];
+
+                    $request->session()->forget('cart');
+
+                    return redirect()->route('index')->with($notification);
+                }
+            }
+
+            $data = new Payment();
+
+            $data->name             = $attr['name'];
+            $data->email            = $attr['email'];
+            $data->phone            = $attr['phone'];
+            $data->address          = $attr['address'];
+            $data->cash_delivery    = $request->cash_delivery;
+            $data->coupon_discount  = $coupon_discount;
+            $data->coupon_name      = $coupon_name;
+            $data->discount_amount  = $discount_amount;
+            $data->total_amount     = $total_amount;
+            $data->payment_type     = 'Direct Payment';
+
+            $data->invoice_no       = 'HCL' . mt_rand(10000000, 99999999);
+            $data->order_date       = Carbon::now()->format('d F Y');
+            $data->order_month      = Carbon::now()->format('F');
+            $data->order_year       = Carbon::now()->format('Y');
+            $data->status           = 'pending';
+            $data->created_at       = Carbon::now();
+            $data->save();
+
+
+
+            foreach ($request->course_title as $key => $course_title) {
+                $exitingOrder =  Order::where('user_id', Auth::user()->id)->where('course_id', $request->course_id[$key])->first();
+
+                if ($exitingOrder) {
+                    $notification = [
+                        'message'       => 'You Have Already Endrolled in This Course.',
+                        'alert-type'    => 'error',
+                    ];
+
+                    $request->session()->forget('cart');
+
+                    return redirect()->route('index')->with($notification);
+                }
+
+
+                $order = new Order();
+                $order->payment_id      = $data->id;
+                $order->user_id         = Auth::user()->id;
+                $order->course_id       = $request->course_id[$key];
+                $order->instructor_id   = $request->instructor_id[$key];
+                $order->course_title    = $course_title;
+                $order->price           = $request->price[$key];
+                $order->save();
+            }
+
+            $request->session()->forget('cart');
+
+            $smpt = SmtpSetting::find(1);
+
+            // check status smpt
+            if ($smpt->status == 1) {
+
+                $payment_id = $data->id;
+
+                // sent email notification
+                $sendmail = Payment::find($payment_id);
+                $data = [
+                    'invoice_no'    => $sendmail->invoice_no,
+                    'amount'        => $total_amount,
+                    'name'          => $sendmail->name,
+                    'email'         => $sendmail->email
+                ];
+
+
+                Mail::to($request->email)->send(new OrderConfirm($data));
+
+                $notification = [
+                    'message'       => 'Cash Payment Submit Success.',
+                    'alert-type'    => 'success',
+                ];
+
+                return redirect()->route('index')->with($notification);
+            }
         }
     }
 }
