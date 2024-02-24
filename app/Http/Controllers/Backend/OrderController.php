@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CourseSection;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Question;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -127,12 +128,12 @@ class OrderController extends Controller
 
     public function courseView($course_id)
     {
-        $id = Auth::user()->id;
+        $id             = Auth::user()->id;
 
-        $course = Order::where('course_id', $course_id)->where('user_id', $id)->first();
-        $section = CourseSection::where('course_id', $course_id)->orderBy('id', 'asc')->get();
+        $course         = Order::where('course_id', $course_id)->where('user_id', $id)->first();
+        $section        = CourseSection::where('course_id', $course_id)->orderBy('id', 'asc')->get();
+        $allQuestion    = Question::latest()->get();
 
-
-        return view('frontend.mycourse.course_view', compact('course', 'section'));
+        return view('frontend.mycourse.course_view', compact('course', 'section', 'allQuestion'));
     }
 }
