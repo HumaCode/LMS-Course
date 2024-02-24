@@ -29,17 +29,22 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $notification = [
+            'message'       => 'Login Successfully',
+            'alert-type'    => 'success',
+        ];
+
         $url = '';
 
-        if($request->user()->role === 'admin') {
+        if ($request->user()->role === 'admin') {
             $url = 'admin/dashboard';
-        }else if($request->user()->role === 'instructor') {
+        } else if ($request->user()->role === 'instructor') {
             $url = 'instructor/dashboard';
-        }else if($request->user()->role === 'user') {
+        } else if ($request->user()->role === 'user') {
             $url = '/dashboard';
         }
 
-        return redirect()->intended($url);
+        return redirect()->intended($url)->with($notification);
     }
 
     /**

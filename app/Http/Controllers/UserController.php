@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $notification = [
             'message'       => 'Logout Successfully',
-            'alert-type'    => 'success',
+            'alert-type'    => 'info',
         ];
 
         return redirect('/login')->with($notification);

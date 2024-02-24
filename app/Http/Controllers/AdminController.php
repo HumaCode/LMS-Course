@@ -24,38 +24,16 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        $notification = [
+            'message'       => 'Logout Successfully',
+            'alert-type'    => 'info',
+        ];
+
+        return redirect('/admin/login')->with($notification);
     }
 
     public function adminLogin()
     {
-        if (Auth::user()->id) {
-            if (Auth::user()->role == 'user') {
-
-                $notification = [
-                    'message'       => 'You are logged in..!',
-                    'alert-type'    => 'error',
-                ];
-
-                return view('frontend.dashboard.index')->with($notification);
-            } else if (Auth::user()->role == 'admin') {
-
-                $notification = [
-                    'message'       => 'You are logged in..!',
-                    'alert-type'    => 'error',
-                ];
-
-                return view('admin.dashboard')->with($notification);
-            } else if (Auth::user()->role == 'instructor') {
-
-                $notification = [
-                    'message'       => 'You are logged in..!',
-                    'alert-type'    => 'error',
-                ];
-
-                return view('instructor.dashboard')->with($notification);
-            }
-        }
 
         return view('admin.admin_login');
     }
