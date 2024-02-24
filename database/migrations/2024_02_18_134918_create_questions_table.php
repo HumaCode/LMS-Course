@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('user_id')->index();
             $table->integer('instructor_id')->index();
             $table->integer('parent_id')->index()->nullable();
-            $table->text('subject');
+            $table->text('subject')->nullable();
             $table->text('question');
             $table->timestamps();
         });

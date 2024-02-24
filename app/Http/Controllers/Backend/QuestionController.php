@@ -65,12 +65,38 @@ class QuestionController extends Controller
     {
         $title          = 'Question Details';
         $subtitle       = 'question details';
-        $question = Question::findOrFail($id);
+        $question       = Question::findOrFail($id);
+        $replay         = Question::where('parent_id', $id)->orderBy('id', 'asc')->get();
 
-        return view('instructor.question.question_details', compact('question', 'title', 'subtitle'));
+        return view('instructor.question.question_details', compact('question', 'replay', 'title', 'subtitle'));
     }
 
     public function instructorReplay(Request $request)
     {
+        $que_id         = $request->qid;
+        $user_id        = $request->user_id;
+        $course_id      = $request->course_id;
+        $instructor_id  = $request->instructor_id;
+        $instructor_id  = $request->instructor_id;
+
+        $attr = $request->validate([
+            'question'    => 'required',
+        ]);
+
+        Question::insert([
+            'course_id'     => $course_id,
+            'user_id'       => $user_id,
+            'instructor_id' => $instructor_id,
+            'parent_id'     => $que_id,
+            'question'      => $attr['question'],
+            'created_at'    => Carbon::now()
+        ]);
+
+        $notification = [
+            'message'       => 'Message Send Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('instructor.all.question')->with($notification);
     }
 }

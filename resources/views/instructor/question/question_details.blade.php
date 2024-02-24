@@ -90,14 +90,17 @@
                     </div>
                 </div>
 
-                <div class="chat-content-rightside">
-                    <div class="d-flex ms-auto">
-                        <div class="flex-grow-1 me-2">
-                            <p class="mb-0 chat-time text-end">you, 2:37 PM</p>
-                            <p class="chat-right-msg">I am in USA</p>
+                @foreach ($replay as $rep)
+                    <div class="chat-content-rightside">
+                        <div class="d-flex ms-auto">
+                            <div class="flex-grow-1 me-2">
+                                <p class="mb-0 chat-time text-end">you,
+                                    {{ Carbon\Carbon::parse($rep->created_at)->diffForHumans() }}</p>
+                                <p class="chat-right-msg">{{ $rep->question }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
 
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -144,4 +147,22 @@
         new PerfectScrollbar('.chat-list');
         new PerfectScrollbar('.chat-content');
     </script>
+
+    @if ($errors->any())
+        <script>
+            // Mendefinisikan variabel untuk menyimpan pesan kesalahan
+            var errorMessage = '';
+            // Iterasi melalui setiap pesan kesalahan yang diterima dari validator
+            @foreach ($errors->all() as $error)
+                errorMessage += "{{ $error }}<br>";
+            @endforeach
+
+            // Menampilkan pesan kesalahan dalam SweetAlert
+            Swal.fire(
+                'Error!',
+                errorMessage,
+                'error'
+            );
+        </script>
+    @endif
 @endpush
