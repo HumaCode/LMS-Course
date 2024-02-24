@@ -31,7 +31,7 @@ Route::get('/', [UserController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'roles:user', 'verified'])->name('dashboard');
 
 // user
 Route::middleware('auth')->group(function () {
