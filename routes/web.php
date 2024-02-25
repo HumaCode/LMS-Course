@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -143,6 +144,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/order/detail/{id}', 'adminOrderDetail')->name('admin.order.details');
         Route::get('/admin-pending-confirm/{id}', 'pendingToConfirm')->name('admin-pending-confirm');
         Route::get('/admin-confirm-order', 'adminConfirmOrder')->name('admin-confirm-order');
+    });
+
+    // manage report
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/admin/report/view', 'adminReportView')->name('admin.report.view');
     });
 
     // setting smpt
