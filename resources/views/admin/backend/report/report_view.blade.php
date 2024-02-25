@@ -25,12 +25,12 @@
             </div>
 
             {{-- button --}}
-            <div class="ms-auto">
+            {{-- <div class="ms-auto">
                 <div class="btn-group">
                     <a href="{{ route('admin.all.coupon') }}" class="btn btn-danger tbl-custom"><i
                             class="bx bx-left-arrow-alt"></i>Back</a>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
         <!--end breadcrumb-->
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <form id="myForm" method="POST" action="{{ route('admin.store.coupon') }}"
+                                <form id="myForm" method="POST" action="{{ route('admin.search.by.month') }}"
                                     class="row g-3">
                                     @csrf
 
@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <form id="myForm" method="POST" action="{{ route('admin.store.coupon') }}"
+                                <form id="myForm" method="POST" action="{{ route('admin.search.by.year') }}"
                                     class="row g-3">
                                     @csrf
 

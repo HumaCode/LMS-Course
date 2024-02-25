@@ -150,6 +150,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(ReportController::class)->group(function () {
         Route::get('/admin/report/view', 'adminReportView')->name('admin.report.view');
         Route::post('/admin/search/by/date', 'adminSearchByDate')->name('admin.search.by.date');
+        Route::post('/admin/search/by/month', 'adminSearchByMonth')->name('admin.search.by.month');
+        Route::post('/admin/search/by/year', 'adminSearchByYear')->name('admin.search.by.year');
     });
 
     // setting smpt

@@ -37,7 +37,7 @@
         </div>
         <!--end breadcrumb-->
         <hr />
-        <h3>Search By Date {{ $formatDate }}</h3>
+        <h3>Search By Year : {{ $year }}</h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
