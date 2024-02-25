@@ -409,14 +409,14 @@ class CartController extends Controller
 
 
                 Mail::to($request->email)->send(new OrderConfirm($data));
-
-                $notification = [
-                    'message'       => 'Cash Payment Submit Success.',
-                    'alert-type'    => 'success',
-                ];
-
-                return redirect()->route('index')->with($notification);
             }
+
+            $notification = [
+                'message'       => 'Cash Payment Submit Success.',
+                'alert-type'    => 'success',
+            ];
+
+            return redirect()->route('index')->with($notification);
         }
     }
 
