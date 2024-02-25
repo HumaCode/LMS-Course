@@ -27,18 +27,68 @@
                         @else
                         @endif
 
+                        @php
+                            $reviewcount = App\Models\Review::where('course_id', $course->id)
+                                ->where('status', 1)
+                                ->latest()
+                                ->get();
+
+                            $average = App\Models\Review::where('course_id', $course->id)
+                                ->where('status', 1)
+                                ->avg('rating');
+                        @endphp
+
                         <div class="rating-wrap d-flex flex-wrap align-items-center">
                             <div class="review-stars">
-                                <span class="rating-number">4.4</span>
-                                <span class="la la-star"></span>
-                                <span class="la la-star"></span>
-                                <span class="la la-star"></span>
-                                <span class="la la-star"></span>
-                                <span class="la la-star-o"></span>
+                                <span class="rating-number">{{ round($average) }}</span>
+
+                                @if ($average == 0)
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                @elseif ($average == 1 || $average < 2)
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                @elseif ($average == 2 || $average < 3)
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                @elseif ($average == 3 || $average < 4)
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star-o"></span>
+                                    <span class="la la-star-o"></span>
+                                @elseif ($average == 4 || $average < 5)
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star-o"></span>
+                                @elseif ($average == 5)
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                    <span class="la la-star"></span>
+                                @endif
                             </div>
-                            <span class="rating-total pl-1">(20,230 ratings)</span>
-                            <span class="student-total pl-2">540,815 students</span>
+
+                            @php
+                                $endrolementCourse = App\Models\Order::where('course_id', $course->id)->count();
+                            @endphp
+
+                            <span class="rating-total pl-1">({{ count($reviewcount) }} ratings)</span>
+                            <span class="student-total pl-2">{{ number_format($endrolementCourse) }} students</span>
                         </div>
+
                     </div><!-- end d-flex -->
                     <p class="pt-2 pb-1">Created by <a href="teacher-detail.html"
                             class="text-color hover-underline">{{ $course->user->name }}</a></p>
@@ -513,6 +563,11 @@
                                         ->latest()
                                         ->limit(5)
                                         ->get();
+
+                                    $rev = App\Models\Review::with('user')
+                                        ->where('course_id', $course->id)
+                                        ->where('user_id', Auth::user()->id)
+                                        ->first();
                                 @endphp
 
                                 @foreach ($reviews as $review)
@@ -593,41 +648,56 @@
                             <p><strong>For Add Course Review, You need to login first <a href="{{ route('login') }}">Login
                                         Here</a></strong></p>
                         @else
-                            <div class="course-overview-card pt-4">
-                                <h3 class="fs-24 font-weight-semi-bold pb-4">Add a Review</h3>
+                            @php
 
-                                <form method="post" class="row" action="{{ route('store.review') }}">
-                                    @csrf
+                            @endphp
 
-                                    <div class="leave-rating-wrap pb-4">
-                                        <div class="leave-rating leave--rating">
-                                            <input type="radio" name='rate' id="star5" value="5" />
-                                            <label for="star5"></label>
-                                            <input type="radio" name='rate' id="star4" value="4" />
-                                            <label for="star4"></label>
-                                            <input type="radio" name='rate' id="star3" value="3" />
-                                            <label for="star3"></label>
-                                            <input type="radio" name='rate' id="star2" value="2" />
-                                            <label for="star2"></label>
-                                            <input type="radio" name='rate' id="star1" value="1" />
-                                            <label for="star1"></label>
-                                        </div><!-- end leave-rating -->
-                                    </div>
+                            @if (!$rev)
+                                <div class="course-overview-card pt-4">
+                                    <h3 class="fs-24 font-weight-semi-bold pb-4">Add a Review</h3>
 
-                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                    <input type="hidden" name="instructor_id" value="{{ $course->instructor_id }}">
-                                    <div class="input-box col-lg-12">
-                                        <label class="label-text" for="comment">Comment</label>
-                                        <div class="form-group">
-                                            <textarea class="form-control form--control pl-3" name="comment" placeholder="Write Your Comment" rows="5"></textarea>
+                                    <form method="post" class="row" action="{{ route('store.review') }}">
+                                        @csrf
+
+                                        <div class="leave-rating-wrap pb-4">
+                                            <div class="leave-rating leave--rating">
+                                                <input type="radio" name='rate' id="star5" value="5" />
+                                                <label for="star5"></label>
+                                                <input type="radio" name='rate' id="star4" value="4" />
+                                                <label for="star4"></label>
+                                                <input type="radio" name='rate' id="star3" value="3" />
+                                                <label for="star3"></label>
+                                                <input type="radio" name='rate' id="star2" value="2" />
+                                                <label for="star2"></label>
+                                                <input type="radio" name='rate' id="star1" value="1" />
+                                                <label for="star1"></label>
+                                            </div><!-- end leave-rating -->
                                         </div>
-                                    </div><!-- end input-box -->
-                                    <div class="btn-box col-lg-12">
 
-                                        <button class="btn theme-btn" type="submit">Submit Review</button>
-                                    </div><!-- end btn-box -->
-                                </form>
-                            </div><!-- end course-overview-card -->
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="instructor_id" value="{{ $course->instructor_id }}">
+                                        <div class="input-box col-lg-12">
+                                            <label class="label-text" for="comment">Comment</label>
+                                            <div class="form-group">
+                                                <textarea class="form-control form--control pl-3" name="comment" placeholder="Write Your Comment" rows="5"></textarea>
+                                            </div>
+                                        </div><!-- end input-box -->
+                                        <div class="btn-box col-lg-12">
+
+                                            <button class="btn theme-btn" type="submit">Submit Review</button>
+                                        </div><!-- end btn-box -->
+                                    </form>
+                                </div><!-- end course-overview-card -->
+                            @else
+                                <div class="course-overview-card pt-4 text-center">
+                                    <div class="alert alert-info" role="alert">
+                                        <h4>You have already left a review</h4>
+                                    </div>
+                                </div>
+                            @endif
+
+
+
                         @endguest
 
 
