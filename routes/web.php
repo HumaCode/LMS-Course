@@ -230,6 +230,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::post('/instructor/replay', 'instructorReplay')->name('instructor.replay');
     });
 
+    // coupon  manage
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('/instructor/all/coupon', 'instructorAllCoupon')->name('instructor.all.coupon');
+    });
+
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end instructor group middleware

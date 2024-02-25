@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
@@ -99,5 +100,17 @@ class CouponController extends Controller
         ];
 
         return redirect()->back()->with($notification);
+    }
+
+
+    // INSTRUCTOR MANAGE ./////////////////////////////////
+    public function instructorAllCoupon()
+    {
+        $title          = 'All Coupon';
+        $subtitle       = 'all coupon';
+        $id             = Auth::user()->id;
+        $coupons        = Coupon::where('instructor_id', $id)->latest()->get();
+
+        return view('instructor.coupon.all_coupon', compact('title', 'subtitle', 'coupons'));
     }
 }
