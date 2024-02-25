@@ -482,6 +482,7 @@
                             </div><!-- end feedback-wrap -->
                         </div><!-- end course-overview-card -->
 
+
                         <div class="course-overview-card pt-4">
                             <h3 class="fs-24 font-weight-semi-bold pb-4">Reviews</h3>
                             <div class="review-wrap">
@@ -504,96 +505,83 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="media media-card border-bottom border-bottom-gray pb-4 mb-4">
-                                    <div class="media-img mr-4 rounded-full">
-                                        <img class="rounded-full lazy"
-                                            src="{{ asset('frontend') }}/images/img-loading.png"
-                                            data-src="images/small-avatar-1.jpg" alt="User image">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex flex-wrap align-items-center justify-content-between pb-1">
-                                            <h5>Kavi arasan</h5>
-                                            <div class="review-stars">
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
+
+                                @php
+                                    $reviews = App\Models\Review::with('user')
+                                        ->where('course_id', $course->id)
+                                        ->where('status', 1)
+                                        ->latest()
+                                        ->limit(5)
+                                        ->get();
+                                @endphp
+
+                                @foreach ($reviews as $review)
+                                    <div class="media media-card border-bottom border-bottom-gray pb-4 mb-4">
+                                        <div class="media-img mr-4 rounded-full">
+                                            <img class="rounded-full lazy"
+                                                src="{{ !empty($review->user->photo) ? url('upload/user_images/' . $review->user->photo) : url('upload/no_image.jpg') }}"
+                                                data-src="images/small-avatar-1.jpg" alt="User image">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="d-flex flex-wrap align-items-center justify-content-between pb-1">
+                                                <h5>{{ $review->user->name }}</h5>
+                                                <div class="review-stars">
+
+                                                    @if ($review->rating == null)
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                    @elseif ($review->rating == 1)
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                    @elseif ($review->rating == 2)
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                    @elseif ($review->rating == 3)
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star-o"></span>
+                                                        <span class="la la-star-o"></span>
+                                                    @elseif ($review->rating == 4)
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star-o"></span>
+                                                    @elseif ($review->rating == 5)
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                        <span class="la la-star"></span>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="d-block lh-18 pb-2">{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                            <p class="pb-2">{{ $review->comment }}</p>
+                                            <div class="helpful-action">
+                                                <span class="d-block fs-13">Was this review helpful?</span>
+                                                <button class="btn">Yes</button>
+                                                <button class="btn">No</button>
+                                                <span class="btn-text fs-14 cursor-pointer pl-1" data-toggle="modal"
+                                                    data-target="#reportModal">Report</span>
                                             </div>
                                         </div>
-                                        <span class="d-block lh-18 pb-2">a month ago</span>
-                                        <p class="pb-2">This is one of the best courses I have taken in Udemy. It is very
-                                            complete, and it has made continue learning about Java and SQL databases as
-                                            well.</p>
-                                        <div class="helpful-action">
-                                            <span class="d-block fs-13">Was this review helpful?</span>
-                                            <button class="btn">Yes</button>
-                                            <button class="btn">No</button>
-                                            <span class="btn-text fs-14 cursor-pointer pl-1" data-toggle="modal"
-                                                data-target="#reportModal">Report</span>
-                                        </div>
-                                    </div>
-                                </div><!-- end media -->
-                                <div class="media media-card border-bottom border-bottom-gray pb-4 mb-4">
-                                    <div class="media-img mr-4 rounded-full">
-                                        <img class="rounded-full lazy"
-                                            src="{{ asset('frontend') }}/images/img-loading.png"
-                                            data-src="images/small-avatar-2.jpg" alt="User image">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex flex-wrap align-items-center justify-content-between pb-1">
-                                            <h5>Jitesh Shaw</h5>
-                                            <div class="review-stars">
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                            </div>
-                                        </div>
-                                        <span class="d-block lh-18 pb-2">1 months ago</span>
-                                        <p class="pb-2">This is one of the best courses I have taken in Udemy. It is very
-                                            complete, and it has made continue learning about Java and SQL databases as
-                                            well.</p>
-                                        <div class="helpful-action">
-                                            <span class="d-block fs-13">Was this review helpful?</span>
-                                            <button class="btn">Yes</button>
-                                            <button class="btn">No</button>
-                                            <span class="btn-text fs-14 cursor-pointer pl-1" data-toggle="modal"
-                                                data-target="#reportModal">Report</span>
-                                        </div>
-                                    </div>
-                                </div><!-- end media -->
-                                <div class="media media-card border-bottom border-bottom-gray pb-4 mb-4">
-                                    <div class="media-img mr-4 rounded-full">
-                                        <img class="rounded-full lazy"
-                                            src="{{ asset('frontend') }}/images/img-loading.png"
-                                            data-src="images/small-avatar-3.jpg" alt="User image">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="d-flex flex-wrap align-items-center justify-content-between pb-1">
-                                            <h5>Miguel Sanches</h5>
-                                            <div class="review-stars">
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                            </div>
-                                        </div>
-                                        <span class="d-block lh-18 pb-2">2 month ago</span>
-                                        <p class="pb-2">This is one of the best courses I have taken in Udemy. It is very
-                                            complete, and it has made continue learning about Java and SQL databases as
-                                            well.</p>
-                                        <div class="helpful-action">
-                                            <span class="d-block fs-13">Was this review helpful?</span>
-                                            <button class="btn">Yes</button>
-                                            <button class="btn">No</button>
-                                            <span class="btn-text fs-14 cursor-pointer pl-1" data-toggle="modal"
-                                                data-target="#reportModal">Report</span>
-                                        </div>
-                                    </div>
-                                </div><!-- end media -->
+                                    </div><!-- end media -->
+                                @endforeach
+
+
                             </div><!-- end review-wrap -->
                             <div class="see-more-review-btn text-center">
                                 <button type="button" class="btn theme-btn theme-btn-transparent">Load more
