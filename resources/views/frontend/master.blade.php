@@ -105,6 +105,8 @@
     <script src="{{ asset('frontend') }}/js/tooltipster.bundle.min.js"></script>
     <script src="{{ asset('frontend') }}/js/jquery.lazy.min.js"></script>
     <script src="{{ asset('frontend') }}/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     @stack('script')
 
@@ -133,7 +135,6 @@
         @endif
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     @include('frontend.body.script')
 

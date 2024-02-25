@@ -629,9 +629,9 @@
                                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                                     <input type="hidden" name="instructor_id" value="{{ $course->instructor_id }}">
                                     <div class="input-box col-lg-12">
-                                        <label class="label-text">Message</label>
+                                        <label class="label-text" for="comment">Comment</label>
                                         <div class="form-group">
-                                            <textarea class="form-control form--control pl-3" name="message" placeholder="Write Message" rows="5"></textarea>
+                                            <textarea class="form-control form--control pl-3" name="comment" placeholder="Write Your Comment" rows="5"></textarea>
                                         </div>
                                     </div><!-- end input-box -->
                                     <div class="btn-box col-lg-12">
@@ -1174,4 +1174,22 @@
             player.stop();
         });
     </script>
+
+    @if ($errors->any())
+        <script>
+            // Mendefinisikan variabel untuk menyimpan pesan kesalahan
+            var errorMessage = '';
+            // Iterasi melalui setiap pesan kesalahan yang diterima dari validator
+            @foreach ($errors->all() as $error)
+                errorMessage += "{{ $error }}<br>";
+            @endforeach
+
+            // Menampilkan pesan kesalahan dalam SweetAlert
+            Swal.fire(
+                'Error!',
+                errorMessage,
+                'error'
+            );
+        </script>
+    @endif
 @endpush
