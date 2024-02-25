@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -285,5 +286,9 @@ Route::get('/checkout', [CartController::class, 'checkoutCreate'])->name('checko
 // paymenr
 Route::post('/payment', [CartController::class, 'payment'])->name('payment');
 Route::post('/strip_order', [CartController::class, 'stripeOrder'])->name('strip.order');
+
+// rating route
+Route::post('/store/review', [ReviewController::class, 'storeReview'])->name('store.review');
+
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
