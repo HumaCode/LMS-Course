@@ -47,6 +47,7 @@
                                 <th>Coupon Name</th>
                                 <th>Coupon Discount</th>
                                 <th>Coupon Validity</th>
+                                <th>Course</th>
                                 <th>Coupon Status</th>
                                 <th>Action</th>
                             </tr>
@@ -67,6 +68,7 @@
                                             <span class="badge bg-danger">Invalid</span>
                                         @endif
                                     </td>
+                                    <td class="text-center">{{ $coupon->course->course_name }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.edit.coupon', $coupon->id) }}"
                                             class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>

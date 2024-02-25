@@ -110,7 +110,7 @@ class CouponController extends Controller
         $title          = 'All Coupon';
         $subtitle       = 'all coupon';
         $id             = Auth::user()->id;
-        $coupons        = Coupon::where('instructor_id', $id)->latest()->get();
+        $coupons        = Coupon::with('course')->where('instructor_id', $id)->latest()->get();
 
         return view('instructor.coupon.all_coupon', compact('title', 'subtitle', 'coupons'));
     }
@@ -123,5 +123,32 @@ class CouponController extends Controller
         $courses        = Course::where('instructor_id', $id)->get();
 
         return view('instructor.coupon.add_coupon', compact('title', 'subtitle', 'courses'));
+    }
+
+    public function instructorStoreCoupon(Request $request)
+    {
+        $attr = $request->validate([
+            'coupon_name'           => 'required',
+            'coupon_discount'       => 'required',
+            'course_id'             => 'required',
+            'coupon_validity'       => 'required',
+        ]);
+
+        Coupon::insert([
+            'coupon_name'       => strtoupper($attr['coupon_name']),
+            'coupon_discount'   => $attr['coupon_discount'],
+            'coupon_validity'   => $attr['coupon_validity'],
+            'course_id'         => $attr['course_id'],
+            'instructor_id'     => Auth::user()->id,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Coupon Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('instructor.all.coupon')->with($notification);
     }
 }

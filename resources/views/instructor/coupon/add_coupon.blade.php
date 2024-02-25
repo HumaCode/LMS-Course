@@ -44,7 +44,7 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.coupon') }}" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('instructor.store.coupon') }}" class="row g-3">
                             @csrf
 
                             <div class="col-md-6">
@@ -76,10 +76,10 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="coupon_discount" class="form-label">Course <span
+                                    <label for="course_id" class="form-label">Course <span
                                             class="text-danger">*</span></label>
-                                    <select class="form-select select2-hidden-accessible" id="single-select-field"
-                                        data-placeholder="Choose one thing"
+                                    <select name="course_id" class="form-select select2-hidden-accessible"
+                                        id="single-select-field" data-placeholder="Choose one thing"
                                         data-select2-id="select2-data-single-select-field" tabindex="-1"
                                         aria-hidden="true">
                                         <option data-select2-id="select2-data-2-tyfm"></option>
@@ -91,7 +91,7 @@
 
                                     </select>
 
-                                    @error('coupon_discount')
+                                    @error('course_id')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>

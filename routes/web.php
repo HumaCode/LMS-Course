@@ -234,6 +234,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(CouponController::class)->group(function () {
         Route::get('/instructor/all/coupon', 'instructorAllCoupon')->name('instructor.all.coupon');
         Route::get('/instructor/add/coupon', 'instructorAddCoupon')->name('instructor.add.coupon');
+        Route::post('/instructor/store/coupon', 'instructorStoreCoupon')->name('instructor.store.coupon');
     });
 
     // logout
