@@ -44,7 +44,7 @@
 
                         <div class="row">
                             <div class="col-md-4">
-                                <form id="myForm" method="POST" action="{{ route('admin.store.coupon') }}"
+                                <form id="myForm" method="POST" action="{{ route('admin.search.by.date') }}"
                                     class="row g-3">
                                     @csrf
 
@@ -147,45 +147,4 @@
 
 
 @push('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#myForm').validate({
-                rules: {
-                    coupon_name: {
-                        required: true,
-                    },
-                    coupon_discount: {
-                        required: true,
-                    },
-                    coupon_validity: {
-                        required: true,
-                    },
-
-                },
-                messages: {
-                    coupon_name: {
-                        required: 'Please Enter Coupon Name',
-                    },
-                    coupon_discount: {
-                        required: 'Please Enter Coupon Discount',
-                    },
-                    coupon_validity: {
-                        required: 'Please Select Coupon Validity Date',
-                    },
-
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-            });
-        });
-    </script>
 @endpush
