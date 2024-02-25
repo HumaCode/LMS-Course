@@ -203,6 +203,10 @@ class CartController extends Controller
         }
     }
 
+    public function insCouponApply()
+    {
+    }
+
     public function couponCalculation()
     {
         if (Session::has('coupon')) {

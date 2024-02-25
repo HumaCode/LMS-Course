@@ -730,6 +730,21 @@
                                                 class="la
                                             la-shopping-bag mr-1"></i>
                                             Buy this course</button>
+
+
+                                        <div class="input-group mb-2" id="couponField">
+                                            <input class="form-control form--control pl-3" type="text"
+                                                id="coupon_name" placeholder="Coupon code">
+                                            <div class="input-group-append">
+                                                <input type="hidden" name="course_id" id="course_id"
+                                                    value="{{ $course->id }}">
+                                                <input type="hidden" name="instructor_id" id="instructor_id"
+                                                    value="{{ $course->instructor_id }}">
+                                                <button class="btn theme-btn" type="button"
+                                                    onclick="applyInsCoupon()">Apply Code</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
                                     <div class="preview-course-incentives">

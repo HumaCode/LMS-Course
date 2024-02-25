@@ -567,6 +567,58 @@
     couponCalculation();
 </script>
 
+<script>
+    // use instructor coupon
+    function applyInsCoupon() {
+        var coupon_name = $('#coupon_name').val();
+        var course_id = $('#course_id').val();
+        var instructor_id = $('#instructor_id').val();
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/ins-coupon-apply",
+            data: {
+                coupon_name: coupon_name,
+                course_id: course_id,
+                instructor_id: instructor_id,
+            },
+
+            success: function(data) {
+                couponCalculation();
+
+
+                if (data.validity == true) {
+                    $('#couponField').hide();
+                }
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+
+                } else {
+
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+            }
+        })
+    }
+</script>
+
 
 <script>
     // coupon remove
