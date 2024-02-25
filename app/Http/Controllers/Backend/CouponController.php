@@ -151,4 +151,64 @@ class CouponController extends Controller
 
         return redirect()->route('instructor.all.coupon')->with($notification);
     }
+
+    public function instructorEditCoupon($coupon_id)
+    {
+        // return 'HELLO';
+
+        $title          = 'Edit Coupon';
+        $subtitle       = 'edit coupon';
+        $id             = Auth::user()->id;
+        $coupon         = Coupon::findOrFail($coupon_id);
+        $courses        = Course::where('instructor_id', $id)->get();
+        // return 'HELLO';
+
+
+        return view('instructor.coupon.edit_coupon', compact('title', 'subtitle', 'coupon', 'courses'));
+    }
+
+    public function instructorUpdateCoupon(Request $request)
+    {
+        $id = $request->id;
+
+        $attr = $request->validate([
+            'coupon_name'           => 'required',
+            'coupon_discount'       => 'required',
+            'course_id'             => 'required',
+            'coupon_validity'       => 'required',
+        ]);
+
+
+        Coupon::find($id)->update([
+            'coupon_name'       => strtoupper($attr['coupon_name']),
+            'coupon_discount'   => $attr['coupon_discount'],
+            'coupon_validity'   => $attr['coupon_validity'],
+            'course_id'         => $attr['course_id'],
+            'instructor_id'     => Auth::user()->id,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+
+
+        $notification = [
+            'message'       => 'Coupon Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('instructor.all.coupon')->with($notification);
+    }
+
+    public function instructorDeleteCoupon($id)
+    {
+        $data = Coupon::findOrFail($id);
+
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Coupon Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }

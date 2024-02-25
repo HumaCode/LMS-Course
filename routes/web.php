@@ -235,6 +235,9 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/all/coupon', 'instructorAllCoupon')->name('instructor.all.coupon');
         Route::get('/instructor/add/coupon', 'instructorAddCoupon')->name('instructor.add.coupon');
         Route::post('/instructor/store/coupon', 'instructorStoreCoupon')->name('instructor.store.coupon');
+        Route::get('/instructor/edit/coupon/{id}', 'instructorEditCoupon')->name('instructor.edit.coupon');
+        Route::post('/instructor/update/coupon', 'instructorUpdateCoupon')->name('instructor.update.coupon');
+        Route::get('/instructor/delete/coupon/{id}', 'instructorDeleteCoupon')->name('instructor.delete.coupon');
     });
 
     // logout
