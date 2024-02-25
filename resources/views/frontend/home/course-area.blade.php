@@ -67,6 +67,22 @@
                                                 <div class="course-badge blue">{{ round($discount) }}%</div>
                                             @endif
 
+                                            @php
+                                                $reviewcount = App\Models\Review::where('course_id', $course->id)
+                                                    ->where('status', 1)
+                                                    ->latest()
+                                                    ->get();
+
+                                                $average = App\Models\Review::where('course_id', $course->id)
+                                                    ->where('status', 1)
+                                                    ->avg('rating');
+
+                                                $endrolementCourse = App\Models\Order::where('course_id', $course->id)->count();
+
+                                            @endphp
+
+
+
                                         </div>
                                     </div><!-- end card-image -->
                                     <div class="card-body">
@@ -79,14 +95,47 @@
                                         </p>
                                         <div class="rating-wrap d-flex align-items-center py-2">
                                             <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
+                                                <span class="rating-number">{{ round($average, 1) }}</span>
+                                                @if ($average == 0)
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                @elseif ($average == 1 || $average < 2)
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                @elseif ($average == 2 || $average < 3)
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                @elseif ($average == 3 || $average < 4)
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star-o"></span>
+                                                    <span class="la la-star-o"></span>
+                                                @elseif ($average == 4 || $average < 5)
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star-o"></span>
+                                                @elseif ($average == 5)
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                    <span class="la la-star"></span>
+                                                @endif
                                             </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
+                                            <span
+                                                class="rating-total pl-1">({{ number_format($endrolementCourse) }})</span>
                                         </div><!-- end rating-wrap -->
                                         <div class="d-flex justify-content-between align-items-center">
 
@@ -136,7 +185,8 @@
                                             <a href="{{ url('course/details/' . $course->id . '/' . $course->course_name_slug) }}"
                                                 class="d-block">
                                                 <img class="card-img-top lazy" src="{{ $course->course_image }}"
-                                                    data-src="{{ $course->course_image }}" alt="{{ $course->id }}">
+                                                    data-src="{{ $course->course_image }}"
+                                                    alt="{{ $course->id }}">
                                             </a>
                                         </div><!-- end card-image -->
                                         <div class="card-body">
