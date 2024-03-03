@@ -158,6 +158,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // manage review
     Route::controller(ReviewController::class)->group(function () {
         Route::get('/admin/pending/review', 'adminPendingReview')->name('admin.pending.review');
+        Route::post('update/review/stauts', 'updateReviewStauts')->name('update.review.stauts');
+        Route::get('/admin/active/review', 'adminActiveReview')->name('admin.active.review');
     });
 
     // setting smpt
