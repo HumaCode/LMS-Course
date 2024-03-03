@@ -55,7 +55,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Status</th>
+                                <th>Status Account</th>
+                                <th>Online/Offline</th>
                                 <th>Action</th>
 
                             </tr>
@@ -80,6 +81,15 @@
                                         @endif
                                     </td>
 
+                                    <td class="text-center">
+                                        @if ($item->userOnline())
+                                            <span class="badge badge-pill bg-success">Online</span>
+                                        @else
+                                            <span
+                                                class="badge bg-danger">{{ Carbon\Carbon::parse($item->last_seen)->diffForHumans() }}</span>
+                                        @endif
+                                    </td>
+
                                     <td class="justify-content-center" style="align-content: flex-start;">
 
                                         <div class="form-check form-switch">
@@ -100,7 +110,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Status</th>
+                                <th>Status Account</th>
+                                <th>Online/Offline</th>
                                 <th>Action</th>
 
                             </tr>

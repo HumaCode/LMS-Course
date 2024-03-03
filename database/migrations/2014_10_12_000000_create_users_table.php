@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->enum('role', ['admin', 'instructor', 'user'])->default('user');
             $table->enum('status', ['1', '0'])->default('1');
+            $table->string('last_seen')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
