@@ -60,8 +60,11 @@
                                     <td class="text-center" width="5%">{{ $key + 1 }}</td>
                                     <td class="text-center">{{ $item->category_name }}</td>
                                     <td class="text-center" width="20%">
-                                        <a href="{{ route('edit.category', $item->category_slug) }}"
-                                            class="btn btn-success px-1"><i class="bx bx-edit-alt"></i>Edit</a>
+
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#editCategory"
+                                            class="btn btn-success px-1" id="{{ $item->id }}"
+                                            onclick="categoryEdit(this.id)"><i class="bx bx-edit-alt"></i>Edit</button>
+
                                         <a href="{{ route('delete.category', $item->category_slug) }}"
                                             class="btn btn-danger px-1" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
@@ -84,12 +87,12 @@
     </div>
 
 
-
+    {{-- add --}}
     <div class="modal fade" id="exampleVerticallycenteredModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Blog Category</h5>
+                    <h5 class="modal-title">Add Blog Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -124,6 +127,51 @@
             </div>
         </div>
     </div>
+
+
+    {{-- edit --}}
+    <div class="modal fade" id="editCategory" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Blog Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{ route('admin.blog.category.store') }}" method="post">
+                    @csrf
+
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="category_name" class="form-label">Category Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="cat_name" name="category_name"
+                                    placeholder="Category Name">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="category_slug" class="form-label">Category Slug <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control cursor" id="cat_slug" name="category_slug"
+                                    placeholder="Category Slug" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Blog Category</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -136,9 +184,6 @@
                 'sort': false,
             });
         });
-
-
-
 
         // slug
         const name = document.querySelector('#category_name');
@@ -171,6 +216,31 @@
 
             // Fokuskan pada input nama kategori
             nameInput.focus();
+        });
+
+
+        function categoryEdit(id) {
+            $.ajax({
+                type: "GET",
+                url: "/admin/blog/category/edit/" + id,
+                dataType: "json",
+                success: function(data) {
+                    // console.log(data); 
+                    $('#cat_name').val(data.category_name);
+                    $('#cat_slug').val(data.category_slug);
+                    $('#id').val(data.id);
+                }
+            })
+        }
+
+        // slug
+        const catname = document.querySelector('#cat_name');
+        const catslug = document.querySelector('#cat_slug');
+
+        catname.addEventListener('change', function() {
+            fetch('/blog/category/checkSlug?category_name=' + catname.value)
+                .then(response => response.json())
+                .then(data => catslug.value = data.category_slug)
         });
     </script>
 

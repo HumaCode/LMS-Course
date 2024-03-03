@@ -49,4 +49,11 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blog.category')->with($notification);
     }
+
+    public function adminBlogCategoryEdit($id)
+    {
+        $category = BlogCategory::findOrFail($id);
+
+        return response()->json($category);
+    }
 }
