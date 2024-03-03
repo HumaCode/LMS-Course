@@ -8,6 +8,10 @@
             text-align: center;
             vertical-align: middle;
         }
+
+        .cursor {
+            cursor: no-drop;
+        }
     </style>
 @endpush
 
@@ -29,8 +33,9 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('add.category') }}" class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
-                        Blog Category</a>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleVerticallycenteredModal"
+                        class="btn btn-primary tbl-custom"><i class="bx bx-plus"></i>Add
+                        Blog Category</button>
                 </div>
             </div>
 
@@ -52,13 +57,13 @@
 
                             @foreach ($categories as $key => $item)
                                 <tr>
-                                    <td class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-center" width="5%">{{ $key + 1 }}</td>
                                     <td class="text-center">{{ $item->category_name }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" width="20%">
                                         <a href="{{ route('edit.category', $item->category_slug) }}"
-                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
+                                            class="btn btn-success px-1"><i class="bx bx-edit-alt"></i>Edit</a>
                                         <a href="{{ route('delete.category', $item->category_slug) }}"
-                                            class="btn btn-danger px-5" id="delete"><i
+                                            class="btn btn-danger px-1" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>
@@ -77,6 +82,48 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="exampleVerticallycenteredModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Blog Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{ route('admin.blog.category.store') }}" method="post">
+                    @csrf
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="category_name" class="form-label">Category Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="category_name" name="category_name"
+                                    placeholder="Category Name">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="category_slug" class="form-label">Category Slug <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control cursor" id="category_slug" name="category_slug"
+                                    placeholder="Category Slug" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Blog Category</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -89,5 +136,59 @@
                 'sort': false,
             });
         });
+
+
+
+
+        // slug
+        const name = document.querySelector('#category_name');
+        const slug = document.querySelector('#category_slug');
+
+        name.addEventListener('change', function() {
+            fetch('/blog/category/checkSlug?category_name=' + name.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.category_slug)
+        });
+
+        // Mendapatkan referensi ke elemen modal
+        const modal = document.getElementById('exampleVerticallycenteredModal'); // Ganti 'modalId' dengan ID modal Anda
+
+        // Event listener untuk ketika modal tertutup
+        modal.addEventListener('hidden.bs.modal', function() {
+            // Mendapatkan referensi ke input nama dan slug
+            const nameInput = document.querySelector('#category_name');
+            const slugInput = document.querySelector('#category_slug');
+
+            // Menghapus nilai input
+            nameInput.value = '';
+            slugInput.value = '';
+        });
+
+        // Event listener untuk ketika modal terbuka
+        modal.addEventListener('shown.bs.modal', function() {
+            // Mendapatkan referensi ke input nama kategori
+            const nameInput = document.querySelector('#category_name');
+
+            // Fokuskan pada input nama kategori
+            nameInput.focus();
+        });
     </script>
+
+    @if ($errors->any())
+        <script>
+            // Mendefinisikan variabel untuk menyimpan pesan kesalahan
+            var errorMessage = '';
+            // Iterasi melalui setiap pesan kesalahan yang diterima dari validator
+            @foreach ($errors->all() as $error)
+                errorMessage += "{{ $error }}<br>";
+            @endforeach
+
+            // Menampilkan pesan kesalahan dalam SweetAlert
+            Swal.fire(
+                'Error!',
+                errorMessage,
+                'error'
+            );
+        </script>
+    @endif
 @endpush

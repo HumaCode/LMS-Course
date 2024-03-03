@@ -174,6 +174,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // manage blog category
     Route::controller(BlogController::class)->group(function () {
         Route::get('/admin/blog/category', 'adminBlogCategory')->name('admin.blog.category');
+        Route::get('/blog/category/checkSlug', 'checkBlogCategorySlug');
+        Route::post('/admin/blog/category/store', 'adminBlogCategoryStore')->name('admin.blog.category.store');
     });
 
     // setting smpt
