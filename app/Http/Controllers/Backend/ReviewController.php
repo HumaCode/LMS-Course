@@ -39,4 +39,13 @@ class ReviewController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function adminPendingReview()
+    {
+        $title      = 'Pending Review';
+        $subtitle   = 'pending review';
+        $review     = Review::with('user', 'course')->where('status', 0)->orderBy('id', 'DESC')->get();
+
+        return view('admin.backend.review.pending_review', compact('title', 'subtitle', 'review'));
+    }
 }

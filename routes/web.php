@@ -155,6 +155,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/admin/search/by/year', 'adminSearchByYear')->name('admin.search.by.year');
     });
 
+    // manage review
+    Route::controller(ReviewController::class)->group(function () {
+        Route::get('/admin/pending/review', 'adminPendingReview')->name('admin.pending.review');
+    });
+
     // setting smpt
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/smpt/setting', 'adminSmptSetting')->name('admin.smpt.setting');
