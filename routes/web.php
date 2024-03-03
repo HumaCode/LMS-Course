@@ -163,10 +163,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/active/review', 'adminActiveReview')->name('admin.active.review');
     });
 
-    // manage user
+    // manage user & instructor
     Route::controller(ActiveUserController::class)->group(function () {
         Route::get('/admin/all/user', 'adminAllUser')->name('admin.all.user');
         Route::post('update/review/stauts', 'updateReviewStauts')->name('update.user.stauts');
+        Route::get('/admin/all/instructor', 'adminAllInstructor')->name('admin.all.instructor');
     });
 
     // setting smpt

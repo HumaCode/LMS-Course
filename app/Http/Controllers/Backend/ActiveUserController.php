@@ -31,4 +31,14 @@ class ActiveUserController extends Controller
 
         return response()->json(['message' => 'User Status Updated Successfully']);
     }
+
+    public function adminAllInstructor()
+    {
+        $title      = 'All Instructor';
+        $subtitle   = 'all instructor';
+        $users      = User::where('role', 'instructor')->latest()->get();
+
+
+        return view('admin.backend.users.instructor_all', compact('title', 'subtitle', 'users'));
+    }
 }

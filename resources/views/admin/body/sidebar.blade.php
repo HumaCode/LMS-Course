@@ -125,7 +125,7 @@
                     <a href="{{ route('admin.all.user') }}"><i class='bx bx-radio-circle'></i>All User</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.active.review') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
+                    <a href="{{ route('admin.all.instructor') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
                 </li>
             </ul>
         </li>
