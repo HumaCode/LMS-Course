@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ActiveUserController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
@@ -168,6 +169,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/all/user', 'adminAllUser')->name('admin.all.user');
         Route::post('update/review/stauts', 'updateReviewStauts')->name('update.user.stauts');
         Route::get('/admin/all/instructor', 'adminAllInstructor')->name('admin.all.instructor');
+    });
+
+    // manage blog category
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/admin/blog/category', 'adminBlogCategory')->name('admin.blog.category');
     });
 
     // setting smpt
