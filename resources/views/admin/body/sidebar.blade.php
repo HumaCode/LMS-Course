@@ -114,6 +114,22 @@
             </ul>
         </li>
 
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Manage All User</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{ route('admin.all.user') }}"><i class='bx bx-radio-circle'></i>All User</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.active.review') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
+                </li>
+            </ul>
+        </li>
+
         <li class="menu-label">Configuration</li>
         <li>
             <a class="has-arrow" href="javascript:;">

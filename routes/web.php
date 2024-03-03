@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\ActiveUserController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
@@ -160,6 +161,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/pending/review', 'adminPendingReview')->name('admin.pending.review');
         Route::post('update/review/stauts', 'updateReviewStauts')->name('update.review.stauts');
         Route::get('/admin/active/review', 'adminActiveReview')->name('admin.active.review');
+    });
+
+    // manage user
+    Route::controller(ActiveUserController::class)->group(function () {
+        Route::get('/admin/all/user', 'adminAllUser')->name('admin.all.user');
+        Route::post('update/review/stauts', 'updateReviewStauts')->name('update.user.stauts');
     });
 
     // setting smpt
