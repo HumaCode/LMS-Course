@@ -248,6 +248,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/delete/coupon/{id}', 'instructorDeleteCoupon')->name('instructor.delete.coupon');
     });
 
+    // manage review
+    Route::controller(ReviewController::class)->group(function () {
+        Route::get('/instructor/all/review', 'instructorAllReview')->name('instructor.all.review');
+        Route::post('update/review/stauts', 'updateReviewStauts')->name('update.review.stauts');
+    });
+
     // logout
     Route::get('/instructor/logout', [InstructorController::class, 'instructorLogout'])->name('instructor.logout');
 }); // end instructor group middleware

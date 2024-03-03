@@ -72,4 +72,14 @@ class ReviewController extends Controller
 
         return view('admin.backend.review.active_review', compact('title', 'subtitle', 'review'));
     }
+
+    public function instructorAllReview()
+    {
+        $title      = 'All Review';
+        $subtitle   = 'all review';
+        $id         = Auth::user()->id;
+        $review     = Review::with('user', 'course')->where('instructor_id', $id)->orderBy('id', 'DESC')->get();
+
+        return view('instructor.review.all_review', compact('title', 'subtitle', 'review'));
+    }
 }
