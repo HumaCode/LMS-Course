@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
@@ -93,5 +94,18 @@ class BlogController extends Controller
         ];
 
         return redirect()->back()->with($notification);
+    }
+
+
+
+    //////////////////////////////////// blog ////////////////////////////////
+    public function adminBlogPost()
+    {
+
+        $title      = 'Blog Post';
+        $subtitle   = 'blog post';
+        $posts      = BlogPost::latest()->get();
+
+        return view('admin.backend.posts.all_post', compact('title', 'subtitle', 'posts'));
     }
 }

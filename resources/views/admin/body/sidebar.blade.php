@@ -141,7 +141,7 @@
                     <a href="{{ route('admin.blog.category') }}"><i class='bx bx-radio-circle'></i>Blog Category</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.all.instructor') }}"><i class='bx bx-radio-circle'></i>All Instructor</a>
+                    <a href="{{ route('admin.blog.post') }}"><i class='bx bx-radio-circle'></i>Blog Post</a>
                 </li>
             </ul>
         </li>

@@ -181,6 +181,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/delete/blog-category/{slug}', 'adminDeleteBlogCategory')->name('admin.delete.blog.category');
     });
 
+    // manage blog post
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/admin/blog/post', 'adminBlogPost')->name('admin.blog.post');
+    });
+
     // setting smpt
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/smpt/setting', 'adminSmptSetting')->name('admin.smpt.setting');
