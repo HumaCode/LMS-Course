@@ -65,7 +65,7 @@
                                             class="btn btn-success px-1" id="{{ $item->id }}"
                                             onclick="categoryEdit(this.id)"><i class="bx bx-edit-alt"></i>Edit</button>
 
-                                        <a href="{{ route('delete.category', $item->category_slug) }}"
+                                        <a href="{{ route('admin.delete.blog.category', $item->category_slug) }}"
                                             class="btn btn-danger px-1" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
@@ -138,7 +138,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form action="{{ route('admin.blog.category.store') }}" method="post">
+                <form action="{{ route('admin.blog.category.update') }}" method="post">
                     @csrf
 
 

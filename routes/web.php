@@ -177,6 +177,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/blog/category/checkSlug', 'checkBlogCategorySlug');
         Route::post('/admin/blog/category/store', 'adminBlogCategoryStore')->name('admin.blog.category.store');
         Route::get('/admin/blog/category/edit/{id}', 'adminBlogCategoryEdit');
+        Route::post('/admin/blog/category/update', 'adminBlogCategoryUpdate')->name('admin.blog.category.update');
+        Route::get('/admin/delete/blog-category/{slug}', 'adminDeleteBlogCategory')->name('admin.delete.blog.category');
     });
 
     // setting smpt

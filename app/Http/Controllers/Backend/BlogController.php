@@ -56,4 +56,42 @@ class BlogController extends Controller
 
         return response()->json($category);
     }
+
+    public function adminBlogCategoryUpdate(Request $request)
+    {
+        $id = $request->id;
+
+        $attr = $request->validate([
+            'category_name'      => 'required|unique:blog_categories,category_name,' . $id,
+            'category_slug'      => 'required',
+        ]);
+
+        BlogCategory::find($id)->update([
+            'category_name' => $attr['category_name'],
+            'category_slug' => $attr['category_slug'],
+            'created_at'    => Carbon::now(),
+            'updated_at'    => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Blog Category Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.blog.category')->with($notification);
+    }
+
+    public function adminDeleteBlogCategory($slug)
+    {
+        $data = BlogCategory::where('category_slug', $slug)->first();
+
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Blog Category Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }
