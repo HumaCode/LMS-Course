@@ -108,4 +108,20 @@ class BlogController extends Controller
 
         return view('admin.backend.posts.all_post', compact('title', 'subtitle', 'posts'));
     }
+
+    public function adminAddBlogPost()
+    {
+        $title      = 'Add Blog Post';
+        $subtitle   = 'add blog post';
+        $blogcat    = BlogCategory::latest()->get();
+
+        return view('admin.backend.posts.add_post', compact('title', 'subtitle', 'blogcat'));
+    }
+
+    public function checkBlogPostSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(BlogPost::class, 'post_slug', $request->post_title);
+
+        return response()->json(['post_slug' => $slug]);
+    }
 }
