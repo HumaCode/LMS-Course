@@ -107,24 +107,22 @@
 
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Basic</label>
-                                    <div class="bootstrap-tagsinput"><input type="text" placeholder=""></div><input
-                                        type="text" class="form-control visually-hidden" data-role="tagsinput"
-                                        value="jQuery,Script,Net">
+                                    <label class="form-label">Post Tag <span class="text-danger">*</span></label>
+                                    <input type="text" name="post_tag" class="form-control" data-role="tagsinput">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="category_slug" class="form-label">Category Image <span
+                                    <label for="post_image" class="form-label">Post Image <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="file" name="image" id="image"
+                                    <input class="form-control" type="file" name="post_image" id="image"
                                         accept=".jpg,.jpeg,.png">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
+                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Post Image"
                                     class="p-1 bg-primary" width="20%"> <br>
                                 <span class="text-danger">* Max file size is 2MB, Suitable files are jpg, png and
                                     jpeg.</span>
@@ -170,28 +168,21 @@
         $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
-                    category_name: {
+                    post_title: {
                         required: true,
                     },
-                    category_slug: {
-                        required: true,
-                    },
-                    image: {
+                    post_slug: {
                         required: true,
                     },
 
                 },
                 messages: {
-                    category_name: {
-                        required: 'Please Enter Category Name',
+                    post_title: {
+                        required: 'Please Enter Post Title',
                     },
-                    category_slug: {
-                        required: 'Please Enter Category Slug',
+                    post_slug: {
+                        required: 'Please Enter Post Slug',
                     },
-                    image: {
-                        required: 'Please Select Category Image',
-                    },
-
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
