@@ -8,6 +8,8 @@ use App\Models\BlogPost;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class BlogController extends Controller
 {
@@ -104,7 +106,7 @@ class BlogController extends Controller
 
         $title      = 'Blog Post';
         $subtitle   = 'blog post';
-        $posts      = BlogPost::latest()->get();
+        $posts      = BlogPost::with('blogcat')->latest()->get();
 
         return view('admin.backend.posts.all_post', compact('title', 'subtitle', 'posts'));
     }
@@ -123,5 +125,47 @@ class BlogController extends Controller
         $slug = SlugService::createSlug(BlogPost::class, 'post_slug', $request->post_title);
 
         return response()->json(['post_slug' => $slug]);
+    }
+
+    public function storeBlogPost(Request $request)
+    {
+        $attr = $request->validate([
+            'blogcat_id'    => 'required|exists:blog_categories,id',
+            'post_title'    => 'required',
+            'post_slug'     => 'required',
+            'post_image'    => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
+            'long_descp'    => 'required',
+            'post_tag'      => 'required',
+        ]);
+
+
+        $images = $request->file('post_image');
+        $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
+
+        $manager = new ImageManager(Driver::class);
+        $image = $manager->read($images);
+
+        $image->resize(370, 247);
+        $image->save('upload/blog_post/' . $name_gen);
+
+        $save_url = 'upload/blog_post/' . $name_gen;
+
+        BlogPost::insert([
+            'blogcat_id'    => $attr['blogcat_id'],
+            'post_title'    => $attr['post_title'],
+            'post_slug'     => $attr['post_slug'],
+            'long_descp'    => $attr['long_descp'],
+            'post_tag'      => $attr['post_tag'],
+            'post_image'    => $save_url,
+            'created_at'    => Carbon::now(),
+            'updated_at'    => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Blog Post Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.blog.post')->with($notification);
     }
 }

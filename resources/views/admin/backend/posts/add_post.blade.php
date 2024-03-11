@@ -49,33 +49,51 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.category') }}"
+                        <form id="myForm" method="POST" action="{{ route('store.blog.post') }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="post_title" class="form-label">Post Title <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="post_title" id="post_title"
-                                        placeholder="Post Title">
+                                    <input type="text" class="form-control @error('post_title') is-invalid @enderror"
+                                        name="post_title" id="post_title" placeholder="Post Title">
+                                    @error('post_title')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="post_slug" class="form-label">Post Slug <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control cst" name="post_slug" id="post_slug"
-                                        placeholder="Auto-fill" readonly>
+                                    <input type="text" class="form-control cst @error('post_slug') is-invalid @enderror"
+                                        name="post_slug" id="post_slug" placeholder="Auto-fill" readonly>
+                                    @error('long_descp')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Post Tag <span class="text-danger">*</span></label>
+                                    <input type="text" name="post_tag"
+                                        class="form-control @error('post_tag') is-invalid @enderror" data-role="tagsinput">
+                                    @error('post_tag')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="blogcat_id" class="form-label">Category Post <span
                                             class="text-danger">*</span></label>
-                                    <select name="blogcat_id" class="form-select select2-hidden-accessible"
+                                    <select name="blogcat_id"
+                                        class="form-select select2-hidden-accessible @error('blogcat_id') is-invalid @enderror"
                                         id="single-select-field" data-placeholder="Choose one thing"
                                         data-select2-id="select2-data-single-select-field" tabindex="-1"
                                         aria-hidden="true">
@@ -105,19 +123,18 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Post Tag <span class="text-danger">*</span></label>
-                                    <input type="text" name="post_tag" class="form-control" data-role="tagsinput">
-                                </div>
-                            </div>
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="post_image" class="form-label">Post Image <span
                                             class="text-danger">*</span></label>
-                                    <input class="form-control" type="file" name="post_image" id="image"
-                                        accept=".jpg,.jpeg,.png">
+                                    <input class="form-control @error('post_image') is-invalid @enderror" type="file"
+                                        name="post_image" id="image" accept=".jpg,.jpeg,.png">
+
+                                    @error('post_image')
+                                        <span class="text-danger mt-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 

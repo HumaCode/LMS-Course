@@ -8,6 +8,11 @@
             text-align: center;
             vertical-align: middle;
         }
+
+        img,
+        svg {
+            border-radius: 5px;
+        }
     </style>
 @endpush
 
@@ -45,29 +50,28 @@
                         <thead class="text-center">
                             <tr>
                                 <th>Sl</th>
-                                <th>Image</th>
+                                <th width="20%">Image</th>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Action</th>
+                                <th width="20%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach ($posts as $key => $item)
                                 <tr>
-                                    <td class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-center">{{ $key + 1 }}.</td>
                                     <td class="text-center">
                                         <img src="{{ !empty($item->post_image) ? url($item->post_image) : url('upload/no_image.jpg') }}"
-                                            alt="{{ $item->id }}" width="20%" srcset="">
+                                            alt="{{ $item->id }}" width="70%" srcset="">
                                     </td>
                                     <td class="text-center">{{ $item->post_title }}</td>
-                                    <td class="text-center">{{ $item->blogcat_id }}</td>
+                                    <td class="text-center">{{ $item->blogcat->category_name }}</td>
 
                                     <td class="text-center">
-                                        <a href="{{ route('edit.category', $item->category_slug) }}"
-                                            class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="{{ route('delete.category', $item->category_slug) }}"
-                                            class="btn btn-danger px-5" id="delete"><i
+                                        <a href="" class="btn btn-success px-3"><i
+                                                class="bx bx-edit-alt"></i>Edit</a>
+                                        <a href="" class="btn btn-danger px-3" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>

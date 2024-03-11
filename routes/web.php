@@ -186,6 +186,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/blog/post', 'adminBlogPost')->name('admin.blog.post');
         Route::get('/admin/add/blog/post', 'adminAddBlogPost')->name('admin.add.blog.post');
         Route::get('/blog-post/checkSlug', 'checkBlogPostSlug');
+        Route::post('/store/blog/post', 'storeBlogPost')->name('store.blog.post');
     });
 
     // setting smpt
