@@ -11,7 +11,7 @@
             @foreach ($blog as $item)
                 <div class="card card-item">
                     <div class="card-image">
-                        <a href="blog-single.html" class="d-block">
+                        <a href="{{ url('blog/details/' . $item->post_slug) }}" class="d-block">
                             <img class="card-img-top"
                                 src="{{ !empty($item->post_image) ? url($item->post_image) : url('upload/no_image.jpg') }}"
                                 alt="Card image cap">

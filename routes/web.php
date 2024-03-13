@@ -335,3 +335,6 @@ Route::post('/store/review', [ReviewController::class, 'storeReview'])->name('st
 
 
 Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetail'])->name('instructor.details');
+
+// detail blog - frontend
+Route::get('/blog/details/{slug}', [BlogController::class, 'blogDetails']);
