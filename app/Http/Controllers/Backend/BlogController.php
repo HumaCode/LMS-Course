@@ -140,15 +140,21 @@ class BlogController extends Controller
 
 
         $images = $request->file('post_image');
-        $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
 
-        $manager = new ImageManager(Driver::class);
-        $image = $manager->read($images);
+        if ($images) {
+            $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
 
-        $image->resize(370, 247);
-        $image->save('upload/blog_post/' . $name_gen);
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($images);
 
-        $save_url = 'upload/blog_post/' . $name_gen;
+            $image->resize(370, 247);
+            $image->save('upload/blog_post/' . $name_gen);
+
+            $save_url = 'upload/blog_post/' . $name_gen;
+        } else {
+            $save_url = Null;
+        }
+
 
         BlogPost::insert([
             'blogcat_id'    => $attr['blogcat_id'],
@@ -167,5 +173,15 @@ class BlogController extends Controller
         ];
 
         return redirect()->route('admin.blog.post')->with($notification);
+    }
+
+    public function adminEditBlogPost($slug)
+    {
+        $title      = 'Edit Blog Post';
+        $subtitle   = 'edit blog post';
+        $blogcat    = BlogCategory::latest()->get();
+        $blog       = BlogPost::where('post_slug', $slug)->first();
+
+        return view('admin.backend.posts.edit_post', compact('title', 'subtitle', 'blog', 'blogcat'));
     }
 }
