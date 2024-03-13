@@ -49,9 +49,11 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('store.blog.post') }}"
+                        <form id="myForm" method="POST" action="{{ route('update.blog.post') }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
+
+                            <input type="hidden" name="id" value="{{ $blog->id }}">
 
                             <div class="col-md-6">
                                 <div class="form-group">

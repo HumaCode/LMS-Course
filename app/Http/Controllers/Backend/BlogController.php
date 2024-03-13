@@ -184,4 +184,66 @@ class BlogController extends Controller
 
         return view('admin.backend.posts.edit_post', compact('title', 'subtitle', 'blog', 'blogcat'));
     }
+
+    public function updateBlogPost(Request $request)
+    {
+        $id = $request->id;
+        $data = BlogPost::findOrFail($id);
+
+        $attr = $request->validate([
+            'blogcat_id'    => 'required|exists:blog_categories,id',
+            'post_title'    => 'required',
+            'post_slug'     => 'required',
+            'post_image'    => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
+            'long_descp'    => 'required',
+            'post_tag'      => 'required',
+        ]);
+
+        if ($request->file('post_image')) {
+
+            // unlink foto
+            if ($data->post_image <> "") {
+                unlink($data->post_image);
+            }
+
+            $images = $request->file('post_image');
+            $name_gen = hexdec(uniqid()) . '.' . $images->getClientOriginalExtension();
+
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($images);
+
+            $image->resize(370, 247);
+            $image->save('upload/blog_post/' . $name_gen);
+
+            $save_url = 'upload/blog_post/' . $name_gen;
+
+            $data->update([
+                'blogcat_id'    => $attr['blogcat_id'],
+                'post_title'    => $attr['post_title'],
+                'post_slug'     => $attr['post_slug'],
+                'long_descp'    => $attr['long_descp'],
+                'post_tag'      => $attr['post_tag'],
+                'post_image'    => $save_url,
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ]);
+        } else {
+            $data->update([
+                'blogcat_id'    => $attr['blogcat_id'],
+                'post_title'    => $attr['post_title'],
+                'post_slug'     => $attr['post_slug'],
+                'long_descp'    => $attr['long_descp'],
+                'post_tag'      => $attr['post_tag'],
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now(),
+            ]);
+        }
+
+        $notification = [
+            'message'       => 'Blog Post Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.blog.post')->with($notification);
+    }
 }
