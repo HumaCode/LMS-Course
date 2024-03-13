@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Support\Facades\View;
@@ -48,6 +49,15 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $view->with([
                 'categories' => $categories,
+            ]);
+        });
+
+        View::composer('frontend.home.blog-area', function ($view) {
+            $blog = BlogPost::latest()->limit(3)->get(); // Misalnya, Anda ingin mengambil data user saat ini
+
+
+            $view->with([
+                'blog' => $blog,
             ]);
         });
     }
