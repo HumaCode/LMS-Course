@@ -71,7 +71,8 @@
                                     <td class="text-center">
                                         <a href="{{ route('admin.edit.blog.post', $item->post_slug) }}"
                                             class="btn btn-success px-3"><i class="bx bx-edit-alt"></i>Edit</a>
-                                        <a href="" class="btn btn-danger px-3" id="delete"><i
+                                        <a href="{{ route('admin.delete.blog.post', $item->post_slug) }}"
+                                            class="btn btn-danger px-3" id="delete"><i
                                                 class="bx bx-trash-alt"></i>Delete</a>
                                     </td>
                                 </tr>

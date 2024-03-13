@@ -246,4 +246,20 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blog.post')->with($notification);
     }
+
+    public function adminDeleteBlogPost($slug)
+    {
+        $data = BlogPost::where('post_slug', $slug)->first();
+
+        unlink($data->post_image);
+
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Blog Post Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }
