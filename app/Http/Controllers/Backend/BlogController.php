@@ -273,4 +273,15 @@ class BlogController extends Controller
 
         return view('frontend.blog.blog_details', compact('blog', 'tags_all', 'bcategory', 'post'));
     }
+
+    public function blogCategory($slug)
+    {
+        $category   = BlogCategory::where('category_slug', $slug)->first();
+        $blog       = BlogPost::where('blogcat_id', $category->id)->get();
+        $bcategory  = BlogCategory::latest()->get();
+        $post       = BlogPost::latest()->limit(3)->get();
+
+
+        return view('frontend.blog.blog_cat_list', compact('blog', 'category', 'bcategory', 'post'));
+    }
 }

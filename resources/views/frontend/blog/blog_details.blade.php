@@ -212,7 +212,10 @@
                                 <ul class="generic-list-item">
 
                                     @foreach ($bcategory as $cat)
-                                        <li><a href="#">{{ $cat->category_name }}</a></li>
+                                        <li>
+                                            <a
+                                                href="{{ url('blog/cat/list/' . $cat->category_slug) }}">{{ $cat->category_name }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
