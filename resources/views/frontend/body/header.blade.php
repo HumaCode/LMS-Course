@@ -120,7 +120,10 @@
 
                                             @foreach ($categories as $category)
                                                 @php
-                                                    $subcategory = App\Models\SubCategory::where('category_id', $category->id)->get();
+                                                    $subcategory = App\Models\SubCategory::where(
+                                                        'category_id',
+                                                        $category->id,
+                                                    )->get();
                                                 @endphp
                                                 <li>
                                                     <a
@@ -165,7 +168,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">blog</a>
+                                        <a href="{{ route('blog') }}">blog</a>
 
                                     </li>
                                 </ul><!-- end ul -->

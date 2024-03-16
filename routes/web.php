@@ -339,3 +339,5 @@ Route::get('/instructor/details/{id}', [IndexController::class, 'instructorDetai
 // detail blog - frontend
 Route::get('/blog/details/{slug}', [BlogController::class, 'blogDetails']);
 Route::get('/blog/cat/list/{slug}', [BlogController::class, 'blogCategory']);
+
+Route::get('/blog', [BlogController::class, 'blogList'])->name('blog');
