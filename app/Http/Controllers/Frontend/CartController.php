@@ -9,11 +9,14 @@ use App\Models\Course;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\SmtpSetting;
+use App\Models\User;
+use App\Notifications\OrderComplete;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Stripe\Charge;
 use Stripe\Stripe;
@@ -290,6 +293,7 @@ class CartController extends Controller
 
     public function payment(Request $request)
     {
+        $user = User::where('role', 'instructor')->get();
 
         $attr = $request->validate([
             'name'       => 'required',
@@ -410,6 +414,9 @@ class CartController extends Controller
 
                 Mail::to($request->email)->send(new OrderConfirm($data));
             }
+
+            // send  notification
+            Notification::send($user, new OrderComplete($request->name));
 
             $notification = [
                 'message'       => 'Cash Payment Submit Success.',
