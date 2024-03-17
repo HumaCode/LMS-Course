@@ -81,9 +81,8 @@
                             {{ $blog->links('vendor.pagination.custom') }}
 
 
-
                         </nav>
-                        <p class="fs-14 pt-2">Showing 1-10 of 56 results</p>
+
                     </div>
                 </div><!-- end col-lg-8 -->
                 <div class="col-lg-4">
