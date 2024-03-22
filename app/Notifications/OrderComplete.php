@@ -14,6 +14,8 @@ class OrderComplete extends Notification
     /**
      * Create a new notification instance.
      */
+
+    private $name;
     public function __construct($name)
     {
         $this->name = $name;
@@ -48,7 +50,8 @@ class OrderComplete extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => 'New Cod Enrollment In Course'
+            'message' => 'New Cod Enrollment In Course',
+            'name' => $this->name,
         ];
     }
 }
