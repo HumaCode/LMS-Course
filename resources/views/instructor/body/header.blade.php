@@ -32,7 +32,14 @@
 
                     <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
-                            data-bs-toggle="dropdown"><span class="alert-count">{{ $ncount }}</span>
+                            data-bs-toggle="dropdown">
+
+                            @if ($ncount)
+                                <span class="alert-count" id="notification-count">
+                                    {{ $ncount }}
+                                </span>
+                            @endif
+
                             <i class='bx bx-bell'></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
@@ -71,7 +78,8 @@
                                             $initials .= strtoupper(substr($n, 0, 1));
                                         }
                                     @endphp
-                                    <a class="dropdown-item" href="javascript:;">
+                                    <a class="dropdown-item" href="javascript:;"
+                                        onclick="markNotificationRead('{{ $notification->id }}')">
                                         <div class="d-flex align-items-center">
                                             <div class="notify bg-light-danger text-danger">{{ $initials }}
                                             </div>
@@ -350,3 +358,24 @@
         </nav>
     </div>
 </header>
+
+
+<script>
+    function markNotificationRead(notificationId) {
+        fetch('/mark-notification-as-read/' + notificationId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('notification-count').textContent = data.count;
+            })
+            .catch(error => {
+                console.log('Error', error)
+            });
+    }
+</script>

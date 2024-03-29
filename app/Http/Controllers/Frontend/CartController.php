@@ -510,4 +510,23 @@ class CartController extends Controller
 
         return redirect()->route('index')->with($notification);
     }
+
+
+
+
+
+    // ///////////////////////////////////////// notification ////////////////////////////////
+
+    public function markAsRead(Request $request, $notificationId)
+    {
+        $user = Auth::user();
+
+        $notification = $user->notifications()->where('id', $notificationId)->first();
+
+        if ($notification) {
+            $notification->markAsRead();
+        }
+
+        return response()->json(['count' => $user->unreadNotifications()->count()]);
+    }
 }
