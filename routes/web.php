@@ -197,6 +197,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/smpt/setting', 'adminSmptSetting')->name('admin.smpt.setting');
         Route::post('/admin/update/smpt', 'adminUpdateSmpt')->name('admin.update.smpt');
     });
+
+    // setting site
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/admin/site/setting', 'adminSiteSetting')->name('admin.site.setting');
+        Route::post('/admin/update/smpt', 'adminUpdateSmpt')->name('admin.update.smpt');
+    });
 }); // end admin group middleware
 
 // login admin

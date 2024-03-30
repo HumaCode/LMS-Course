@@ -156,6 +156,8 @@
             <ul>
                 <li> <a href="{{ route('admin.smpt.setting') }}"><i class='bx bx-radio-circle'></i>Setting SMPT</a>
                 </li>
+                <li> <a href="{{ route('admin.site.setting') }}"><i class='bx bx-radio-circle'></i>Site Setting</a>
+                </li>
             </ul>
         </li>
         <li>

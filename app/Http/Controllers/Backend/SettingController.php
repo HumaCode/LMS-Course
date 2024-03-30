@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\SiteSetting;
 use App\Models\SmtpSetting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,5 +48,18 @@ class SettingController extends Controller
         ];
 
         return redirect()->back()->with($notification);
+    }
+
+
+    ////////////////////////    SITE SETTING     ////////////////////////////////
+
+
+    public function adminSiteSetting()
+    {
+        $title      = 'Edit Site Setting';
+        $subtitle   = 'edit site setting';
+        $site       = SiteSetting::findOrFail(1);
+
+        return view('admin.backend.site.site_update', compact('site', 'title', 'subtitle'));
     }
 }
