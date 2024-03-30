@@ -1,10 +1,13 @@
 @extends('frontend.master')
 
+@section('title')
+    Login Page
+@endsection
 
 @section('home')
     <!-- ================================
-                                                                                                                                                        START BREADCRUMB AREA
-                                                                                                                                                    ================================= -->
+                                                                                                                                                            START BREADCRUMB AREA
+                                                                                                                                                        ================================= -->
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
         <div class="container">
@@ -22,12 +25,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                                                        END BREADCRUMB AREA
-                                                                                                                                                    ================================= -->
+                                                                                                                                                            END BREADCRUMB AREA
+                                                                                                                                                        ================================= -->
 
     <!-- ================================
-                                                                                                                                                           START CONTACT AREA
-                                                                                                                                                    ================================= -->
+                                                                                                                                                               START CONTACT AREA
+                                                                                                                                                        ================================= -->
     <section class="contact-area section--padding position-relative">
         <span class="ring-shape ring-shape-1"></span>
         <span class="ring-shape ring-shape-2"></span>
@@ -140,6 +143,6 @@
         </div><!-- end container -->
     </section><!-- end contact-area -->
     <!-- ================================
-                                                                                                                                                           END CONTACT AREA
-                                                                                                                                                    ================================= -->
+                                                                                                                                                               END CONTACT AREA
+                                                                                                                                                        ================================= -->
 @endsection

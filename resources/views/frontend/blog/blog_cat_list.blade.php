@@ -1,5 +1,9 @@
 @extends('frontend.master')
 
+@section('title')
+    List Categories
+@endsection
+
 @section('home')
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>

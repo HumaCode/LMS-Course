@@ -1,5 +1,8 @@
 @extends('frontend.master')
 
+@section('title')
+    My Cart
+@endsection
 
 @section('home')
     {{-- breadcrumb --}}

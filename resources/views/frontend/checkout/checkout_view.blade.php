@@ -8,6 +8,10 @@
     </style>
 @endpush
 
+@section('title')
+    Checkout
+@endsection
+
 @section('home')
     {{-- START BREADCRUMB AREA --}}
     <section class="breadcrumb-area section-padding img-bg-2">

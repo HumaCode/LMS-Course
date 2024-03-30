@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/plyr.css">
 @endpush
 
+@section('title')
+    {{ $course->course_name }}
+@endsection
+
 @section('home')
     {{-- breadcrumb-area --}}
     <section class="breadcrumb-area pt-50px pb-50px bg-white pattern-bg">
@@ -208,7 +212,10 @@
 
                                     @foreach ($sections as $section)
                                         @php
-                                            $lecture = App\Models\CourseLecture::where('section_id', $section->id)->get();
+                                            $lecture = App\Models\CourseLecture::where(
+                                                'section_id',
+                                                $section->id,
+                                            )->get();
                                         @endphp
 
                                         <div class="card">

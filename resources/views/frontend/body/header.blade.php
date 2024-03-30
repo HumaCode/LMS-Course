@@ -180,7 +180,12 @@
                                     <li>
                                         <p class="shop-cart-btn d-flex align-items-center">
                                             <i class="la la-shopping-cart"></i>
-                                            <span class="product-count" id="cartQty">0</span>
+
+                                            @if (Gloudemans\Shoppingcart\Facades\Cart::total() > 1)
+                                                <span class="product-count" id="cartQty">0</span>
+                                            @endif
+
+
                                         </p>
                                         <ul class="cart-dropdown-menu">
 

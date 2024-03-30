@@ -1,5 +1,9 @@
 @extends('frontend.master')
 
+@section('title')
+    {{ $blog->post_title }}
+@endsection
+
 @section('home')
     <section class="breadcrumb-area pt-80px pb-80px pattern-bg">
         <div class="container">

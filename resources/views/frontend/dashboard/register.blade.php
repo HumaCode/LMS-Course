@@ -1,5 +1,8 @@
 @extends('frontend.master')
 
+@section('title')
+    Register Page
+@endsection
 
 @section('home')
     <section class="breadcrumb-area section-padding img-bg-2">

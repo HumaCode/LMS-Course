@@ -4,6 +4,10 @@
 @push('css')
 @endpush
 
+@section('title')
+    {{ $category->category_name }}
+@endsection
+
 @section('home')
     {{-- START BREADCRUMB AREA --}}
     <section class="breadcrumb-area section-padding img-bg-2">
