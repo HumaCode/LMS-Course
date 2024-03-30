@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -58,6 +59,24 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $view->with([
                 'blog' => $blog,
+            ]);
+        });
+
+        View::composer('frontend.body.header', function ($view) {
+            $setting = SiteSetting::find(1); // Misalnya, Anda ingin mengambil data user saat ini
+
+
+            $view->with([
+                'setting' => $setting,
+            ]);
+        });
+
+        View::composer('frontend.body.footer', function ($view) {
+            $setting = SiteSetting::find(1); // Misalnya, Anda ingin mengambil data user saat ini
+
+
+            $view->with([
+                'setting' => $setting,
             ]);
         });
     }
