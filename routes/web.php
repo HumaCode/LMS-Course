@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ReviewController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -196,6 +197,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/smpt/setting', 'adminSmptSetting')->name('admin.smpt.setting');
         Route::post('/admin/update/smpt', 'adminUpdateSmpt')->name('admin.update.smpt');
+    });
+
+    // permission
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/admin/all/permission', 'adminAllPermission')->name('admin.all.permission');
     });
 
     // setting site
