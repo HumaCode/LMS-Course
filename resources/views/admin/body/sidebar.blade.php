@@ -154,6 +154,8 @@
                 <div class="menu-title">Role & Permission</div>
             </a>
             <ul>
+                <li> <a href="{{ route('admin.group.name') }}"><i class='bx bx-radio-circle'></i>Group Name</a>
+                </li>
                 <li> <a href="{{ route('admin.all.permission') }}"><i class='bx bx-radio-circle'></i>All Permission</a>
                 </li>
             </ul>

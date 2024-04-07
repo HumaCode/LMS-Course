@@ -101,7 +101,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/all/category', 'allCategory')->name('all.category');
         Route::get('/add/category', 'addCategory')->name('add.category');
         Route::post('/store/category', 'storeCategory')->name('store.category');
-        Route::get('/category/checkSlug', 'checkSlug');
+        Route::get('/category/checkSlug', 'checkSlug')->name('category.checkSlug');
         Route::get('/edit/category/{slug}', 'editCategory')->name('edit.category');
         Route::post('/update/category', 'updateCategory')->name('update.category');
         Route::get('/delete/category/{slug}', 'deleteCategory')->name('delete.category');
@@ -201,7 +201,18 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     // permission
     Route::controller(RoleController::class)->group(function () {
+
+        // group name
+        Route::get('/admin/group/name', 'adminGroupName')->name('admin.group.name');
+        Route::post('/admin/store/group_name', 'adminStoreGroupName')->name('admin.store.group_name');
+        Route::post('/admin/update/group_name', 'adminUpdateGroupName')->name('admin.update.group_name');
+        Route::get('/admin/group_name/edit/{id}', 'adminGroupNameEdit');
+        Route::get('/admin/delete/group_name/{id}', 'adminDeleteGroupName')->name('admin.delete.group_name');
+
+        // permission
         Route::get('/admin/all/permission', 'adminAllPermission')->name('admin.all.permission');
+        Route::get('/admin/add/permission', 'adminAddPermission')->name('admin.add.permission');
+        Route::post('/admin/store/permission', 'adminStorePermission')->name('admin.store.permission');
     });
 
     // setting site
