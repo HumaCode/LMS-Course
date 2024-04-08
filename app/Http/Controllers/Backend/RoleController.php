@@ -191,4 +191,13 @@ class RoleController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function adminImportPermission()
+    {
+        $title          = 'Import Permission';
+        $subtitle       = 'import permission';
+
+
+        return view('admin.backend.pages.permission.import_permission', compact('title', 'subtitle'));
+    }
 }

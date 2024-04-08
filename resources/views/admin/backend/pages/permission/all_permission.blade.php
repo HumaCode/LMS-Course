@@ -33,6 +33,11 @@
                             class="bx bx-plus"></i>Add
                         Permission</a>
                 </div>
+
+                <div class="btn-group ml-3">
+                    <a href="{{ route('admin.import.permission') }}" class="btn btn-success tbl-custom"><i
+                            class="bx bx-file"></i>Import</a>
+                </div>
             </div>
 
         </div>

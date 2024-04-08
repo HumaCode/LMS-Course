@@ -216,6 +216,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/edit/permission/{id}', 'adminEditPermission')->name('admin.edit.permission');
         Route::post('/admin/update/permission', 'adminUpdatePermission')->name('admin.update.permission');
         Route::get('/admin/delete/permission/{id}', 'adminDeletePermission')->name('admin.delete.permission');
+
+        // import
+        Route::get('/admin/import/permission', 'adminImportPermission')->name('admin.import.permission');
     });
 
     // setting site
