@@ -143,4 +143,52 @@ class RoleController extends Controller
 
         return redirect()->route('admin.all.permission')->with($notification);
     }
+
+    public function adminEditPermission($id)
+    {
+        $title          = 'Edit Permission';
+        $subtitle       = 'edit permission';
+        $permission     = Permission::findOrFail($id);
+        $group_name     = GroupName::all();
+
+
+        return view('admin.backend.pages.permission.edit_permission', compact('permission', 'group_name', 'title', 'subtitle'));
+    }
+
+    public function adminUpdatePermission(Request $request)
+    {
+        $id = $request->id;
+
+        $attr = $request->validate([
+            'name'          => 'required',
+            'group_name'    => 'required|exists:group_names,g_name',
+        ]);
+
+        Permission::findById($id)->update([
+            'name'        => $attr['name'],
+            'group_name'  => $attr['group_name'],
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Permission Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.permission')->with($notification);
+    }
+
+    public function adminDeletePermission($id)
+    {
+        $data = Permission::find($id);
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Permission Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }
