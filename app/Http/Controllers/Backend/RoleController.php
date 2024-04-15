@@ -250,7 +250,7 @@ class RoleController extends Controller
         $subtitle   = 'add roles';
         $roles      = Role::latest()->get();
 
-        return view('admin.backend.pages.roles.add_role', compact('roles', 'title', 'subtitle'));
+        return view('admin.backend.pages.roles.add_roles', compact('roles', 'title', 'subtitle'));
     }
 
     public function adminStoreRoles(Request $request)
@@ -273,5 +273,51 @@ class RoleController extends Controller
         ];
 
         return redirect()->route('admin.all.roles')->with($notification);
+    }
+
+    public function adminEditRoles($id)
+    {
+        $title      = 'Edit Roles';
+        $subtitle   = 'edit roles';
+        $role       = Role::findOrFail($id);
+
+        return view('admin.backend.pages.roles.edit_roles', compact('role', 'title', 'subtitle'));
+    }
+
+    public function adminUpdateRoles(Request $request)
+    {
+        $id = $request->id;
+
+        $attr = $request->validate([
+            'name' => 'required|unique:roles,name',
+        ]);
+
+        $name = $this->capitalizeName($attr['name']);
+
+        Role::findById($id)->update([
+            'name'        => $name,
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Roles Updated Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.roles')->with($notification);
+    }
+
+    public function adminDeleteRoles($id)
+    {
+        $data = Role::find($id);
+        $data->delete();
+
+        $notification = [
+            'message'       => 'Roles Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

@@ -230,6 +230,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/all/roles', 'adminAllRoles')->name('admin.all.roles');
         Route::get('/admin/add/roles', 'adminAddRoles')->name('admin.add.roles');
         Route::post('/admin/store/roles', 'adminStoreRoles')->name('admin.store.roles');
+        Route::get('/admin/edit/roles/{id}', 'adminEditRoles')->name('admin.edit.roles');
+        Route::post('/admin/update/roles', 'adminUpdateRoles')->name('admin.update.roles');
+        Route::get('/admin/delete/roles/{id}', 'adminDeleteRoles')->name('admin.delete.roles');
     });
 
     // setting site
