@@ -219,6 +219,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
         // import
         Route::get('/admin/import/permission', 'adminImportPermission')->name('admin.import.permission');
+
+        // export
+        Route::get('/admin/export/permission', 'adminExportPermission')->name('admin.export.permission');
     });
 
     // setting site

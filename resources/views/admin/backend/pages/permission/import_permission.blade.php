@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="btn-group ml-3">
-                    <a href="{{ route('admin.all.permission') }}" class="btn btn-warning tbl-custom"><i
+                    <a href="{{ route('admin.export.permission') }}" class="btn btn-warning tbl-custom"><i
                             class="bx bx-download"></i>Download Xlsx</a>
                 </div>
             </div>
