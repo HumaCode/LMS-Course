@@ -158,6 +158,8 @@
                 </li>
                 <li> <a href="{{ route('admin.all.permission') }}"><i class='bx bx-radio-circle'></i>All Permission</a>
                 </li>
+                <li> <a href="{{ route('admin.all.roles') }}"><i class='bx bx-radio-circle'></i>All Roles</a>
+                </li>
             </ul>
         </li>
 

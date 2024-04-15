@@ -225,6 +225,13 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/export/permission', 'adminExportPermission')->name('admin.export.permission');
     });
 
+    // roles
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/admin/all/roles', 'adminAllRoles')->name('admin.all.roles');
+        Route::get('/admin/add/roles', 'adminAddRoles')->name('admin.add.roles');
+        Route::post('/admin/store/roles', 'adminStoreRoles')->name('admin.store.roles');
+    });
+
     // setting site
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/site/setting', 'adminSiteSetting')->name('admin.site.setting');

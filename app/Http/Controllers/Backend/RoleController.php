@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -227,5 +228,50 @@ class RoleController extends Controller
         ];
 
         return redirect()->back()->with($notification);
+    }
+
+
+
+
+    //  All Roles 
+
+    public function adminAllRoles()
+    {
+        $title      = 'All Roles';
+        $subtitle   = 'all roles';
+        $roles      = Role::latest()->get();
+
+        return view('admin.backend.pages.roles.all_roles', compact('roles', 'title', 'subtitle'));
+    }
+
+    public function adminAddRoles()
+    {
+        $title      = 'Add Roles';
+        $subtitle   = 'add roles';
+        $roles      = Role::latest()->get();
+
+        return view('admin.backend.pages.roles.add_role', compact('roles', 'title', 'subtitle'));
+    }
+
+    public function adminStoreRoles(Request $request)
+    {
+        $attr = $request->validate([
+            'name'          => 'required',
+        ]);
+
+        $name = $this->capitalizeName($attr['name']);
+
+        Role::create([
+            'name'        => $name,
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message'       => 'Roles Created Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.roles')->with($notification);
     }
 }
