@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Exports\PermissionExport;
 use App\Http\Controllers\Controller;
+use App\Imports\PermissionImport;
 use App\Models\GroupName;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -210,5 +211,21 @@ class RoleController extends Controller
     public function adminExportPermission()
     {
         return Excel::download(new PermissionExport, 'permissions.xlsx');
+    }
+
+    public function adminUploadPermission(Request $request)
+    {
+        $attr = $request->validate([
+            'import_file' => 'required|mimes:xlsx|max:1024',
+        ]);
+
+        Excel::import(new PermissionImport, $request->file('import_file'));
+
+        $notification = [
+            'message'       => 'Category Imported Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

@@ -34,9 +34,14 @@
                         Permission</a>
                 </div>
 
-                <div class="btn-group ml-3">
+                <div class="btn-group ml-4">
                     <a href="{{ route('admin.import.permission') }}" class="btn btn-success tbl-custom"><i
                             class="bx bx-file"></i>Import</a>
+                </div>
+
+                <div class="btn-group ml-4">
+                    <a href="{{ route('admin.export.permission') }}" class="btn btn-warning tbl-custom"><i
+                            class="bx bx-download"></i>Export</a>
                 </div>
             </div>
 

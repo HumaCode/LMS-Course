@@ -44,7 +44,7 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.permission') }}" class="row g-3"
+                        <form id="myForm" method="POST" action="{{ route('admin.upload.permission') }}" class="row g-3"
                             enctype="multipart/form-data">
                             @csrf
 

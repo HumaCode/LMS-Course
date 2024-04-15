@@ -219,6 +219,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
         // import
         Route::get('/admin/import/permission', 'adminImportPermission')->name('admin.import.permission');
+        Route::post('/admin/upload/permission', 'adminUploadPermission')->name('admin.upload.permission');
 
         // export
         Route::get('/admin/export/permission', 'adminExportPermission')->name('admin.export.permission');

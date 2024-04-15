@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\Permission;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Spatie\Permission\Models\Permission as ModelsPermission;
 
