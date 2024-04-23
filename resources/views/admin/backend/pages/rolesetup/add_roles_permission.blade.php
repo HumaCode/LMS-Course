@@ -45,10 +45,10 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="group_name" class="form-label">Roles Name <span
+                                        <label for="name" class="form-label">Roles Name <span
                                                 class="text-danger">*</span></label>
-                                        <select name="group_name"
-                                            class="form-select select2-hidden-accessible @error('group_name') is-invalid @enderror"
+                                        <select name="name"
+                                            class="form-select select2-hidden-accessible @error('name') is-invalid @enderror"
                                             id="single-select-field" data-placeholder="Open Roles"
                                             data-select2-id="select2-data-single-select-field" tabindex="-1"
                                             aria-hidden="true">
@@ -61,34 +61,50 @@
 
                                         </select>
 
-                                        @error('blogcat_id')
+                                        @error('name')
                                             <span class="text-danger mt-2">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-check form-check-success">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="flexCheckCheckedSuccess">
+                                        <label class="form-check-label" for="flexCheckCheckedSuccess">
+                                            Permission All
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
+
+
+
                             <hr>
 
-                            <div class="col-md-3">
-                                <div class="form-check form-check-success">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="flexCheckCheckedSuccess">
-                                    <label class="form-check-label" for="flexCheckCheckedSuccess">
-                                        Permission All
-                                    </label>
-                                </div>
-                            </div>
 
-                            <div class="col-md-9">
-                                <div class="form-check form-check-success">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="flexCheckCheckedSuccess">
-                                    <label class="form-check-label" for="flexCheckCheckedSuccess">
-                                        Permission All
-                                    </label>
+                            @foreach ($group_permissions as $group)
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-success">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="flexCheckCheckedSuccess{{ $group->group_name }}">
+                                        <label class="form-check-label"
+                                            for="flexCheckCheckedSuccess{{ $group->group_name }}">
+                                            {{ $group->group_name }}
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
 
+                                <div class="col-md-9">
+                                    <div class="form-check form-check-success">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="flexCheckCheckedSuccess">
+                                        <label class="form-check-label" for="flexCheckCheckedSuccess">
+                                            Permission All
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
 
 
 
@@ -120,18 +136,14 @@
                     name: {
                         required: true,
                     },
-                    group_name: {
-                        required: true,
-                    },
+
 
                 },
                 messages: {
                     name: {
-                        required: 'Please Enter Permission Name',
+                        required: 'Please Enter Role Name',
                     },
-                    group_name: {
-                        required: 'Please Select Group Name',
-                    },
+
 
                 },
                 errorElement: 'span',

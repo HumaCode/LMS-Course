@@ -6,6 +6,7 @@ use App\Exports\PermissionExport;
 use App\Http\Controllers\Controller;
 use App\Imports\PermissionImport;
 use App\Models\GroupName;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -326,10 +327,11 @@ class RoleController extends Controller
 
     public function adminAddRolesPermission()
     {
-        $title      = 'Role In Permission';
-        $subtitle   = 'role in permission';
-        $roles      = Role::all();
+        $title              = 'Role In Permission';
+        $subtitle           = 'role in permission';
+        $roles              = Role::all();
+        $group_permissions  = User::getpermissionGroups();
 
-        return view('admin.backend.pages.rolesetup.add_roles_permission', compact('roles', 'title', 'subtitle'));
+        return view('admin.backend.pages.rolesetup.add_roles_permission', compact('roles', 'group_permissions', 'title', 'subtitle'));
     }
 }
