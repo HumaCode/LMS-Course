@@ -233,6 +233,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/edit/roles/{id}', 'adminEditRoles')->name('admin.edit.roles');
         Route::post('/admin/update/roles', 'adminUpdateRoles')->name('admin.update.roles');
         Route::get('/admin/delete/roles/{id}', 'adminDeleteRoles')->name('admin.delete.roles');
+
+
+        // role in permission
+        Route::get('/admin/add/roles/permission', 'adminAddRolesPermission')->name('admin.add.roles.permission');
     });
 
     // setting site

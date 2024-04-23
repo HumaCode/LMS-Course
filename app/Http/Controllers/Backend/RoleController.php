@@ -320,4 +320,16 @@ class RoleController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+
+    //////////////////////// -------- Roles In Permission ///////////////////////////////
+
+    public function adminAddRolesPermission()
+    {
+        $title      = 'Role In Permission';
+        $subtitle   = 'role in permission';
+        $roles      = Role::all();
+
+        return view('admin.backend.pages.rolesetup.add_roles_permission', compact('roles', 'title', 'subtitle'));
+    }
 }
