@@ -9,6 +9,7 @@ use App\Models\GroupName;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -334,5 +335,29 @@ class RoleController extends Controller
         $group_permissions  = User::getpermissionGroups();
 
         return view('admin.backend.pages.rolesetup.add_roles_permission', compact('roles', 'group_permissions', 'permissions', 'title', 'subtitle'));
+    }
+
+    public function adminStoreRolesPermission(Request $request)
+    {
+        $attr = $request->validate([
+            'role_id'      => 'required',
+        ]);
+
+        $data           = [];
+        $permissions    = $request->permission;
+
+        foreach ($permissions as $key => $item) {
+            $data['role_id']        = $attr['role_id'];
+            $data['permission_id']  = $item;
+
+            DB::table('role_has_permissions')->insert($data);
+        }
+
+        $notification = [
+            'message'       => 'Role Permission Added Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.roles')->with($notification);
     }
 }

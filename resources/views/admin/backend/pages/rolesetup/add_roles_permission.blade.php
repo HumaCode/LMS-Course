@@ -44,30 +44,31 @@
                 <div class="card">
                     <div class="card-body p-4">
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.permission') }}" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('admin.store.role.permission') }}"
+                            class="row g-3">
                             @csrf
 
                             <div class="row">
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Roles Name <span
+                                        <label for="role_id" class="form-label">Roles Name <span
                                                 class="text-danger">*</span></label>
-                                        <select name="name"
-                                            class="form-select select2-hidden-accessible @error('name') is-invalid @enderror"
+                                        <select name="role_id"
+                                            class="form-select select2-hidden-accessible @error('role_id') is-invalid @enderror"
                                             id="single-select-field" data-placeholder="Open Roles"
                                             data-select2-id="select2-data-single-select-field" tabindex="-1"
                                             aria-hidden="true">
                                             <option data-select2-id="select2-data-2-tyfm"></option>
 
                                             @foreach ($roles as $item)
-                                                <option value="{{ $item->name }}" data-select2-id="{{ $item->id }}">
+                                                <option value="{{ $item->id }}" data-select2-id="{{ $item->id }}">
                                                     {{ $item->name }}</option>
                                             @endforeach
 
                                         </select>
 
-                                        @error('name')
+                                        @error('role_id')
                                             <span class="text-danger mt-2">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -146,14 +147,14 @@
         $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
-                    name: {
+                    role_id: {
                         required: true,
                     },
 
 
                 },
                 messages: {
-                    name: {
+                    role_id: {
                         required: 'Please Enter Role Name',
                     },
 

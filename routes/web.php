@@ -237,6 +237,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
         // role in permission
         Route::get('/admin/add/roles/permission', 'adminAddRolesPermission')->name('admin.add.roles.permission');
+        Route::post('/admin/store/roles/permission', 'adminStoreRolesPermission')->name('admin.store.role.permission');
     });
 
     // setting site
