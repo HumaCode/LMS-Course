@@ -96,13 +96,21 @@
                                 </div>
 
                                 <div class="col-md-9">
-                                    <div class="form-check form-check-success">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckCheckedSuccess">
-                                        <label class="form-check-label" for="flexCheckCheckedSuccess">
-                                            Permission All
-                                        </label>
-                                    </div>
+
+                                    @php
+                                        $permissions = App\Models\User::getpermissionByGroupName($group->group_name);
+                                    @endphp
+
+                                    @foreach ($permissions as $permission)
+                                        <div class="form-check form-check-success">
+                                            <input class="form-check-input" type="checkbox" value="{{ $permission->id }}"
+                                                name="permission[]" id="checkDefault{{ $permission->id }}">
+                                            <label class="form-check-label" for="checkDefault{{ $permission->id }}">
+                                                {{ $permission->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+
                                 </div>
                             @endforeach
 
