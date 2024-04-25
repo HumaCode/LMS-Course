@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <style>
+        .form-check-label {
+            text-transform: capitalize;
+        }
+    </style>
 @endpush
 
 @section('admin')
@@ -69,9 +75,8 @@
 
                                 <div class="col-md-12 mt-3">
                                     <div class="form-check form-check-success">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckCheckedSuccess">
-                                        <label class="form-check-label" for="flexCheckCheckedSuccess">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckMain">
+                                        <label class="form-check-label" for="flexCheckMain">
                                             Permission All
                                         </label>
                                     </div>
@@ -167,5 +172,16 @@
                 },
             });
         });
+    </script>
+
+
+    <script>
+        $('#flexCheckMain').click(function() {
+            if ($(this).is(':checked')) {
+                $('input[type=checkbox]').prop('checked', true);
+            } else {
+                $('input[type=checkbox]').prop('checked', false);
+            }
+        })
     </script>
 @endpush
