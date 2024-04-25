@@ -163,6 +163,9 @@
                 <li> <a href="{{ route('admin.add.roles.permission') }}"><i class='bx bx-radio-circle'></i>Roles in
                         Permission</a>
                 </li>
+                <li> <a href="{{ route('admin.all.roles.permission') }}"><i class='bx bx-radio-circle'></i>All Role
+                        in Permission</a>
+                </li>
             </ul>
         </li>
 

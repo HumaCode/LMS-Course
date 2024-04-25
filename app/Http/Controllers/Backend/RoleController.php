@@ -358,6 +358,15 @@ class RoleController extends Controller
             'alert-type'    => 'success',
         ];
 
-        return redirect()->route('admin.all.roles')->with($notification);
+        return redirect()->route('admin.all.roles.permission')->with($notification);
+    }
+
+    public function adminAllRolesPermission()
+    {
+        $title      = 'All Role Permissions';
+        $subtitle   = 'all role permissions';
+        $roles      = Role::all();
+
+        return view('admin.backend.pages.rolesetup.all_roles_permission', compact('roles', 'title', 'subtitle'));
     }
 }

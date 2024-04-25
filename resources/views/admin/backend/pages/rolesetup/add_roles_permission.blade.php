@@ -30,7 +30,7 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('admin.all.permission') }}" class="btn btn-danger tbl-custom"><i
+                    <a href="{{ route('admin.all.roles.permission') }}" class="btn btn-danger tbl-custom"><i
                             class="bx bx-left-arrow-alt"></i>Back</a>
                 </div>
             </div>
