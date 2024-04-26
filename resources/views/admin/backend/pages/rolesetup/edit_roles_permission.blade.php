@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body p-4">
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.role.permission') }}"
+                        <form method="POST" action="{{ route('admin.update.roles.permission', $role->id) }}"
                             class="row g-3">
                             @csrf
 
@@ -50,8 +50,7 @@
                                     <div class="form-group">
                                         <label for="role_id" class="form-label">Roles Name </label>
 
-                                        <input type="text" name="role_id" value="{{ $role->name }}"
-                                            class="form-control" readonly>
+                                        <h4 class="alert alert-danger">{{ $role->name }}</h4>
                                     </div>
                                 </div>
 
@@ -71,13 +70,16 @@
 
 
                             @foreach ($group_permissions as $group)
+                                @php
+                                    $permissions = App\Models\User::getpermissionByGroupName($group->group_name);
+                                @endphp
+
                                 <div class="col-md-3">
                                     <div class="form-check form-check-success">
                                         <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckCheckedSuccess{{ $group->group_name }}"
+                                            id="flexCheckCheckedSuccess"
                                             {{ App\Models\User::roleHasPermissions($role, $permissions) ? 'checked' : '' }}>
-                                        <label class="form-check-label"
-                                            for="flexCheckCheckedSuccess{{ $group->group_name }}">
+                                        <label class="form-check-label" for="flexCheckCheckedSuccess">
                                             {{ $group->group_name }}
                                         </label>
                                     </div>
@@ -85,9 +87,7 @@
 
                                 <div class="col-md-9">
 
-                                    @php
-                                        $permissions = App\Models\User::getpermissionByGroupName($group->group_name);
-                                    @endphp
+
 
                                     @foreach ($permissions as $permission)
                                         <div class="form-check form-check-success">

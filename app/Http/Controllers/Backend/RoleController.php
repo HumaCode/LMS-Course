@@ -380,4 +380,27 @@ class RoleController extends Controller
 
         return view('admin.backend.pages.rolesetup.edit_roles_permission', compact('role', 'title', 'subtitle', 'permissions', 'group_permissions'));
     }
+
+    public function adminUpdateRolesPermission(Request $request, $id)
+    {
+        $role = Role::find($id);
+        // $permissions = $request->permission;
+
+        $permissions = collect($request->input('permission'))
+            ->map(fn ($val) => (int)$val)
+            ->all();
+
+        if (!empty($permissions)) {
+            $role->syncPermissions($permissions);
+        } else {
+            $role->revokePermissionTo($permissions);
+        }
+
+        $notification = array(
+            'message' => 'Role Permission Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.all.roles.permission')->with($notification);
+    }
 }
