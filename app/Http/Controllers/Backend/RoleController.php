@@ -403,4 +403,20 @@ class RoleController extends Controller
 
         return redirect()->route('admin.all.roles.permission')->with($notification);
     }
+
+    public function adminDeleteRolesPermission($id)
+    {
+        $role = Role::find($id);
+
+        if (!is_null($role)) {
+            $role->delete();
+        }
+
+        $notification = array(
+            'message' => 'Role Permission Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 }
