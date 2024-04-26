@@ -244,6 +244,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/delete/roles/permission/{id}', 'adminDeleteRolesPermission')->name('admin.delete.roles.permission');
     });
 
+
+    // manage user admin
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/admin/all/admin', 'adminAllAdmin')->name('admin.all.admin');
+    });
+
     // setting site
     Route::controller(SettingController::class)->group(function () {
         Route::get('/admin/site/setting', 'adminSiteSetting')->name('admin.site.setting');

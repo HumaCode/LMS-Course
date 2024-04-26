@@ -221,4 +221,15 @@ class AdminController extends Controller
 
         return view('admin.backend.courses.detail_course', compact('title', 'subtitle', 'course'));
     }
+
+    /////// manage admin  /////////////////////
+
+    public function adminAllAdmin()
+    {
+        $title      = 'All Admin';
+        $subtitle   = 'all admin';
+        $alladmin   = User::where('role', 'admin')->get();
+
+        return view('admin.backend.pages.admin.all_admin', compact('title', 'subtitle', 'alladmin'));
+    }
 }
