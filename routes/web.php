@@ -252,6 +252,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/admin/store/admin', 'adminStoreAdmin')->name('admin.store.admin');
         Route::get('/admin/edit/admin/{id}', 'adminEditAdmin')->name('admin.edit.admin');
         Route::post('/admin/update/admin/{id}', 'adminUpdateAdmin')->name('admin.update.admin');
+        Route::get('/admin/delete/admin/{id}', 'adminDeleteAdmin')->name('admin.delete.admin');
     });
 
     // setting site

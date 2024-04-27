@@ -322,4 +322,19 @@ class AdminController extends Controller
 
         return redirect()->route('admin.all.admin')->with($notification);
     }
+
+    public function adminDeleteAdmin($id)
+    {
+        $user = User::findOrFail($id);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        $notification = [
+            'message'       => 'Admin Deleted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
 }
