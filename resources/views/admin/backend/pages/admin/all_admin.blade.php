@@ -29,7 +29,7 @@
             {{-- button --}}
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('admin.add.permission') }}" class="btn btn-primary tbl-custom"><i
+                    <a href="{{ route('admin.add.admin') }}" class="btn btn-primary tbl-custom"><i
                             class="bx bx-plus"></i>Add
                         Admin</a>
                 </div>
@@ -64,11 +64,14 @@
                                     </td>
                                     <td class="text-center">{{ $item->name }}</td>
                                     <td class="text-center">{{ $item->email }}</td>
-                                    <td class="text-center">{{ $item->photo }}</td>
+                                    <td class="text-center">{{ $item->phone }}</td>
                                     <td class="text-center">
-                                        <span class="badge bg-primary">
-                                            {{ $item->role }}
-                                        </span>
+                                        @foreach ($item->roles as $role)
+                                            <span class="badge bg-primary">
+                                                {{ $role->name }}
+                                            </span>
+                                        @endforeach
+
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.edit.permission', $item->id) }}"

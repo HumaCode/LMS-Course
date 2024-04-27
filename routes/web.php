@@ -248,6 +248,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // manage user admin
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin/all/admin', 'adminAllAdmin')->name('admin.all.admin');
+        Route::get('/admin/add/admin', 'adminAddAdmin')->name('admin.add.admin');
+        Route::post('/admin/store/admin', 'adminStoreAdmin')->name('admin.store.admin');
     });
 
     // setting site

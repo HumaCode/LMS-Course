@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -231,5 +232,49 @@ class AdminController extends Controller
         $alladmin   = User::where('role', 'admin')->get();
 
         return view('admin.backend.pages.admin.all_admin', compact('title', 'subtitle', 'alladmin'));
+    }
+
+    public function adminAddAdmin()
+    {
+        $title      = 'Add Admin';
+        $subtitle   = 'add admin';
+        $roles      = Role::all();
+
+        return view('admin.backend.pages.admin.add_admin', compact('title', 'subtitle', 'roles'));
+    }
+
+    public function adminStoreAdmin(Request $request)
+    {
+        $attr = $request->validate([
+            'name'           => 'required',
+            'username'       => 'required',
+            'email'          => 'required',
+            'phone'          => 'required',
+            'address'        => 'required',
+            'password'       => 'required|min:6',
+            'role'           => 'required|exists:roles,name',
+        ]);
+
+        $user = new User();
+        $user->name             = $attr['name'];
+        $user->username         = $attr['username'];
+        $user->email            = $attr['email'];
+        $user->phone            = $attr['phone'];
+        $user->address          = $attr['address'];
+        $user->password         = Hash::make($attr['password']);
+        $user->role             = 'admin';
+        $user->status           = '1';
+        $user->save();
+
+        if ($attr['role']) {
+            $user->assignRole($attr['role']);
+        }
+
+        $notification = [
+            'message'       => 'New Admin Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.admin')->with($notification);
     }
 }
