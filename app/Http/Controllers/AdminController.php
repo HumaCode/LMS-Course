@@ -248,7 +248,7 @@ class AdminController extends Controller
         $attr = $request->validate([
             'name'           => 'required',
             'username'       => 'required',
-            'email'          => 'required',
+            'email'          => 'required|unique:users,email',
             'phone'          => 'required',
             'address'        => 'required',
             'password'       => 'required|min:6',
@@ -272,6 +272,51 @@ class AdminController extends Controller
 
         $notification = [
             'message'       => 'New Admin Inserted Successfully',
+            'alert-type'    => 'success',
+        ];
+
+        return redirect()->route('admin.all.admin')->with($notification);
+    }
+
+    public function adminEditAdmin($id)
+    {
+        $title      = 'Edit Admin';
+        $subtitle   = 'edit admin';
+        $roles      = Role::all();
+        $user       = User::findOrFail($id);
+
+        return view('admin.backend.pages.admin.edit_admin', compact('title', 'subtitle', 'roles', 'user'));
+    }
+
+    public function adminUpdateAdmin(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $attr = $request->validate([
+            'name'           => 'required',
+            'username'       => 'required',
+            'email'          => 'required|unique:users,email,' . $id,
+            'phone'          => 'required',
+            'address'        => 'required',
+            'role'           => 'required|exists:roles,name',
+        ]);
+
+        $user->name             = $attr['name'];
+        $user->username         = $attr['username'];
+        $user->email            = $attr['email'];
+        $user->phone            = $attr['phone'];
+        $user->address          = $attr['address'];
+        $user->role             = 'admin';
+        $user->status           = '1';
+        $user->save();
+
+        $user->roles()->detach();
+
+        if ($attr['role']) {
+            $user->assignRole($attr['role']);
+        }
+
+        $notification = [
+            'message'       => 'Admin Updated Successfully',
             'alert-type'    => 'success',
         ];
 

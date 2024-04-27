@@ -250,6 +250,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/admin/all/admin', 'adminAllAdmin')->name('admin.all.admin');
         Route::get('/admin/add/admin', 'adminAddAdmin')->name('admin.add.admin');
         Route::post('/admin/store/admin', 'adminStoreAdmin')->name('admin.store.admin');
+        Route::get('/admin/edit/admin/{id}', 'adminEditAdmin')->name('admin.edit.admin');
+        Route::post('/admin/update/admin/{id}', 'adminUpdateAdmin')->name('admin.update.admin');
     });
 
     // setting site

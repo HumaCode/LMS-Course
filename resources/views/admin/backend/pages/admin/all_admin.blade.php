@@ -74,7 +74,7 @@
 
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.edit.permission', $item->id) }}"
+                                        <a href="{{ route('admin.edit.admin', $item->id) }}"
                                             class="btn btn-success px-5"><i class="bx bx-edit-alt"></i>Edit</a>
                                         <a href="{{ route('admin.delete.permission', $item->id) }}"
                                             class="btn btn-danger px-5" id="delete"><i

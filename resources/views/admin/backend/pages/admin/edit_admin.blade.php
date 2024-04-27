@@ -39,7 +39,8 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">{{ $title }}</h5>
 
-                        <form id="myForm" method="POST" action="{{ route('admin.store.admin') }}" class="row g-3">
+                        <form id="myForm" method="POST" action="{{ route('admin.update.admin', $user->id) }}"
+                            class="row g-3">
                             @csrf
 
 
@@ -47,7 +48,7 @@
                                 <div class="form-group">
                                     <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" id="name" placeholder="Name">
+                                        name="name" id="name" placeholder="Name" value="{{ $user->name }}">
                                     @error('name')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -59,7 +60,7 @@
                                     <label for="username" class="form-label">Username <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                        name="username" id="username" placeholder="Username">
+                                        name="username" id="username" placeholder="Username" value="{{ $user->username }}">
                                     @error('username')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -71,7 +72,7 @@
                                     <label for="email" class="form-label">Email <span
                                             class="text-danger">*</span></label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" id="email" placeholder="Email">
+                                        name="email" id="email" placeholder="Email" value="{{ $user->email }}">
                                     @error('email')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -83,7 +84,7 @@
                                     <label for="phone" class="form-label">Phone <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                        name="phone" id="phone" placeholder="Phone">
+                                        name="phone" id="phone" placeholder="Phone" value="{{ $user->phone }}">
                                     @error('phone')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
@@ -96,20 +97,8 @@
                                     <label for="address" class="form-label">Address <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                        name="address" id="address" placeholder="Address">
+                                        name="address" id="address" placeholder="Address" value="{{ $user->address }}">
                                     @error('address')
-                                        <span class="text-danger mt-2">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Password <span
-                                            class="text-danger">*</span></label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        name="password" id="password" placeholder="Password">
-                                    @error('password')
                                         <span class="text-danger mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -127,7 +116,8 @@
                                         <option data-select2-id="select2-data-2-tyfm"></option>
 
                                         @foreach ($roles as $item)
-                                            <option value="{{ $item->name }}" data-select2-id="{{ $item->id }}">
+                                            <option value="{{ $item->name }}" data-select2-id="{{ $item->id }}"
+                                                {{ $user->hasRole($item->name) ? 'selected' : '' }}>
                                                 {{ $item->name }}</option>
                                         @endforeach
 
@@ -142,7 +132,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <button type="submit" class="btn btn-primary px-4 tbl-custom"><i
-                                            class="bx bx-save"></i>Add Admin</button>
+                                            class="bx bx-save"></i>Update Admin</button>
                                 </div>
                             </div>
                         </form>
@@ -178,9 +168,6 @@
                     address: {
                         required: true,
                     },
-                    password: {
-                        required: true,
-                    },
                     role: {
                         required: true,
                     },
@@ -201,9 +188,6 @@
                     },
                     address: {
                         required: 'Please Enter Address',
-                    },
-                    password: {
-                        required: 'Please Enter Password',
                     },
                     role: {
                         required: 'Please Select Role',
