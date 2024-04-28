@@ -44,6 +44,15 @@ class ViewComposerServiceProvider extends ServiceProvider
             ]);
         });
 
+        View::composer('frontend.home.course-area-two', function ($view) {
+            $courses = Course::with('user')->where('status', 1)->where('featured', 1)->orderBy('id', 'ASC')->limit(5)->get(); // Misalnya, Anda ingin mengambil data user saat ini
+
+
+            $view->with([
+                'courses' => $courses,
+            ]);
+        });
+
         View::composer('frontend.body.header', function ($view) {
             $categories = Category::orderBy('category_name', 'ASC')->get(); // Misalnya, Anda ingin mengambil data user saat ini
 

@@ -77,7 +77,10 @@
                                                     ->where('status', 1)
                                                     ->avg('rating');
 
-                                                $endrolementCourse = App\Models\Order::where('course_id', $course->id)->count();
+                                                $endrolementCourse = App\Models\Order::where(
+                                                    'course_id',
+                                                    $course->id,
+                                                )->count();
 
                                             @endphp
 
