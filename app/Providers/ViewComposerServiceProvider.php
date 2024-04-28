@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Review;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -50,6 +51,19 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $view->with([
                 'courses' => $courses,
+            ]);
+        });
+
+        View::composer('frontend.home.testimonial-area', function ($view) {
+            $reviews = Review::with('user')
+                ->where('status', 1)
+                ->latest()
+                ->limit(6)
+                ->get(); // Misalnya, Anda ingin mengambil data user saat ini
+
+
+            $view->with([
+                'reviews' => $reviews,
             ]);
         });
 
