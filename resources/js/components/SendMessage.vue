@@ -12,7 +12,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Chat With {{ receiverid }} {{ receivername }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Chat With {{ receivername }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,6 +22,9 @@
                 <div class="modal-body">
                     
                     <textarea class="form-control" v-model="form.msg" rows="3" placeholder="Type your message"></textarea>
+                    <span class="text-success" v-if="succMessage.message" >{{ succMessage.message }}</span>
+                    <span class="text-danger" v-if="errors.msg" >{{ errors.msg[0] }}</span>
+
 
                 </div>
                 <div class="modal-footer">
@@ -45,16 +48,27 @@
         data() {
             return {
                 form: {
-                    msg:""
-                }
+                    msg:"",
+                    receiverid: this.receiverid,
+                },
+                errors: {},
+                succMessage: {},
             }
         },
 
         methods:{
             sendMsg(){
-                alert(this.form.msg)
+                // alert(this.form.msg)
+                 axios.post('/send-message',this.form)
+                 .then((res) => {
+                    this.form.msg = "";
+                    this.succMessage = res.data;
+                    console.log(res.data);
+                 }).catch((err) => {
+                    this.errors = err.response.data.errors;
+                 })
             }
-        }
+        } 
     }
 
 </script>
