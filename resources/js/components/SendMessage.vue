@@ -12,21 +12,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Chat With</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Chat With {{ receiverid }} {{ receivername }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             
-            <form action="">
+            <form @submit.prevent="sendMsg()">
                 <div class="modal-body">
                     
-                    <textarea class="form-control" name="" id="" rows="3" placeholder="Type your message"></textarea>
+                    <textarea class="form-control" v-model="form.msg" rows="3" placeholder="Type your message"></textarea>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </div>
             </form>
 
@@ -35,3 +35,26 @@
         </div>
     </div>
 </template>
+
+<script>
+
+    export default {
+        props: ['receiverid', 'receivername'], 
+
+
+        data() {
+            return {
+                form: {
+                    msg:""
+                }
+            }
+        },
+
+        methods:{
+            sendMsg(){
+                alert(this.form.msg)
+            }
+        }
+    }
+
+</script>
