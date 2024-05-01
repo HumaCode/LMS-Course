@@ -121,4 +121,13 @@ class UserController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function liveChat()
+    {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+
+
+        return view('frontend.dashboard.live_chat', compact('profileData'));
+    }
 }

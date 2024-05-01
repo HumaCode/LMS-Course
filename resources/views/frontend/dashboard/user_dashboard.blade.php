@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Dashboard User</title>
+    @vite(['resources/js/app.js'])
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

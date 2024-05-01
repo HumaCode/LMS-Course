@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
     Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
 
+    // live chat
+    Route::get('/live/chat', [UserController::class, 'liveChat'])->name('live.chat');
 
     // user wishlist
     Route::controller(WishListController::class)->group(function () {
