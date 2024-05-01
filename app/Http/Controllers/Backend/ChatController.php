@@ -66,4 +66,12 @@ class ChatController extends Controller
             abort(404);
         }
     }
+
+    public function liveChat()
+    {
+        $title      = 'Live Chat';
+        $subtitle   = 'live chat';
+
+        return view('instructor.chat.live_chat', compact('title', 'subtitle'));
+    }
 }

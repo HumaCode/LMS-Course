@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/header-colors.css" />
     <title>Instructor Dashboard</title>
 
+    @vite(['resources/js/app.js'])
+
+
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
     <style>

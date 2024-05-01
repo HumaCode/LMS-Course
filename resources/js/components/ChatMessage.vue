@@ -1,5 +1,5 @@
 <template>
-    <div class="row"  style=" width: 873px; ">
+    <div class="row"  style=" width: 100%; ">
       <div class="col-md-2 myUser">
           <ul class="user">
              <strong>Chat List</strong>
