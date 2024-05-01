@@ -115,6 +115,10 @@
 
      created(){
          this.getAllUser();
+
+         setInterval(() => {
+            this.userMessage(this.selecteduser);
+         }, 1000);
      }, 
 
      methods: {
