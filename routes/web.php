@@ -414,3 +414,4 @@ Route::post('/mark-notification-as-read/{notificationId}', [CartController::clas
 // live chat
 Route::post('/send-message', [ChatController::class, 'sendMessage']);
 Route::get('/user-all', [ChatController::class, 'getAllUser']);
+Route::get('/user-message/{id}', [ChatController::class, 'getMessagesById']);

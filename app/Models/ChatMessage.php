@@ -30,4 +30,14 @@ class ChatMessage extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id', 'id');
     }
+
+    /**
+     * Get the user that owns the ChatMessage
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
 }
