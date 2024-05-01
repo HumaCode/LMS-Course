@@ -34,7 +34,7 @@
                 <span class="chat-img left clearfix mx-2">
                 <img :src="'/upload/instructor_images/' + msg.user.photo"
                     class="userImg"
-                    alt="userImg"
+                    alt="noimg"
                   />
                 </span>
                 <div class="chat-body2 clearfix">
@@ -44,23 +44,23 @@
                       {{ msg.created_at }} 
                     </small>
                     <!-- //if send with product id  -->
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         product name
                     <img src="/frontend/avatar-3.png"
                         alt="productImg"
                         width="60px;"
                       />
-                    </div>
+                    </div> -->
                   </div>
   
-                  <p>Hi..</p>
+                  <p>{{ msg.msg }} </p>
                 </div>
               </li>
   
           <!-- my part  -->
-              <li class="buyer clearfix">
+              <li class="buyer clearfix" v-else>
                 <span class="chat-img right clearfix mx-2">
-                  <img src="/frontend/avatar-4.png"
+                  <img :src="'/upload/user_images/'+msg.user.photo"
                     class="userImg"
                     alt="userImg"
                   />
@@ -68,17 +68,11 @@
                 <div class="chat-body clearfix">
                   <div class="header clearfix">
                     <small class="left text-muted"
-                      >12:10pm</small>
-                    <!-- <strong class="right primary-font">Myusername </strong> //my name   -->
-                     <div class="text-center">
-                        Product name
-                     <img src="/frontend/avatar-5.png"
-                        alt="prouductImage"
-                        width="60px;"
-                      />
-                    </div>
+                      >{{ msg.created_at }}</small>
+                    <strong class="right primary-font">{{ msg.user.name }} </strong>  
+                     
                   </div>
-                  <p>Hello...</p>
+                  <p>{{ msg.msg }}</p>
                 </div>
               </li>
           
@@ -93,11 +87,12 @@
               <input
                 id="btn-input"
                 type="text"
+                v-model="msg"
                 class="form-control input-sm"
                 placeholder="Type your message here..."
               />
               <span class="input-group-btn">
-                <button class="btn btn-primary">Send</button>
+                <button class="btn btn-primary" @click.prevent="sendMsg()">Send</button>
               </span>
             </div>
           </div>
@@ -114,6 +109,7 @@
             users: {},
             allmessages: {},
             selecteduser: '',
+            msg: '',
         }
      }, 
 
@@ -140,6 +136,17 @@
 
             });
         },
+
+        sendMsg(){
+            axios.post('/send-message',{ receiverid:this.selecteduser,msg:this.msg } )
+            .then((res) => {
+            this.msg = "";
+            this.userMessage(this.selecteduser);
+            console.log(res.data);
+            }).catch((err) => {
+            this.errors = err.response.data.errors;
+            })
+        }, 
      }
   };
 
