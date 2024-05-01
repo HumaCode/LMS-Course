@@ -21,26 +21,27 @@
   
         </ul>
       </div>
-      <div class="col-md-10">
+
+      <div class="col-md-10" v-if="allmessages.user">
         <div class="card">
           <div class="card-header text-center myrow">
-            <strong> Selected Users </strong>
+            <strong> Selected {{ allmessages.user.name }} </strong>
           </div>
           <div class="card-body chat-msg">
-            <ul class="chat">
+            <ul class="chat" v-for="(msg, index) in allmessages.messages" :key="index">
   
-             <li class="sender clearfix">
+             <li class="sender clearfix" v-if="allmessages.user.id === msg.sender_id">
                 <span class="chat-img left clearfix mx-2">
-                <img src="/frontend/avatar-2.png"
+                <img :src="'/upload/instructor_images/' + msg.user.photo"
                     class="userImg"
                     alt="userImg"
                   />
                 </span>
                 <div class="chat-body2 clearfix">
                   <div class="header clearfix">
-                    <strong class="primary-font">Username1</strong>
+                    <strong class="primary-font">{{ msg.user.name }}</strong>
                     <small class="right text-muted">
-                      11:30am 
+                      {{ msg.created_at }} 
                     </small>
                     <!-- //if send with product id  -->
                     <div class="text-center">
