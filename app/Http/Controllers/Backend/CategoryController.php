@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $image = $manager->read($images);
 
         $image->resize(370, 246);
-        $image->save('upload/category_images/' . $name_gen);
+        $image->toJpeg(80)->save(base_path('public/upload/category_images/' . $name_gen));
 
         $save_url = 'upload/category_images/' . $name_gen;
 
@@ -97,7 +97,7 @@ class CategoryController extends Controller
             $image = $manager->read($images);
 
             $image->resize(370, 246);
-            $image->save('upload/category_images/' . $name_gen);
+            $image->toJpeg(80)->save(base_path('public/upload/category_images/' . $name_gen));
 
             $save_url = 'upload/category_images/' . $name_gen;
 
